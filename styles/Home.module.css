@@ -37,7 +37,7 @@
 .userImg {
   padding: 20px;
   background-color: #fff;
-  height: 250px; 
+  height: 280px; 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -45,11 +45,13 @@
 }
 
 .userImg img {
-  border: 1px solid #000;
+  /* border: 1px solid #ddd !important; */
+  box-shadow: 0 0 4px ;
+  /* border-radius: 5px ; */
 }
 
 .generalInfo {
-  height: 250px; 
+  height: 280px; 
   background-color: #fff;
   padding: 20px;
 }

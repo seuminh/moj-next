@@ -4,7 +4,11 @@ import styles from "../styles/Home.module.css";
 
 import { Tabs, Col, Row, Button } from "antd";
 
-import { HomeOutlined, DatabaseOutlined } from "@ant-design/icons";
+import {
+   HomeOutlined,
+   DatabaseOutlined,
+   UserOutlined,
+} from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 
@@ -16,6 +20,10 @@ export default function Home() {
          <Head>
             <title>ព័ត៌មានមន្រ្តីរាជការ</title>
             <link rel="icon" href="/favicon.ico" />
+            <meta
+               name="viewport"
+               content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+            ></meta>
          </Head>
 
          <div className={styles.header}>
@@ -52,23 +60,29 @@ export default function Home() {
                <Row gutter={24} justify="start">
                   <Col span={6}>
                      <div className={styles.userImg}>
-                        <Image
+                        <img src="/noImg.jpg" alt="" width="160" height="180" />
+                        {/* <Image
                            src="/noImg.jpg"
-                           width={130}
-                           height={150}
-                        ></Image>
+                           width={160}
+                           height={180}
+                        ></Image> */}
                         <Button
                            // onClick={onClose}
-                           type="danger"
+                           danger
                            style={{ marginRight: 8 }}
                         >
-                           Cancel
+                           កែប្រែព័ត៌មានបុគ្គល
                         </Button>
                      </div>
                   </Col>
                   <Col span={18}>
                      <div className={styles.generalInfo}>
-                        <h1>ព័ត៌មានទូទៅ</h1>
+                        <h1>
+                           <UserOutlined
+                              style={{ fontSize: 23, marginRight: 5 }}
+                           />
+                           ព័ត៌មានទូទៅ
+                        </h1>
                      </div>
                   </Col>
                </Row>

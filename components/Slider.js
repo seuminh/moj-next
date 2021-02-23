@@ -15,10 +15,10 @@ const Slider = () => {
 
    return (
       <Sider
-         collapsible
+         // collapsible
          collapsed={collapsed}
          onCollapse={onCollapse}
-         breakpoint={"lg"}
+         // breakpoint={"lg"}
          width="280px"
       >
          <div

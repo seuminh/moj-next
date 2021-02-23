@@ -10,13 +10,40 @@ import {
    Input,
    Select,
    DatePicker,
+   Table,
+   Tag,
+   Space,
 } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
 const position = () => {
    const [visible, setVisible] = useState(false);
+   // const [data, setDate] = useState([
+   //    {
+   //       key: "1",
+   //       refNumber: "abc",
+   //       position: "abc",
+   //       status: "",
+   //       signDate: "01/01/2000",
+   //       endDate: "01/01/2020",
+   //       note: "",
+   //    },
+   // ]);
+
+   const data = [];
+   for (let i = 0; i < 4; i++) {
+      data.push({
+         key: i,
+         refNumber: "abc" + i,
+         position: "abc",
+         status: "",
+         signDate: "01/01/2000",
+         endDate: "01/01/2020",
+         note: "",
+      });
+   }
 
    const showDrawer = () => {
       setVisible(true);
@@ -30,11 +57,79 @@ const position = () => {
 
    const onSubmit = () => {};
 
+   const onEdit = (id) => {
+      console.log("Edit " + id);
+   };
+
+   const onDelete = (id) => {
+      console.log("Delete " + id);
+   };
+
+   const columns = [
+      {
+         title: "លេខលិខិតយោង",
+         dataIndex: "refNumber",
+         key: "refNumber",
+      },
+      {
+         title: "មុខតំណែង",
+         dataIndex: "position",
+         key: "position",
+      },
+      {
+         title: "ឋានៈ​ស្មើ",
+         dataIndex: "status",
+         key: "status",
+      },
+      {
+         title: "ថ្ងៃខែឆ្នាំចុះហត្ថលេខា",
+         dataIndex: "signDate",
+         key: "signDate",
+      },
+      {
+         title: "ថ្ងៃខែឆ្នាំបញ្ចប់",
+         dataIndex: "endDate",
+         key: "endDate",
+      },
+      {
+         title: "កំណត់សំគាល់",
+         dataIndex: "note",
+         key: "note",
+      },
+      {
+         title: "ខ្លឹមសារផ្សេងៗ",
+         key: "action",
+         render: (text, record) => (
+            <Space size="middle">
+               <Button
+                  icon={<EditOutlined />}
+                  onClick={() => onEdit(record.refNumber)}
+               >
+                  Edit
+               </Button>
+               <Button
+                  danger
+                  icon={<DeleteOutlined />}
+                  onClick={() => onDelete(record.refNumber)}
+               >
+                  Delete
+               </Button>
+            </Space>
+         ),
+      },
+   ];
+
    return (
       <div>
          <Button icon={<PlusOutlined />} onClick={showDrawer}>
             បញ្ចូលមុខតំណែង
          </Button>
+
+         <div style={{ marginTop: 20 }}>
+            <Table columns={columns} dataSource={data}></Table>
+         </div>
+
+         {/* Drawer */}
          <Drawer
             title="បញ្ចូលមុខតំណែង"
             width={720}
@@ -47,11 +142,7 @@ const position = () => {
                      textAlign: "center",
                   }}
                >
-                  <Button
-                     onClick={onClose}
-                     type="danger"
-                     style={{ marginRight: 8 }}
-                  >
+                  <Button onClick={onClose} style={{ marginRight: 8 }} danger>
                      Cancel
                   </Button>
                   <Button onClick={onClear} style={{ marginRight: 8 }}>
