@@ -33,7 +33,7 @@ export default function Home() {
             <div className={styles.headerInfo}>
                <div>
                   <p>
-                     ក្រសួង-ស្ថាប័ន{" "}
+                     ក្រសួង-ស្ថាប័ន
                      <span style={{ color: "#6a0e00", fontWeight: "bold" }}>
                         យុត្តិធម័
                      </span>
@@ -83,6 +83,70 @@ export default function Home() {
                            />
                            ព័ត៌មានទូទៅ
                         </h1>
+                        <Row style={{ marginTop: 15 }}>
+                           <Col span={12} className={styles.singleGeneralInfo}>
+                              <span>គោត្តនាម និង​នាម</span>
+                              <span className={styles.hightLightInfo}>
+                                 Unknown
+                              </span>
+                           </Col>
+                           <Col span={12} className={styles.singleGeneralInfo}>
+                              <span>លេខសំបុត្រកំណើត</span>
+                              <span className={styles.hightLightInfo}>0</span>
+                           </Col>
+                           <Col span={12} className={styles.singleGeneralInfo}>
+                              <span>គោត្តនាម និង​នាម ឡាតាំង</span>
+                              <span className={styles.hightLightInfo}>123</span>
+                           </Col>
+                           <Col span={12} className={styles.singleGeneralInfo}>
+                              <span>លេខអត្តសញ្ជាតិខ្មែរ</span>
+                              <span className={styles.hightLightInfo}>123</span>
+                           </Col>
+                           <Col span={12} className={styles.singleGeneralInfo}>
+                              <span>ភេទ</span>
+                              <span className={styles.hightLightInfo}>123</span>
+                           </Col>
+                           <Col span={12} className={styles.singleGeneralInfo}>
+                              <span>លេខលិខិតឆ្លងដែន</span>
+                              <span className={styles.hightLightInfo}>123</span>
+                           </Col>
+                           <Col span={12} className={styles.singleGeneralInfo}>
+                              <span>ថ្ងៃខែឆ្នាំកំណើត</span>
+                              <span className={styles.hightLightInfo}>123</span>
+                           </Col>
+                           <Col span={12} className={styles.singleGeneralInfo}>
+                              <span>លេខទូរស័ព្ទ</span>
+                              <span className={styles.hightLightInfo}>123</span>
+                           </Col>
+                           <Col span={12} className={styles.singleGeneralInfo}>
+                              <span>អត្តលេខមន្រ្ដីរាជការ</span>
+                              <span className={styles.hightLightInfo}>123</span>
+                           </Col>
+                           <Col span={12} className={styles.singleGeneralInfo}>
+                              <span>អ៊ីម៉ែល</span>
+                              <span className={styles.hightLightInfo}>123</span>
+                           </Col>
+                           <Col span={24} className={styles.singleGeneralInfo}>
+                              <span style={{ flex: 1 }}>ទីកន្លែងកំណើត</span>
+                              <span
+                                 className={styles.hightLightInfo}
+                                 style={{ flex: 6 }}
+                              >
+                                 Fugiat in reprehenderit quis est Lorem occaecat
+                                 cillum ut ut ipsum velit occaecat magna dolore.
+                              </span>
+                           </Col>
+                           <Col span={24} className={styles.singleGeneralInfo}>
+                              <span style={{ flex: 1 }}>អាស័យដ្ឋាន</span>
+                              <span
+                                 className={styles.hightLightInfo}
+                                 style={{ flex: 6 }}
+                              >
+                                 Fugiat in reprehenderit quis est Lorem occaecat
+                                 cillum ut ut ipsum velit occaecat magna dolore.
+                              </span>
+                           </Col>
+                        </Row>
                      </div>
                   </Col>
                </Row>
