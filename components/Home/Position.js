@@ -2,18 +2,18 @@ import { useState } from "react";
 import styles from "../../styles/Home.module.css";
 
 import {
-  Drawer,
-  Form,
-  Button,
-  Col,
-  Row,
-  Input,
-  Select,
-  DatePicker,
-  Table,
-  Tag,
-  Space,
-  Switch,
+   Drawer,
+   Form,
+   Button,
+   Col,
+   Row,
+   Input,
+   Select,
+   DatePicker,
+   Table,
+   Tag,
+   Space,
+   Switch,
 } from "antd";
 import {
   PlusOutlined,
@@ -203,36 +203,36 @@ const position = () => {
   //    },
   // ]);
 
-  const onStartDateChange = (date, dateString) => {
-    //  console.log(date);
-    setStartDate(dateString);
-    console.log(dateString);
-  };
+   const onStartDateChange = (date, dateString) => {
+      //  console.log(date);
+      setStartDate(dateString);
+      console.log(dateString);
+   };
 
-  const onEndDateChange = (date, dateString) => {
-    //  console.log(date);
-    setEndDate(dateString);
-    console.log(dateString);
-  };
+   const onEndDateChange = (date, dateString) => {
+      //  console.log(date);
+      setEndDate(dateString);
+      console.log(dateString);
+   };
 
-  const onNowChange = (checked) => {
-    if (checked) {
-      setNowOption(true);
-      setEndDate(new Date());
-    } else {
-      setNowOption(false);
-    }
-  };
+   const onNowChange = (checked) => {
+      if (checked) {
+         setNowOption(true);
+         setEndDate(new Date());
+      } else {
+         setNowOption(false);
+      }
+   };
 
   const showDrawer = () => {
     setVisible(true);
   };
 
-  const onClose = () => {
-    setVisible(false);
-  };
+   const onClose = () => {
+      setVisible(false);
+   };
 
-  const onClear = () => {};
+   const onClear = () => {};
 
   const onSubmit = () => {
     const dataInput = form.getFieldsValue(true);
@@ -258,13 +258,13 @@ const position = () => {
     });
   };
 
-  const onEdit = (id) => {
-    console.log("Edit " + id);
-  };
+   const onEdit = (id) => {
+      console.log("Edit " + id);
+   };
 
-  const onDelete = (id) => {
-    console.log("Delete " + id);
-  };
+   const onDelete = (id) => {
+      console.log("Delete " + id);
+   };
 
   const columns = [
     {

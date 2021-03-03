@@ -1,3 +1,7 @@
+.hightLightInfo {
+  color: slateblue;
+}
+
 .container {
   height: 100vh;
   padding: 20px;
@@ -37,7 +41,7 @@
 .userImg {
   padding: 20px;
   background-color: #fff;
-  height: 280px; 
+  height: 300px; 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,9 +55,24 @@
 }
 
 .generalInfo {
-  height: 280px; 
+  height: 300px; 
   background-color: #fff;
   padding: 20px;
+}
+
+.singleGeneralInfo {
+  padding: 0 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.singleGeneralInfo span:nth-child(1) {
+  flex:1
+}
+
+.singleGeneralInfo span:nth-child(2) {
+  flex:2
 }
 
 .specificInfo {
