@@ -23,3 +23,37 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* BreadCrumb */
+.pageInfo {
+  font-size: 1.3em;
+}
+
+/* Header Component */
+.header {
+  background-color: #fff;
+  padding: 15px;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 2px solid #6a0e00;
+  margin-bottom: 20px;
+}
+
+.headerIcon {
+  margin-right: auto;
+  cursor: pointer;
+}
+
+.headerInfo {
+  display: flex;
+}
+
+.headerInfo > div  {
+  margin-right: 20px;
+  align-self: center;
+}
+
+.site-layout {
+  padding: 20px;
+}
+

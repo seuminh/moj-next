@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
 import { Tabs, Col, Row, Button } from "antd";
@@ -26,34 +27,6 @@ export default function Home() {
             ></meta>
          </Head>
 
-         <div className={styles.header}>
-            <div className={styles.headerIcon}>
-               <HomeOutlined style={{ fontSize: 22 }} />
-            </div>
-            <div className={styles.headerInfo}>
-               <div>
-                  <p>
-                     ក្រសួង-ស្ថាប័ន
-                     <span style={{ color: "#6a0e00", fontWeight: "bold" }}>
-                        យុត្តិធម័
-                     </span>
-                  </p>
-               </div>
-               <div>
-                  <p>
-                     ឈ្មោះអ្នកចូលប្រើ{" "}
-                     <span style={{ color: "#6a0e00", fontWeight: "bold" }}>
-                        Unknown
-                     </span>
-                  </p>
-               </div>
-            </div>
-         </div>
-
-         <div className="pageInfo">
-            <h1>ព័ត៌មានមន្រ្តីរាជការ</h1>
-         </div>
-
          <div className={styles.userInfo}>
             {/* General Info */}
             <div className={styles.generalInfoContainer}>
@@ -66,13 +39,15 @@ export default function Home() {
                            width={160}
                            height={180}
                         ></Image> */}
-                        <Button
-                           // onClick={onClose}
-                           danger
-                           style={{ marginRight: 8 }}
-                        >
-                           កែប្រែព័ត៌មានបុគ្គល
-                        </Button>
+                        <Link href="/edit">
+                           <Button
+                              // onClick={onClose}
+                              danger
+                              style={{ marginRight: 8 }}
+                           >
+                              កែប្រែព័ត៌មានបុគ្គល
+                           </Button>
+                        </Link>
                      </div>
                   </Col>
                   <Col span={18}>

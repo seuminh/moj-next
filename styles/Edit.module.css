@@ -1,0 +1,57 @@
+.container {
+    height: 100vh;
+}
+
+.title {
+    color: slateblue
+}
+
+/* Self Info */
+.generalInfoContainer {
+    background-color: #fff;
+    padding: 20px;
+}
+
+.imgContainer {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+}
+
+.generalInfo {
+    width: 84%;
+}
+
+.imgContainer img {
+    box-shadow: 0 0 4px ;
+}
+
+.birthPlaceContainer, .addressContainer, .contactContainer {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Parent Info */
+.dadInfoContainer, .momInfoContainer {
+    background-color: #fff;
+    padding: 20px;
+}
+
+/* Spouse Info */
+.spouseInfoContainer {
+    background-color: #fff;
+    padding: 20px;
+}
+
+/* Children Info */
+.childrenInfoContainer {
+    background-color: #fff;
+    padding: 20px;
+}
+
+/* Education Info */
+.educationInfoContainer {
+    background-color: #fff;
+    padding: 20px;
+}
