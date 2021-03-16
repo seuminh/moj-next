@@ -1,7 +1,8 @@
 import styles from "../../styles/Edit.module.css";
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, SaveOutlined } from "@ant-design/icons";
+import { useState } from "react";
 
-import { Col, Row, Form, Input, DatePicker, Radio, Select } from "antd";
+import { Col, Row, Form, Input, DatePicker, Radio, Select, Button } from "antd";
 
 const status = [
    { label: "រស់", value: "រស់" },
@@ -9,9 +10,17 @@ const status = [
 ];
 
 const SpouseInfo = () => {
+   const [form] = Form.useForm();
+   const [spouseInfo, setSpouseInfo] = useState(null);
+
+   const onSave = () => {
+      const dataInput = form.getFieldsValue(true);
+      form.validateFields();
+   };
+
    return (
       <div>
-         <Form layout="vertical" hideRequiredMark>
+         <Form layout="vertical" hideRequiredMark form={form}>
             {/* Spouse Info */}
             <div className={styles.spouseInfoContainer}>
                <h1 className={styles.title}>
@@ -383,6 +392,11 @@ const SpouseInfo = () => {
                </Row>
             </div>
          </Form>
+         <div className={styles.btnContainer}>
+            <Button icon={<SaveOutlined />} onClick={onSave}>
+               រក្សាទុក
+            </Button>
+         </div>
       </div>
    );
 };

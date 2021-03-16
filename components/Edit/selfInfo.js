@@ -1,8 +1,11 @@
 import styles from "../../styles/Edit.module.css";
 import Image from "next/image";
+import { useState } from "react";
 import { UserOutlined, PhoneOutlined } from "@ant-design/icons";
 
-import { Col, Row, Form, Input, DatePicker, Radio, Select } from "antd";
+import { Col, Row, Form, Input, DatePicker, Radio, Select, Button } from "antd";
+
+import { SaveOutlined } from "@ant-design/icons";
 
 const genderOptions = [
    { label: "ប្រុស", value: "ប្រុស" },
@@ -12,9 +15,17 @@ const genderOptions = [
 const { Option } = Select;
 
 const SelfInfo = () => {
+   const [form] = Form.useForm();
+   const [selfInfo, setSelfInfo] = useState(null);
+
+   const onSave = () => {
+      const dataInput = form.getFieldsValue(true);
+      form.validateFields();
+   };
+
    return (
       <div>
-         <Form layout="vertical" hideRequiredMark>
+         <Form layout="vertical" hideRequiredMark form={form}>
             {/* General Info  */}
             <div className={styles.generalInfoContainer}>
                <h1 className={styles.title}>
@@ -26,7 +37,7 @@ const SelfInfo = () => {
                   </div>
                   <div className={styles.generalInfo}>
                      <Row gutter={16}>
-                        <Col span={8}>
+                        <Col span={12}>
                            <Form.Item
                               style={{ marginBottom: 10 }}
                               name="លេខសំបុត្រកំណើត"
@@ -41,7 +52,7 @@ const SelfInfo = () => {
                               <Input placeholder="លេខសំបុត្រកំណើត" />
                            </Form.Item>
                         </Col>
-                        <Col span={8}>
+                        <Col span={12}>
                            <Form.Item
                               style={{ marginBottom: 10 }}
                               name="លេខអត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរ"
@@ -57,44 +68,9 @@ const SelfInfo = () => {
                               <Input placeholder="លេខអត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរ" />
                            </Form.Item>
                         </Col>
-                        <Col span={8}>
-                           <Form.Item
-                              style={{ marginBottom: 10 }}
-                              name="សុពលភាពអត្តសញ្ញាណប័ណ្ណ"
-                              label="សុពលភាពអត្តសញ្ញាណប័ណ្ណ"
-                              rules={[
-                                 {
-                                    required: true,
-                                    message: "សូមបំពេញសុពលភាពអត្តសញ្ញាណប័ណ្ណ",
-                                 },
-                              ]}
-                           >
-                              <Input placeholder="សុពលភាពអត្តសញ្ញាណប័ណ្ណ" />
-                           </Form.Item>
-                        </Col>
                      </Row>
                      <Row gutter={16}>
-                        <Col span={8}>
-                           <Form.Item
-                              style={{ marginBottom: 10 }}
-                              name="ថ្ងៃផុតសុពលភាពអត្តសញ្ញាណប័ណ្ណ"
-                              label="ថ្ងៃផុតសុពលភាពអត្តសញ្ញាណប័ណ្ណ"
-                              rules={[
-                                 {
-                                    required: true,
-                                    message:
-                                       "សូមបំពេញថ្ងៃផុតសុពលភាពអត្តសញ្ញាណប័ណ្ណ",
-                                 },
-                              ]}
-                           >
-                              <DatePicker
-                                 placeholder="ថ្ងៃផុតសុពលភាពអត្តសញ្ញាណប័ណ្ណ"
-                                 style={{ width: "100%" }}
-                                 //  onChange={onStartDateChange}
-                              />
-                           </Form.Item>
-                        </Col>
-                        <Col span={8}>
+                        <Col span={12}>
                            <Form.Item
                               style={{ marginBottom: 10 }}
                               name="លេខលិខិតឆ្លងដែន"
@@ -109,7 +85,7 @@ const SelfInfo = () => {
                               <Input placeholder="លេខលិខិតឆ្លងដែន" />
                            </Form.Item>
                         </Col>
-                        <Col span={8}>
+                        <Col span={12}>
                            <Form.Item
                               style={{ marginBottom: 10 }}
                               name="ផ្សេងៗ"
@@ -619,6 +595,11 @@ const SelfInfo = () => {
                </div>
             </div>
          </Form>
+         <div className={styles.btnContainer}>
+            <Button icon={<SaveOutlined />} onClick={onSave}>
+               រក្សាទុក
+            </Button>
+         </div>
       </div>
    );
 };

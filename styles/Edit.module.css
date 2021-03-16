@@ -6,6 +6,12 @@
     color: slateblue
 }
 
+.btnContainer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
 /* Self Info */
 .generalInfoContainer {
     background-color: #fff;

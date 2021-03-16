@@ -15,6 +15,8 @@ import {
    Drawer,
 } from "antd";
 
+const { Option } = Select;
+
 const columns = [
    {
       title: "វគ្គសិក្សា",
@@ -80,6 +82,8 @@ const columns = [
 ];
 
 const EducationInfo = () => {
+   const [form] = Form.useForm();
+   const [educationInfo, setEducationInfo] = useState(null);
    const [visible, setVisible] = useState(false);
    const [educationList, setEducationList] = useState([]);
 
@@ -87,7 +91,10 @@ const EducationInfo = () => {
       setVisible(false);
    };
 
-   const onSubmit = () => {};
+   const onSubmit = () => {
+      const dataInput = form.getFieldsValue(true);
+      form.validateFields();
+   };
 
    return (
       <div className={styles.educationInfoContainer}>
@@ -123,7 +130,7 @@ const EducationInfo = () => {
                </div>
             }
          >
-            <Form layout="vertical" hideRequiredMark>
+            <Form layout="vertical" hideRequiredMark form={form}>
                <Row gutter={16}>
                   <Col span={12}>
                      <Form.Item
@@ -133,11 +140,25 @@ const EducationInfo = () => {
                         rules={[
                            {
                               required: true,
-                              message: "សូមបំពេញវគ្គសិក្សា",
+                              message: "សូមជ្រើសរើសវគ្គសិក្សា",
                            },
                         ]}
                      >
-                        <Input placeholder="វគ្គសិក្សា" />
+                        <Select placeholder="ជ្រើសរើស">
+                           <Option value="កម្រិតវប្បធម៌ទូទៅ">
+                              កម្រិតវប្បធម៌ទូទៅ
+                           </Option>
+                           <Option value="ឧត្តមសិក្សា">ឧត្តមសិក្សា</Option>
+                           <Option value="ក្រោយឧត្តមសិក្សា">
+                              ក្រោយឧត្តមសិក្សា
+                           </Option>
+                           <Option value="វគ្គបណ្ដុះបណ្ដាលផ្សេងៗ">
+                              វគ្គបណ្ដុះបណ្ដាលផ្សេងៗ
+                           </Option>
+                           <Option value="កំរិតបណ្ដុះបណ្ដាលមុខវិជ្ជាជីវៈមូលដ្ឋាននិងក្រោយមូលដ្ឋាន">
+                              កំរិតបណ្ដុះបណ្ដាលមុខវិជ្ជាជីវៈមូលដ្ឋាននិងក្រោយមូលដ្ឋាន
+                           </Option>
+                        </Select>
                      </Form.Item>
                   </Col>
                   <Col span={12}>
@@ -148,11 +169,23 @@ const EducationInfo = () => {
                         rules={[
                            {
                               required: true,
-                              message: "សូមបំពេញកម្រិតសិក្សា",
+                              message: "សូមជ្រើសរើសកម្រិតសិក្សា",
                            },
                         ]}
                      >
-                        <Input placeholder="កម្រិតសិក្សា" />
+                        <Select placeholder="ជ្រើសរើស">
+                           <Option value="មធ្យមសិក្សា">មធ្យមសិក្សា</Option>
+                           <Option value="បរិញ្ញប័ត្ររង">បរិញ្ញប័ត្ររង</Option>
+                           <Option value="បរិញ្ញប័ត្រ">បរិញ្ញប័ត្រ</Option>
+                           <Option value="អនុបណ្ឌិត">អនុបណ្ឌិត</Option>
+                           <Option value="បណ្ឌិត">បណ្ឌិត</Option>
+                           <Option value="វគ្គបណ្ដុះបណ្ដាលរយះពេលខ្លី">
+                              វគ្គបណ្ដុះបណ្ដាលរយះពេលខ្លី
+                           </Option>
+                           <Option value="វគ្គបណ្ដុះបណ្ដាលដំបូង">
+                              វគ្គបណ្ដុះបណ្ដាលដំបូង
+                           </Option>
+                        </Select>
                      </Form.Item>
                   </Col>
                </Row>

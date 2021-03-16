@@ -6,7 +6,7 @@ import { Layout as LayoutAnt, Menu } from "antd";
 
 const Layout = ({ children }) => {
    return (
-      <LayoutAnt style={{ minHeight: "1500px" }}>
+      <LayoutAnt style={{ minHeight: "1800px" }}>
          <Slider />
          <LayoutAnt className="site-layout">
             <Header></Header>

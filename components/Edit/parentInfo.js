@@ -1,7 +1,9 @@
 import styles from "../../styles/Edit.module.css";
 import { UserOutlined, PhoneOutlined } from "@ant-design/icons";
+import { useState } from "react";
 
-import { Col, Row, Form, Input, DatePicker, Radio, Select } from "antd";
+import { Col, Row, Form, Input, DatePicker, Radio, Select, Button } from "antd";
+import { SaveOutlined } from "@ant-design/icons";
 
 const statusOptions = [
    { label: "រស់", value: "រស់" },
@@ -9,6 +11,18 @@ const statusOptions = [
 ];
 
 const ParentInfo = () => {
+   const [dadForm] = Form.useForm();
+   const [momForm] = Form.useForm();
+   const [dadInfo, setDadInfo] = useState(null);
+   const [momInfo, setMomInfo] = useState(null);
+
+   const onSave = () => {
+      const dadDataInput = dadForm.getFieldsValue(true);
+      const momDataInput = momForm.getFieldsValue(true);
+      dadForm.validateFields();
+      momForm.validateFields();
+   };
+
    return (
       <div>
          <Row gutter={18}>
@@ -18,7 +32,7 @@ const ParentInfo = () => {
                   <h1 className={styles.title}>
                      <UserOutlined></UserOutlined>ព័ត៌មានឪពុក
                   </h1>
-                  <Form layout="vertical" hideRequiredMark>
+                  <Form layout="vertical" hideRequiredMark form={dadForm}>
                      <Row gutter={16}>
                         <Col span={24}>
                            <Form.Item
@@ -267,7 +281,7 @@ const ParentInfo = () => {
                   <h1 className={styles.title}>
                      <UserOutlined></UserOutlined>ព័ត៌មានម្តាយ
                   </h1>
-                  <Form layout="vertical" hideRequiredMark>
+                  <Form layout="vertical" hideRequiredMark form={momForm}>
                      <Row gutter={16}>
                         <Col span={24}>
                            <Form.Item
@@ -509,6 +523,11 @@ const ParentInfo = () => {
                </div>
             </Col>
          </Row>
+         <div className={styles.btnContainer}>
+            <Button icon={<SaveOutlined />} onClick={onSave}>
+               រក្សាទុក
+            </Button>
+         </div>
       </div>
    );
 };

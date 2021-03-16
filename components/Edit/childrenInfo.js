@@ -1,5 +1,5 @@
 import styles from "../../styles/Edit.module.css";
-import { UserOutlined, PlusOutlined } from "@ant-design/icons";
+import { UserOutlined, PlusOutlined, SaveOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 
 import {
@@ -16,8 +16,8 @@ import {
 } from "antd";
 
 const genderOptions = [
-   { label: "រស់", value: "រស់" },
-   { label: "ស្លាប់", value: "ស្លាប់" },
+   { label: "ប្រុស", value: "ប្រុស" },
+   { label: "ស្រី", value: "ស្រី" },
 ];
 
 const statusOptions = [
@@ -80,6 +80,8 @@ const columns = [
 ];
 
 const childrenInfo = () => {
+   const [form] = Form.useForm();
+   const [childInfo, setChildInfo] = useState(null);
    const [visible, setVisible] = useState(false);
    const [childrenList, setChildrenList] = useState([]);
 
@@ -87,7 +89,10 @@ const childrenInfo = () => {
       setVisible(false);
    };
 
-   const onSubmit = () => {};
+   const onSubmit = () => {
+      const dataInput = form.getFieldsValue(true);
+      form.validateFields();
+   };
 
    return (
       <div className={styles.childrenInfoContainer}>
@@ -123,7 +128,7 @@ const childrenInfo = () => {
                </div>
             }
          >
-            <Form layout="vertical" hideRequiredMark>
+            <Form layout="vertical" hideRequiredMark form={form}>
                <Row gutter={16}>
                   <Col span={12}>
                      <Form.Item
