@@ -1,5 +1,5 @@
 import styles from "../../styles/Edit.module.css";
-import { UserOutlined, PlusOutlined } from "@ant-design/icons";
+import { UserOutlined, PlusOutlined,EditOutlined ,DeleteOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 
 import {
@@ -7,6 +7,7 @@ import {
    Row,
    Form,
    Input,
+   Space,
    DatePicker,
    Radio,
    Select,
@@ -14,6 +15,7 @@ import {
    Table,
    Drawer,
 } from "antd";
+import api from "@/utils/api";
 
 const { Option } = Select;
 
@@ -25,18 +27,18 @@ const columns = [
    },
    {
       title: "វគ្គបណ្ដុះបណ្ដាល",
-      dataIndex: "training",
-      key: "training",
+      dataIndex: "other",
+      key: "other",
    },
    {
       title: "កម្រិតសិក្សា",
-      dataIndex: "educationLevel",
-      key: "educationLevel",
+      dataIndex: "level",
+      key: "level",
    },
    {
       title: "ប្រភេទសញ្ញាប័ត្រ",
-      dataIndex: "degree",
-      key: "degree",
+      dataIndex: "degreeType",
+      key: "degreeType",
    },
    {
       title: "គ្រឹះស្ថានសិក្សា",
@@ -45,8 +47,8 @@ const columns = [
    },
    {
       title: "ទីកន្លែងសិក្សា",
-      dataIndex: "studyPlace",
-      key: "studyPlace",
+      dataIndex: "place",
+      key: "place",
    },
    {
       title: "ឆ្នាំចូលសិក្សា",
@@ -55,8 +57,8 @@ const columns = [
    },
    {
       title: "ឆ្នាំបញ្ចប់សិក្សា",
-      dataIndex: "graduationYear",
-      key: "graduationYear",
+      dataIndex: "endYear",
+      key: "endYear",
    },
    {
       title: "ផ្សេងៗ",
@@ -81,11 +83,11 @@ const columns = [
    },
 ];
 
-const EducationInfo = () => {
+const EducationInfo = ({userData}) => {
    const [form] = Form.useForm();
    const [educationInfo, setEducationInfo] = useState(null);
    const [visible, setVisible] = useState(false);
-   const [educationList, setEducationList] = useState([]);
+   const [educationList, setEducationList] = useState([...userData.education]);
 
    const onClose = () => {
       setVisible(false);
@@ -93,7 +95,16 @@ const EducationInfo = () => {
 
    const onSubmit = () => {
       const dataInput = form.getFieldsValue(true);
-      form.validateFields();
+      form.validateFields().then(async () => {
+         
+         const res = await api.put(
+           "/api/users?employeeId=60526a89fad4f524788e5fb4",
+           {education: [ ...educationList,dataInput]}
+         );
+         setVisible(false);
+         setEducationList(res.data.education)
+         form.resetFields();
+       });
    };
 
    return (
@@ -135,7 +146,7 @@ const EducationInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="វគ្គសិក្សា"
+                        name="course"
                         label="វគ្គសិក្សា"
                         rules={[
                            {
@@ -164,7 +175,7 @@ const EducationInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="កម្រិតសិក្សា"
+                        name="level"
                         label="កម្រិតសិក្សា"
                         rules={[
                            {
@@ -193,7 +204,7 @@ const EducationInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="ប្រភេទសញ្ញាបត្រ"
+                        name="degreeType"
                         label="ប្រភេទសញ្ញាបត្រ"
                         rules={[
                            {
@@ -208,7 +219,7 @@ const EducationInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="គ្រឹះស្ថានសិក្សា"
+                        name="institution"
                         label="គ្រឹះស្ថានសិក្សា"
                         rules={[
                            {
@@ -225,7 +236,7 @@ const EducationInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="ឆ្នាំចូលសិក្សា"
+                        name="startYear"
                         label="ឆ្នាំចូលសិក្សា"
                         rules={[
                            {
@@ -240,7 +251,7 @@ const EducationInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="ឆ្នាំបញ្ចប់សិក្សា"
+                        name="endYear"
                         label="ឆ្នាំបញ្ចប់សិក្សា"
                         rules={[
                            {
@@ -257,7 +268,7 @@ const EducationInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="វគ្គបណ្តុះបណ្តាលផ្សេងៗ"
+                        name="other"
                         label="វគ្គបណ្តុះបណ្តាលផ្សេងៗ"
                         rules={[
                            {
@@ -272,7 +283,7 @@ const EducationInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="ទីកន្លែងសិក្សា"
+                        name="place"
                         label="ទីកន្លែងសិក្សា"
                         rules={[
                            {

@@ -1,5 +1,5 @@
 import styles from "../../styles/Edit.module.css";
-import { UserOutlined, PlusOutlined, SaveOutlined } from "@ant-design/icons";
+import { UserOutlined, PlusOutlined, SaveOutlined,DeleteOutlined ,EditOutlined  } from "@ant-design/icons";
 import React, { useState } from "react";
 
 import {
@@ -11,9 +11,11 @@ import {
    Radio,
    Select,
    Button,
+   Space,
    Table,
    Drawer,
 } from "antd";
+import api from "@/utils/api";
 
 const genderOptions = [
    { label: "ប្រុស", value: "ប្រុស" },
@@ -28,33 +30,33 @@ const statusOptions = [
 const columns = [
    {
       title: "លេខសំបុត្រកំណើត",
-      dataIndex: "course",
-      key: "course",
+      dataIndex: "birthCertificateNum",
+      key: "birthCertificateNum",
    },
    {
       title: "គោត្តនាម និងនាម",
-      dataIndex: "training",
-      key: "training",
+      dataIndex: "fullName",
+      key: "fullName",
    },
    {
       title: "គោត្តនាម និងនាមឡាតាំង",
-      dataIndex: "educationLevel",
-      key: "educationLevel",
+      dataIndex: "fullNameLatin",
+      key: "fullNameLatin",
    },
    {
       title: "ភេទ",
-      dataIndex: "degree",
-      key: "degree",
+      dataIndex: "gender",
+      key: "gender",
    },
    {
       title: "ថ្ងៃខែឆ្នាំកំណើត",
-      dataIndex: "institution",
-      key: "institution",
+      dataIndex: "birthDate",
+      key: "birthDate",
    },
    {
       title: "មុខរបរ",
-      dataIndex: "studyPlace",
-      key: "studyPlace",
+      dataIndex: "occupation",
+      key: "occupation",
    },
    {
       title: "ផ្សេងៗ",
@@ -79,11 +81,11 @@ const columns = [
    },
 ];
 
-const childrenInfo = () => {
+const childrenInfo = ({userData}) => {
    const [form] = Form.useForm();
    const [childInfo, setChildInfo] = useState(null);
    const [visible, setVisible] = useState(false);
-   const [childrenList, setChildrenList] = useState([]);
+   const [childrenList, setChildrenList] = useState([...userData.children]);
 
    const onClose = () => {
       setVisible(false);
@@ -91,7 +93,16 @@ const childrenInfo = () => {
 
    const onSubmit = () => {
       const dataInput = form.getFieldsValue(true);
-      form.validateFields();
+      form.validateFields().then(async () => {
+         
+         const res = await api.put(
+           "/api/users?employeeId=60526a89fad4f524788e5fb4",
+           {children: [...childrenList, dataInput]}
+         );
+         setVisible(false);
+         setChildrenList(res.data.children)
+         form.resetFields();
+       });
    };
 
    return (
@@ -133,7 +144,7 @@ const childrenInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="លេខសំបុត្រកំណើត"
+                        name="birthCertificateNum"
                         label="លេខសំបុត្រកំណើត"
                         rules={[
                            {
@@ -148,7 +159,7 @@ const childrenInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="លេខអត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរ"
+                        name="nationalityIDNum"
                         label="លេខអត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរ"
                         rules={[
                            {
@@ -165,7 +176,7 @@ const childrenInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="គោត្តនាម និងនាម"
+                        name="fullName"
                         label="គោត្តនាម និងនាម"
                         rules={[
                            {
@@ -180,7 +191,7 @@ const childrenInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="គោត្តនាម និងនាម​ទ្បារតាំង"
+                        name="fullNameLatin"
                         label="គោត្តនាម និងនាម​ទ្បារតាំង"
                         rules={[
                            {
@@ -197,7 +208,7 @@ const childrenInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="ថ្ងៃខែឆ្នាំកំណើត"
+                        name="birthDate"
                         label="ថ្ងៃខែឆ្នាំកំណើត"
                         rules={[
                            {
@@ -216,7 +227,7 @@ const childrenInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="ភេទ"
+                        name="gender"
                         label="ភេទ"
                         rules={[
                            {
@@ -233,7 +244,7 @@ const childrenInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="មុខរបរ"
+                        name="occupation"
                         label="មុខរបរ"
                         rules={[
                            {
@@ -248,7 +259,7 @@ const childrenInfo = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="ស្ថានភាព"
+                        name="livingStatus"
                         label="ស្ថានភាព"
                         rules={[
                            {

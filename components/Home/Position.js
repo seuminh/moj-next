@@ -21,6 +21,7 @@ import {
    DeleteOutlined,
    PrinterOutlined,
 } from "@ant-design/icons";
+import api from "@/utils/api";
 
 const { Option } = Select;
 
@@ -178,19 +179,20 @@ const provincesData = [
    "ខេត្តត្បូងឃ្មុំ",
 ];
 
-const position = () => {
+const position = ({userData}) => {
    const [form] = Form.useForm();
    const [visible, setVisible] = useState(false);
    const [startDate, setStartDate] = useState();
    const [endDate, setEndDate] = useState();
    const [nowOption, setNowOption] = useState(true);
-   const [experiencesList, setExperiencesList] = useState([]);
+   const [experiencesList, setExperiencesList] = useState([...userData.experience]);
 
    const [choiceMinistry, setChoiceMinistry] = useState("");
    const [choiceInstitution, setChoiceInstitution] = useState("");
    const [choiceUnit, setChoiceUnit] = useState("");
    const [choiceDepartment, setChoiceDepartment] = useState("");
 
+   console.log(experiencesList)
    // const [data, setDate] = useState([
    //    {
    //       key: "1",
@@ -236,27 +238,37 @@ const position = () => {
 
    const onSubmit = () => {
       const dataInput = form.getFieldsValue(true);
-      form.validateFields().then(() => {
-         setVisible(false);
-         setExperiencesList((v) => {
-            return [
-               {
-                  key: v.length + 1,
-                  refNumber: dataInput["ប្រភេទលិខិត"],
-                  position: dataInput["មុខតំណែង"],
-                  unit: dataInput["អង្គភាព"],
-                  signDate: dataInput["កាលបរិច្ឆេទតែងតាំង"]?.format(
-                     "DD/MM/YYYY"
-                  ),
-                  endDate:
-                     dataInput["កាលបរិច្ឆេទបញ្ចប់"]?.format("DD/MM/YYYY") ||
-                     "បច្ចុប្បន្ន",
-                  note: "",
-               },
-               ...v,
-            ];
-         });
-         form.resetFields();
+      // form.validateFields().then(() => {
+      //    setVisible(false);
+      //    setExperiencesList((v) => {  
+      //       return [
+      //          {
+      //             key: v.length + 1,
+      //             refNumber: dataInput["ប្រភេទលិខិត"],
+      //             position: dataInput["មុខតំណែង"],
+      //             unit: dataInput["អង្គភាព"],
+      //             signDate: dataInput["កាលបរិច្ឆេទតែងតាំង"]?.format(
+      //                "DD/MM/YYYY"
+      //             ),
+      //             endDate:
+      //                dataInput["កាលបរិច្ឆេទបញ្ចប់"]?.format("DD/MM/YYYY") ||
+      //                "បច្ចុប្បន្ន",
+      //             note: "",
+      //          },
+      //          ...v,
+      //       ];
+      //    });
+      //    form.resetFields();
+      // });
+      form.validateFields().then(async () => {
+         
+        const res = await api.put(
+          "/api/users?employeeId=60526a89fad4f524788e5fb4",
+          {experience: [ ...experiencesList,dataInput]}
+        );
+        setVisible(false);
+        setExperiencesList(res.data.experience)
+        form.resetFields();
       });
    };
 
@@ -271,8 +283,8 @@ const position = () => {
    const columns = [
       {
          title: "លេខលិខិតយោង",
-         dataIndex: "refNumber",
-         key: "refNumber",
+         dataIndex: "refNum",
+         key: "refNum",
       },
       {
          title: "មុខតំណែង",
@@ -291,13 +303,14 @@ const position = () => {
       // },
       {
          title: "ថ្ងៃខែឆ្នាំចុះហត្ថលេខា",
-         dataIndex: "signDate",
-         key: "signDate",
+         dataIndex: "startDate",
+         key: "startDate",
       },
       {
          title: "ថ្ងៃខែឆ្នាំបញ្ចប់",
          dataIndex: "endDate",
          key: "endDate",
+         render: text=>(text)?text:'បច្ចុប្បន្ន'
       },
       {
          title: "កំណត់សំគាល់",
@@ -443,7 +456,7 @@ const position = () => {
                         />
                      </Form.Item> */}
                      <Form.Item
-                        name="ប្រភេទលិខិត"
+                        name="refNum"
                         label="ប្រភេទលិខិត"
                         rules={[
                            {
@@ -546,7 +559,7 @@ const position = () => {
                   </Col>
                   <Col span={12}>
                      <Form.Item
-                        name="មុខតំណែង"
+                        name="position"
                         label="មុខតំណែង"
                         rules={[
                            {
@@ -562,7 +575,7 @@ const position = () => {
                <Row gutter={24}>
                   <Col span={8}>
                      <Form.Item
-                        name="អង្គភាព"
+                        name="unit"
                         label="អង្គភាព"
                         rules={[
                            {
@@ -726,7 +739,7 @@ const position = () => {
                <Row gutter={24}>
                   <Col span={8}>
                      <Form.Item
-                        name="កាលបរិច្ឆេទតែងតាំង"
+                        name="startDate"
                         label="កាលបរិច្ឆេទតែងតាំង"
                         rules={[
                            {
@@ -748,7 +761,7 @@ const position = () => {
                   </Col>
                   <Col span={8} pull={5}>
                      <Form.Item
-                        name="កាលបរិច្ឆេទបញ្ចប់"
+                        name="endDate"
                         label="កាលបរិច្ឆេទបញ្ចប់"
                         // rules={[
                         //   { required: true, message: "សូមជ្រើសរើសកាលបរិច្ឆេទបញ្ចប់" },
