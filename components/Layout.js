@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AlertContext } from "contexts/alert.context";
+import { AlertContext, AlertDispatch } from "contexts/alert.context";
 
 import Slider from "./Slider";
 import Header from "./Header";
@@ -9,22 +9,25 @@ import { Layout as LayoutAnt, Menu, notification, Spin } from "antd";
 
 const Layout = ({ children }) => {
    const state = useContext(AlertContext);
+   const dispatch = useContext(AlertDispatch);
 
    const openNotification = () => {
+      notification.config({
+         duration: 2,
+         placement: "topRight",
+      });
       switch (state.type) {
          case "success":
             return notification.success({
                message: state.message,
                description: state.description,
-               duration: 3,
-               placement: "topRight",
+               onClose: () => dispatch({ type: "RESET" }),
             });
          case "error":
             return notification.error({
                message: state.message,
                description: state.description,
-               duration: 3,
-               placement: "topRight",
+               onClose: () => dispatch({ type: "RESET" }),
             });
       }
    };

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styles from "../../styles/Home.module.css";
 
 import {
    Drawer,
@@ -179,20 +178,22 @@ const provincesData = [
    "ខេត្តត្បូងឃ្មុំ",
 ];
 
-const position = ({userData}) => {
+const position = ({ userData }) => {
    const [form] = Form.useForm();
    const [visible, setVisible] = useState(false);
    const [startDate, setStartDate] = useState();
    const [endDate, setEndDate] = useState();
    const [nowOption, setNowOption] = useState(true);
-   const [experiencesList, setExperiencesList] = useState([...userData.experience]);
+   const [experiencesList, setExperiencesList] = useState([
+      ...userData.experience,
+   ]);
 
    const [choiceMinistry, setChoiceMinistry] = useState("");
    const [choiceInstitution, setChoiceInstitution] = useState("");
    const [choiceUnit, setChoiceUnit] = useState("");
    const [choiceDepartment, setChoiceDepartment] = useState("");
 
-   console.log(experiencesList)
+   console.log(experiencesList);
    // const [data, setDate] = useState([
    //    {
    //       key: "1",
@@ -240,7 +241,7 @@ const position = ({userData}) => {
       const dataInput = form.getFieldsValue(true);
       // form.validateFields().then(() => {
       //    setVisible(false);
-      //    setExperiencesList((v) => {  
+      //    setExperiencesList((v) => {
       //       return [
       //          {
       //             key: v.length + 1,
@@ -261,14 +262,13 @@ const position = ({userData}) => {
       //    form.resetFields();
       // });
       form.validateFields().then(async () => {
-         
-        const res = await api.put(
-          "/api/users?employeeId=60526a89fad4f524788e5fb4",
-          {experience: [ ...experiencesList,dataInput]}
-        );
-        setVisible(false);
-        setExperiencesList(res.data.experience)
-        form.resetFields();
+         const res = await api.put(
+            "/api/users?employeeId=60526a89fad4f524788e5fb4",
+            { experience: [...experiencesList, dataInput] }
+         );
+         setVisible(false);
+         setExperiencesList(res.data.experience);
+         form.resetFields();
       });
    };
 
@@ -310,7 +310,7 @@ const position = ({userData}) => {
          title: "ថ្ងៃខែឆ្នាំបញ្ចប់",
          dataIndex: "endDate",
          key: "endDate",
-         render: text=>(text)?text:'បច្ចុប្បន្ន'
+         render: (text) => (text ? text : "បច្ចុប្បន្ន"),
       },
       {
          title: "កំណត់សំគាល់",

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Layout, Menu } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 const { Sider } = Layout;
+const { SubMenu } = Menu;
 
 const Slider = () => {
    const [collapsed, setCollapsed] = useState(false);
@@ -44,12 +45,23 @@ const Slider = () => {
                គ្រប់គ្រងព័ត៌មានមន្រ្តីរាជការ
             </h1>
          </div>
-         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-            <Menu.Item key="1" icon={<UserOutlined />}>
-               <Link href="/">
-                  <a>ព័ត៌មានមន្ត្រីរាជការ</a>
-               </Link>
-            </Menu.Item>
+         <Menu theme="dark" mode="inline">
+            <SubMenu
+               key="sub1"
+               icon={<UserOutlined />}
+               title="ព័ត៌មានមន្ត្រីរាជការ"
+            >
+               <Menu.Item key="1">
+                  <Link href="/unknown">
+                     <a>ស្វែងរកព័ត៌មានបុគ្គល</a>
+                  </Link>
+               </Menu.Item>
+               <Menu.Item key="2">
+                  <Link href="/employee">
+                     <a>ស្វែងរកព័ត៌មានមន្រ្តីរាជការ</a>
+                  </Link>
+               </Menu.Item>
+            </SubMenu>
          </Menu>
       </Sider>
    );
