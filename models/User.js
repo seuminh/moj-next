@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
+    photo: {
+      type: String,
+      default: '/noImg.jpg'
+    },
     birthCertificateNum: String,
     nationalityIDNum: String,
     passportNumber: String,

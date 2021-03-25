@@ -1,6 +1,6 @@
 import styles from "../../styles/Edit.module.css";
 import { UserOutlined, PlusOutlined,EditOutlined ,DeleteOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
    Col,
@@ -19,72 +19,85 @@ import api from "@/utils/api";
 
 const { Option } = Select;
 
-const columns = [
-   {
-      title: "វគ្គសិក្សា",
-      dataIndex: "course",
-      key: "course",
-   },
-   {
-      title: "វគ្គបណ្ដុះបណ្ដាល",
-      dataIndex: "other",
-      key: "other",
-   },
-   {
-      title: "កម្រិតសិក្សា",
-      dataIndex: "level",
-      key: "level",
-   },
-   {
-      title: "ប្រភេទសញ្ញាប័ត្រ",
-      dataIndex: "degreeType",
-      key: "degreeType",
-   },
-   {
-      title: "គ្រឹះស្ថានសិក្សា",
-      dataIndex: "institution",
-      key: "institution",
-   },
-   {
-      title: "ទីកន្លែងសិក្សា",
-      dataIndex: "place",
-      key: "place",
-   },
-   {
-      title: "ឆ្នាំចូលសិក្សា",
-      dataIndex: "startYear",
-      key: "startYear",
-   },
-   {
-      title: "ឆ្នាំបញ្ចប់សិក្សា",
-      dataIndex: "endYear",
-      key: "endYear",
-   },
-   {
-      title: "ផ្សេងៗ",
-      key: "action",
-      render: (text, record) => (
-         <Space size="middle">
-            <Button
-               icon={<EditOutlined />}
-               onClick={() => onEdit(record.refNumber)}
-            >
-               Edit
-            </Button>
-            <Button
-               danger
-               icon={<DeleteOutlined />}
-               onClick={() => onDelete(record.refNumber)}
-            >
-               Delete
-            </Button>
-         </Space>
-      ),
-   },
-];
-
 const EducationInfo = ({userData}) => {
+
+   const columns = [
+      {
+         title: "វគ្គសិក្សា",
+         dataIndex: "course",
+         key: "course",
+      },
+      {
+         title: "វគ្គបណ្ដុះបណ្ដាល",
+         dataIndex: "other",
+         key: "other",
+      },
+      {
+         title: "កម្រិតសិក្សា",
+         dataIndex: "level",
+         key: "level",
+      },
+      {
+         title: "ប្រភេទសញ្ញាប័ត្រ",
+         dataIndex: "degreeType",
+         key: "degreeType",
+      },
+      {
+         title: "គ្រឹះស្ថានសិក្សា",
+         dataIndex: "institution",
+         key: "institution",
+      },
+      {
+         title: "ទីកន្លែងសិក្សា",
+         dataIndex: "place",
+         key: "place",
+      },
+      {
+         title: "ឆ្នាំចូលសិក្សា",
+         dataIndex: "startYear",
+         key: "startYear",
+      },
+      {
+         title: "ឆ្នាំបញ្ចប់សិក្សា",
+         dataIndex: "endYear",
+         key: "endYear",
+      },
+      {
+         title: "ផ្សេងៗ",
+         key: "action",
+         render: (text, record) => (
+            <Space size="middle">
+               <Button
+                  icon={<EditOutlined />}
+                  onClick={() => {
+                     setEditData(record)
+                     setVisible(true);
+                  }}
+               >
+                  Edit
+               </Button>
+               <Button
+                  danger
+                  icon={<DeleteOutlined />}
+                  onClick={async () => {
+                     let res = await api.put(
+                        "/api/users?employeeId=60526a89fad4f524788e5fb4",
+                        {education: educationList.filter(v=>v._id !==record._id)}
+                      );
+                     setEducationList(res.data.education)
+                  }}
+               >
+                  Delete
+               </Button>
+            </Space>
+         ),
+      },
+   ];
+   
+
+
    const [form] = Form.useForm();
+   const [editData, setEditData] = useState(null)
    const [educationInfo, setEducationInfo] = useState(null);
    const [visible, setVisible] = useState(false);
    const [educationList, setEducationList] = useState([...userData.education]);
@@ -97,15 +110,28 @@ const EducationInfo = ({userData}) => {
       const dataInput = form.getFieldsValue(true);
       form.validateFields().then(async () => {
          
+         let updateData;
+         if(editData){
+            updateData = {education: educationList.map(v=>v._id == editData._id?dataInput: v)}
+         }else{
+            updateData =  {education: [ ...educationList,dataInput]}
+         }
+
          const res = await api.put(
            "/api/users?employeeId=60526a89fad4f524788e5fb4",
-           {education: [ ...educationList,dataInput]}
+           updateData
          );
          setVisible(false);
          setEducationList(res.data.education)
          form.resetFields();
        });
    };
+   useEffect(() => {
+      if(visible === false){
+         setEditData(null)
+      }
+      form.resetFields()
+   }, [visible])
 
    return (
       <div className={styles.educationInfoContainer}>
@@ -141,7 +167,7 @@ const EducationInfo = ({userData}) => {
                </div>
             }
          >
-            <Form layout="vertical" hideRequiredMark form={form}>
+            <Form layout="vertical" hideRequiredMark form={form} initialValues={{...editData}}>
                <Row gutter={16}>
                   <Col span={12}>
                      <Form.Item

@@ -44,7 +44,7 @@ export default function Home({ user }) {
                <Row gutter={24} justify="start">
                   <Col span={6}>
                      <div className={styles.userImg}>
-                        <img src="/noImg.jpg" alt="" width="160" height="180" />
+                        <img src={user.photo} alt="" width="160" height="180" />
                         {/* <Image
                            src="/noImg.jpg"
                            width={160}

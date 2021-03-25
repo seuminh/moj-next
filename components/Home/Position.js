@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
    Drawer,
@@ -192,6 +192,7 @@ const position = ({ userData }) => {
    const [choiceInstitution, setChoiceInstitution] = useState("");
    const [choiceUnit, setChoiceUnit] = useState("");
    const [choiceDepartment, setChoiceDepartment] = useState("");
+   
 
    console.log(experiencesList);
    // const [data, setDate] = useState([
@@ -339,6 +340,12 @@ const position = ({ userData }) => {
          ),
       },
    ];
+   // useEffect(() => {
+   //    if(visible === false){
+   //       setEditData(null)
+   //    }
+   //    form.resetFields()
+   // }, [visible])
 
    return (
       <div>

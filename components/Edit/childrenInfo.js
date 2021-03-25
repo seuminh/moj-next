@@ -1,6 +1,7 @@
 import styles from "../../styles/Edit.module.css";
 import { UserOutlined, PlusOutlined, SaveOutlined,DeleteOutlined ,EditOutlined  } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import moment from 'moment'
 
 import {
    Col,
@@ -27,65 +28,81 @@ const statusOptions = [
    { label: "ស្លាប់", value: "ស្លាប់" },
 ];
 
-const columns = [
-   {
-      title: "លេខសំបុត្រកំណើត",
-      dataIndex: "birthCertificateNum",
-      key: "birthCertificateNum",
-   },
-   {
-      title: "គោត្តនាម និងនាម",
-      dataIndex: "fullName",
-      key: "fullName",
-   },
-   {
-      title: "គោត្តនាម និងនាមឡាតាំង",
-      dataIndex: "fullNameLatin",
-      key: "fullNameLatin",
-   },
-   {
-      title: "ភេទ",
-      dataIndex: "gender",
-      key: "gender",
-   },
-   {
-      title: "ថ្ងៃខែឆ្នាំកំណើត",
-      dataIndex: "birthDate",
-      key: "birthDate",
-   },
-   {
-      title: "មុខរបរ",
-      dataIndex: "occupation",
-      key: "occupation",
-   },
-   {
-      title: "ផ្សេងៗ",
-      key: "action",
-      render: (text, record) => (
-         <Space size="middle">
-            <Button
-               icon={<EditOutlined />}
-               onClick={() => onEdit(record.refNumber)}
-            >
-               Edit
-            </Button>
-            <Button
-               danger
-               icon={<DeleteOutlined />}
-               onClick={() => onDelete(record.refNumber)}
-            >
-               Delete
-            </Button>
-         </Space>
-      ),
-   },
-];
+
 
 const childrenInfo = ({userData}) => {
+   const columns = [
+      {
+         title: "លេខសំបុត្រកំណើត",
+         dataIndex: "birthCertificateNum",
+         key: "birthCertificateNum",
+      },
+      {
+         title: "គោត្តនាម និងនាម",
+         dataIndex: "fullName",
+         key: "fullName",
+      },
+      {
+         title: "គោត្តនាម និងនាមឡាតាំង",
+         dataIndex: "fullNameLatin",
+         key: "fullNameLatin",
+      },
+      {
+         title: "ភេទ",
+         dataIndex: "gender",
+         key: "gender",
+      },
+      {
+         title: "ថ្ងៃខែឆ្នាំកំណើត",
+         dataIndex: "birthDate",
+         key: "birthDate",
+      },
+      {
+         title: "មុខរបរ",
+         dataIndex: "occupation",
+         key: "occupation",
+      },
+      {
+         title: "ផ្សេងៗ",
+         key: "action",
+         render: (text, record) => (
+            <Space size="middle">
+               <Button
+                  icon={<EditOutlined />}
+                  onClick={() => {
+                     
+                     setEditData(record)
+                     setVisible(true);
+
+                  }}
+               >
+                  Edit
+               </Button>
+               <Button
+                  danger
+                  icon={<DeleteOutlined />}
+                  onClick={async () => {
+                     let res = await api.put(
+                        "/api/users?employeeId=60526a89fad4f524788e5fb4",
+                        {children: childrenList.filter(v=>v._id !==record._id)}
+                      );
+                     
+                     setChildrenList(res.data.children)
+                  }}
+               >
+                  Delete
+               </Button>
+            </Space>
+         ),
+      },
+   ];
+
+
    const [form] = Form.useForm();
    const [childInfo, setChildInfo] = useState(null);
    const [visible, setVisible] = useState(false);
    const [childrenList, setChildrenList] = useState([...userData.children]);
+   const [editData, setEditData] = useState(null)
 
    const onClose = () => {
       setVisible(false);
@@ -94,16 +111,27 @@ const childrenInfo = ({userData}) => {
    const onSubmit = () => {
       const dataInput = form.getFieldsValue(true);
       form.validateFields().then(async () => {
-         
-         const res = await api.put(
-           "/api/users?employeeId=60526a89fad4f524788e5fb4",
-           {children: [...childrenList, dataInput]}
-         );
+         let updateData;
+         if(editData){
+            updateData = {children: childrenList.map(v=>v._id == editData._id?dataInput: v)}
+         }else{
+            updateData = {children: [...childrenList, dataInput]}
+         }
+         let res = await api.put(
+            "/api/users?employeeId=60526a89fad4f524788e5fb4",
+            updateData
+          );
          setVisible(false);
          setChildrenList(res.data.children)
          form.resetFields();
        });
    };
+   useEffect(() => {
+      if(visible === false){
+         setEditData(null)
+      }
+      form.resetFields()
+   }, [visible])
 
    return (
       <div className={styles.childrenInfoContainer}>
@@ -139,7 +167,7 @@ const childrenInfo = ({userData}) => {
                </div>
             }
          >
-            <Form layout="vertical" hideRequiredMark form={form}>
+            <Form layout="vertical" hideRequiredMark form={form} initialValues={{...editData, birthDate: editData?.birthDate ? moment(editData.birthDate) : null}}>
                <Row gutter={16}>
                   <Col span={12}>
                      <Form.Item
