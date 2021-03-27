@@ -192,7 +192,6 @@ const position = ({ userData }) => {
    const [choiceInstitution, setChoiceInstitution] = useState("");
    const [choiceUnit, setChoiceUnit] = useState("");
    const [choiceDepartment, setChoiceDepartment] = useState("");
-   
 
    console.log(experiencesList);
    // const [data, setDate] = useState([
@@ -435,6 +434,7 @@ const position = ({ userData }) => {
                <Row gutter={16}>
                   <Col span={12}>
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         name="លេខលិខិតយោង"
                         label="លេខលិខិតយោង"
                         rules={[
@@ -463,6 +463,7 @@ const position = ({ userData }) => {
                         />
                      </Form.Item> */}
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         name="refNum"
                         label="ប្រភេទលិខិត"
                         rules={[
@@ -485,6 +486,7 @@ const position = ({ userData }) => {
                <Row gutter={16}>
                   <Col span={6}>
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         name="ក្រសួង-ស្ថាប័ន"
                         label="ក្រសួង-ស្ថាប័ន"
                         rules={[
@@ -519,6 +521,7 @@ const position = ({ userData }) => {
                   </Col>
                   <Col span={6}>
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         name="ប្រភេទស្ថាប័ន"
                         label="ប្រភេទស្ថាប័ន"
                         rules={[
@@ -566,6 +569,7 @@ const position = ({ userData }) => {
                   </Col>
                   <Col span={12}>
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         name="position"
                         label="មុខតំណែង"
                         rules={[
@@ -582,6 +586,7 @@ const position = ({ userData }) => {
                <Row gutter={24}>
                   <Col span={8}>
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         name="unit"
                         label="អង្គភាព"
                         rules={[
@@ -608,6 +613,7 @@ const position = ({ userData }) => {
                   </Col>
                   <Col span={8}>
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         name="នាយកដ្ឋាន"
                         label="នាយកដ្ឋាន"
                         rules={[
@@ -639,6 +645,7 @@ const position = ({ userData }) => {
                   </Col>
                   <Col span={8}>
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         name="ការិយាល័យ"
                         label="ការិយាល័យ"
                         rules={[
@@ -666,6 +673,7 @@ const position = ({ userData }) => {
                <Row gutter={24}>
                   <Col span={8}>
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         disabled
                         name="កន្លែងធ្វើការរាជធានី៊​/ខេត្ត"
                         label="កន្លែងធ្វើការរាជធានី៊​/ខេត្ត"
@@ -696,6 +704,7 @@ const position = ({ userData }) => {
                   </Col>
                   <Col span={8}>
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         name="កន្លែងធ្វើការស្រុក/ខណ្ឌ"
                         label="កន្លែងធ្វើការស្រុក/ខណ្ឌ"
                         rules={[
@@ -720,6 +729,7 @@ const position = ({ userData }) => {
                   </Col>
                   <Col span={8}>
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         name="កន្លែងធ្វើការឃុំ/សង្កាត់"
                         label="កន្លែងធ្វើការឃុំ/សង្កាត់"
                         rules={[
@@ -746,6 +756,7 @@ const position = ({ userData }) => {
                <Row gutter={24}>
                   <Col span={8}>
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         name="startDate"
                         label="កាលបរិច្ឆេទតែងតាំង"
                         rules={[
@@ -768,6 +779,7 @@ const position = ({ userData }) => {
                   </Col>
                   <Col span={8} pull={5}>
                      <Form.Item
+                        style={{ marginBottom: 10 }}
                         name="endDate"
                         label="កាលបរិច្ឆេទបញ្ចប់"
                         // rules={[

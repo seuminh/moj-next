@@ -13,7 +13,16 @@ import {
 
 const { TabPane } = Tabs;
 
-import Position from "../../components/Home/Position";
+import Position from "../../components/Employee/Position";
+import Status from "../../components/Employee/Status";
+import Rank from "../../components/Employee/Rank";
+import Private from "../../components/Employee/Private";
+import Praise from "../../components/Employee/Praise";
+import Penalty from "../../components/Employee/Penalty";
+import Parent from "../../components/Employee/Parent";
+import Spouse from "../../components/Employee/Spouse";
+import Children from "../../components/Employee/Children";
+import Education from "../../components/Employee/Education";
 
 import api from "@/utils/api";
 export async function getServerSideProps(context) {
@@ -169,7 +178,7 @@ export default function Home({ user }) {
                   }
                   key="1"
                >
-                  ស្ថានភាពមន្រ្ដី
+                  <Status></Status>
                </TabPane>
                <TabPane
                   tab={
@@ -180,7 +189,7 @@ export default function Home({ user }) {
                   }
                   key="2"
                >
-                  ឋានន្តរសកិ្ត និងថ្នាក់
+                  <Rank></Rank>
                </TabPane>
                <TabPane
                   tab={
@@ -197,12 +206,23 @@ export default function Home({ user }) {
                   tab={
                      <span>
                         <DatabaseOutlined />
-                        ការលើកសសើរ
+                        វិស័យឯកជន
                      </span>
                   }
                   key="4"
                >
-                  ការលើកសសើរ
+                  <Private></Private>
+               </TabPane>
+               <TabPane
+                  tab={
+                     <span>
+                        <DatabaseOutlined />
+                        ការលើកសសើរ
+                     </span>
+                  }
+                  key="5"
+               >
+                  <Praise></Praise>
                </TabPane>
                <TabPane
                   tab={
@@ -211,31 +231,31 @@ export default function Home({ user }) {
                         ការដាក់ពិន័យ
                      </span>
                   }
-                  key="5"
-               >
-                  ការដាក់ពិន័យ
-               </TabPane>
-               <TabPane
-                  tab={
-                     <span>
-                        <DatabaseOutlined />
-                        ព័ត៌មានឪពុក
-                     </span>
-                  }
                   key="6"
                >
-                  ព័ត៌មានឪពុក
+                  <Penalty></Penalty>
                </TabPane>
                <TabPane
                   tab={
                      <span>
                         <DatabaseOutlined />
-                        ព័ត៌មានម្តាយ
+                        ព័ត៌មានឪពុកម្តាយ
                      </span>
                   }
                   key="7"
                >
-                  ព័ត៌មានម្តាយ
+                  <Parent></Parent>
+               </TabPane>
+               <TabPane
+                  tab={
+                     <span>
+                        <DatabaseOutlined />
+                        ព័ត៌មានសហព័ទ្ធ
+                     </span>
+                  }
+                  key="8"
+               >
+                  <Spouse></Spouse>
                </TabPane>
                <TabPane
                   tab={
@@ -244,9 +264,9 @@ export default function Home({ user }) {
                         ព័ត៌មានកូន
                      </span>
                   }
-                  key="8"
+                  key="9"
                >
-                  ព័ត៌មានកូន
+                  <Children></Children>
                </TabPane>
                <TabPane
                   tab={
@@ -255,9 +275,9 @@ export default function Home({ user }) {
                         កម្រិតវប្បធម៌
                      </span>
                   }
-                  key="9"
+                  key="10"
                >
-                  កម្រិតវប្បធម៌
+                  <Education></Education>
                </TabPane>
             </Tabs>
          </div>
