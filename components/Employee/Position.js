@@ -13,12 +13,15 @@ import {
    Tag,
    Space,
    Switch,
+   Menu,
+   Dropdown,
 } from "antd";
 import {
    PlusOutlined,
    EditOutlined,
    DeleteOutlined,
    PrinterOutlined,
+   DownOutlined,
 } from "@ant-design/icons";
 import api from "@/utils/api";
 
@@ -272,12 +275,27 @@ const position = ({ userData }) => {
       });
    };
 
-   const onEdit = (id) => {
+   const onEdit = (id, e) => {
+      e.preventDefault();
       console.log("Edit " + id);
    };
 
-   const onDelete = (id) => {
+   const onDelete = (id, e) => {
+      e.preventDefault();
       console.log("Delete " + id);
+   };
+
+   const actionMenu = (record) => {
+      return (
+         <Menu>
+            <Menu.Item key="0" icon={<EditOutlined />}>
+               <a onClick={(e) => onEdit(record.refNum, e)}>Edit</a>
+            </Menu.Item>
+            <Menu.Item key="1" icon={<DeleteOutlined />}>
+               <a onClick={(e) => onDelete(record.refNum, e)}>Delete</a>
+            </Menu.Item>
+         </Menu>
+      );
    };
 
    const columns = [
@@ -321,21 +339,29 @@ const position = ({ userData }) => {
          title: "ខ្លឹមសារផ្សេងៗ",
          key: "action",
          render: (text, record) => (
-            <Space size="middle">
-               <Button
-                  icon={<EditOutlined />}
-                  onClick={() => onEdit(record.refNumber)}
+            // <Space size="middle">
+            //    <Button
+            //       icon={<EditOutlined />}
+            //       onClick={() => onEdit(record.refNumber)}
+            //    >
+            //       Edit
+            //    </Button>
+            //    <Button
+            //       danger
+            //       icon={<DeleteOutlined />}
+            //       onClick={() => onDelete(record.refNumber)}
+            //    >
+            //       Delete
+            //    </Button>
+            // </Space>
+            <Dropdown overlay={() => actionMenu(record)}>
+               <a
+                  className="ant-dropdown-link"
+                  onClick={(e) => e.preventDefault()}
                >
-                  Edit
-               </Button>
-               <Button
-                  danger
-                  icon={<DeleteOutlined />}
-                  onClick={() => onDelete(record.refNumber)}
-               >
-                  Delete
-               </Button>
-            </Space>
+                  ផ្សេងៗ <DownOutlined />
+               </a>
+            </Dropdown>
          ),
       },
    ];

@@ -12,6 +12,8 @@ import {
    Tag,
    Space,
    Switch,
+   Menu,
+   Dropdown,
 } from "antd";
 
 import {
@@ -60,6 +62,29 @@ const Rank = () => {
 
    const onSubmit = () => {};
 
+   const onEdit = (id, e) => {
+      e.preventDefault();
+      console.log("Edit " + id);
+   };
+
+   const onDelete = (id, e) => {
+      e.preventDefault();
+      console.log("Delete " + id);
+   };
+
+   const actionMenu = (record) => {
+      return (
+         <Menu>
+            <Menu.Item key="0" icon={<EditOutlined />}>
+               <a onClick={(e) => onEdit(record.refNum, e)}>Edit</a>
+            </Menu.Item>
+            <Menu.Item key="1" icon={<DeleteOutlined />}>
+               <a onClick={(e) => onDelete(record.refNum, e)}>Delete</a>
+            </Menu.Item>
+         </Menu>
+      );
+   };
+
    const columns = [
       {
          title: "លេខលិខិតយោង",
@@ -100,9 +125,14 @@ const Rank = () => {
          title: "ផ្សេងៗ",
          key: "action",
          render: (text, record) => (
-            <Button icon={<EditOutlined />} onClick={() => {}}>
-               Edit
-            </Button>
+            <Dropdown overlay={() => actionMenu(record)}>
+               <a
+                  className="ant-dropdown-link"
+                  onClick={(e) => e.preventDefault()}
+               >
+                  ផ្សេងៗ <DownOutlined />
+               </a>
+            </Dropdown>
          ),
       },
    ];
