@@ -4,6 +4,7 @@ import { AlertContext, AlertDispatch } from "contexts/alert.context";
 import Slider from "./Slider";
 import Header from "./Header";
 import Breadcrumb from "./Breadcrumb";
+import Footer from "./Footer";
 
 import { Layout as LayoutAnt, Menu, notification, Spin } from "antd";
 
@@ -39,6 +40,7 @@ const Layout = ({ children }) => {
             <Header></Header>
             <Breadcrumb></Breadcrumb>
             {children}
+            <Footer></Footer>
          </LayoutAnt>
       </LayoutAnt>
    );

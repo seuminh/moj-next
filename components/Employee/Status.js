@@ -30,14 +30,23 @@ const Status = () => {
    const [startDate, setStartDate] = useState();
    const [endDate, setEndDate] = useState();
 
+   const [employmentDate, setEmploymentDate] = useState();
+   const [officialDate, setOfficialDate] = useState();
+
    const onStartDateChange = (date, dateString) => {
       setStartDate(dateString);
-      console.log(dateString);
    };
 
    const onEndDateChange = (date, dateString) => {
       setEndDate(dateString);
-      console.log(dateString);
+   };
+
+   const onEmploymentDateChange = (date, dateString) => {
+      setEmploymentDate(dateString);
+   };
+
+   const onOfficialDateChange = (date, dateString) => {
+      setOfficialDate(dateString);
    };
 
    const onNowChange = (checked) => {
@@ -167,7 +176,10 @@ const Status = () => {
                         },
                      ]}
                   >
-                     <Input placeholder="ថ្ងៃខែឆ្នាំចូលបម្រើការងារ" />
+                     <DatePicker
+                        style={{ width: "100%" }}
+                        onChange={onEmploymentDateChange}
+                     />
                   </Form.Item>
                </Col>
                <Col span={6}>
@@ -182,7 +194,10 @@ const Status = () => {
                         },
                      ]}
                   >
-                     <Input placeholder="កាលបរិច្ឆេទតាំងស៊ប់" />
+                     <DatePicker
+                        style={{ width: "100%" }}
+                        onChange={onOfficialDateChange}
+                     />
                   </Form.Item>
                </Col>
                <Col span={6}>
@@ -274,7 +289,15 @@ const Status = () => {
                            <Option value="ព្រះរាជក្រឹត្យ">
                               ព្រះរាជក្រឹត្យ
                            </Option>
-                           <Option value="អនុក្រឹត្ស">អនុក្រឹត្ស</Option>
+                           <Option value="ព្រះរាជក្រម">ព្រះរាជក្រម</Option>
+                           <Option value="ដីការ">ដីការ</Option>
+                           <Option value="លិខិតឧទ្ទេសនាម">
+                              លិខិតឧទ្ទេសនាម
+                           </Option>
+                           <Option value="លិខិតបង្គាប់ការ">
+                              លិខិតបង្គាប់ការ
+                           </Option>
+                           <Option value="អនុក្រឹត្យ">អនុក្រឹត្យ</Option>
                            <Option value="ប្រកាស">ប្រកាស</Option>
                         </Select>
                      </Form.Item>
@@ -294,9 +317,20 @@ const Status = () => {
                         ]}
                      >
                         <Select placeholder="ជ្រើសរើស">
-                           <Option value="a">a</Option>
-                           <Option value="b">b</Option>
-                           <Option value="c">c</Option>
+                           <Option value="មន្ត្រីពេញសិទ្ធ/មន្រ្តីក្របខណ្ឌ">
+                              មន្ត្រីពេញសិទ្ធ/មន្រ្តីក្របខណ្ឌ
+                           </Option>
+                           <Option value="មន្ត្រីកិច្ចសន្យា">
+                              មន្ត្រីកិច្ចសន្យា
+                           </Option>
+                           <Option value="មន្រ្តីកម្មសិក្សា">
+                              មន្រ្តីកម្មសិក្សា
+                           </Option>
+                           <Option value="គ្មានក្របខណ្ឌ">គ្មានក្របខណ្ឌ</Option>
+                           <Option value="និវត្តន៍">និវត្តន៍</Option>
+                           <Option value="ទីប្រឹក្សាបច្ចេកទេស">
+                              ទីប្រឹក្សាបច្ចេកទេស
+                           </Option>
                         </Select>
                      </Form.Item>
                   </Col>
@@ -315,9 +349,81 @@ const Status = () => {
                         ]}
                      >
                         <Select placeholder="ជ្រើសរើស">
-                           <Option value="a">a</Option>
-                           <Option value="b">b</Option>
-                           <Option value="c">c</Option>
+                           <Option value="ថ្នាក់ដឹកនាំ">ថ្នាក់ដឹកនាំ</Option>
+                           <Option value="មន្ត្រីសកម្ម">មន្ត្រីសកម្ម</Option>
+                           <Option value="មន្ត្រីផ្ទេរចេញ">
+                              មន្ត្រីផ្ទេរចេញ
+                           </Option>
+                           <Option value="មន្ត្រីផ្ទេរចូល">
+                              មន្ត្រីផ្ទេរចូល
+                           </Option>
+                           <Option value="មន្ត្រីស្ថិតនៅក្នុងភាពទំនេរគ្មានបៀរវត្ស">
+                              មន្ត្រីស្ថិតនៅក្នុងភាពទំនេរគ្មានបៀរវត្ស
+                           </Option>
+                           <Option value="មន្ត្រីស្ថិតនៅក្រៅក្របខ័ណ្ឌដើម">
+                              មន្ត្រីស្ថិតនៅក្រៅក្របខ័ណ្ឌដើម
+                           </Option>
+                           <Option value="មន្ត្រីជាប់បេសកកម្មក្នុងប្រទេស">
+                              មន្ត្រីជាប់បេសកកម្មក្នុងប្រទេស
+                           </Option>
+                           <Option value="មន្ត្រីជាប់បេសកកម្មក្រៅប្រទេស">
+                              មន្ត្រីជាប់បេសកកម្មក្រៅប្រទេស
+                           </Option>
+                           <Option value="មន្ត្រីជាប់សិក្សាក្នុងប្រទេស">
+                              មន្ត្រីជាប់សិក្សាក្នុងប្រទេស
+                           </Option>
+                           <Option value="មន្ត្រីជាប់សិក្សាក្រៅប្រទេស">
+                              មន្ត្រីជាប់សិក្សាក្រៅប្រទេស
+                           </Option>
+                           <Option value="មន្ត្រីស្តិតក្នុងរយៈពេលកម្មសិក្សា">
+                              មន្ត្រីស្តិតក្នុងរយៈពេលកម្មសិក្សា
+                           </Option>
+                           <Option value="មន្ត្រីបាត់បង់សត្ថភាពពលកម្ម">
+                              មន្ត្រីបាត់បង់សត្ថភាពពលកម្ម
+                           </Option>
+                           <Option value="មន្ត្រីមានជំងឹរាំរ៉ៃ">
+                              មន្ត្រីមានជំងឹរាំរ៉ៃ
+                           </Option>
+                           <Option value="មន្ត្រីដល់អាយុចូលនិវត្តន្ត៏និងចូលនិវត្តន៏">
+                              មន្ត្រីដល់អាយុចូលនិវត្តន្ត៏និងចូលនិវត្តន៏
+                           </Option>
+                           <Option value="មន្ត្រីស្ថាប់">មន្ត្រីស្ថាប់</Option>
+                           <Option value="មន្ត្រីជាប់ទណ្ឌកម្មដោយសាលក្រមឬសាលដីកា">
+                              មន្ត្រីជាប់ទណ្ឌកម្មដោយសាលក្រមឬសាលដីកា
+                           </Option>
+                           <Option value="មន្ត្រីបោះបង់ចោលការងារ">
+                              មន្ត្រីបោះបង់ចោលការងារ
+                           </Option>
+                           <Option value="មន្ត្រីសុំលាឈប់ពីការងារ">
+                              មន្ត្រីសុំលាឈប់ពីការងារ
+                           </Option>
+                           <Option value="មន្ត្រីត្រូវបានលប់ឈ្មោះ">
+                              មន្ត្រីត្រូវបានលប់ឈ្មោះ
+                           </Option>
+                           <Option value="មន្ត្រីស៊ីឈ្មោះគេ">
+                              មន្ត្រីស៊ីឈ្មោះគេ
+                           </Option>
+                           <Option value="មន្ត្រីក្រោយពីជំរឿន">
+                              មន្ត្រីក្រោយពីជំរឿន
+                           </Option>
+                           <Option value="មន្ត្រីសកម្មក្រោយពីជំរឿន">
+                              មន្ត្រីសកម្មក្រោយពីជំរឿន
+                           </Option>
+                           <Option value="មន្ត្រីទីប្រឹក្សា">
+                              មន្ត្រីទីប្រឹក្សា
+                           </Option>
+                           <Option value="មន្ត្រីជំនួយការ">
+                              មន្ត្រីជំនួយការ
+                           </Option>
+                           <Option value="មន្ត្រីបំរើការងារពីរកន្លែង">
+                              មន្ត្រីបំរើការងារពីរកន្លែង
+                           </Option>
+                           <Option value="មន្ត្រីត្រូវបានប្តូរអត្តលេខ">
+                              មន្ត្រីត្រូវបានប្តូរអត្តលេខ
+                           </Option>
+                           <Option value="អត្តលេខលប់">អត្តលេខលប់</Option>
+                           <Option value="បម្រុង">បម្រុង</Option>
+                           <Option value="និរាករ">និរាករ</Option>
                         </Select>
                      </Form.Item>
                   </Col>
@@ -336,9 +442,110 @@ const Status = () => {
                         ]}
                      >
                         <Select placeholder="ជ្រើសរើស">
-                           <Option value="a">a</Option>
-                           <Option value="b">b</Option>
-                           <Option value="c">c</Option>
+                           <Option value="ក្រសួងកសិកម្ម រុក្ខាប្រមាញ់ និងនេសាទ">
+                              ក្រសួងកសិកម្ម រុក្ខាប្រមាញ់ និងនេសាទ
+                           </Option>
+                           <Option value="ទំនាក់ទំនងជាមួយរដ្ឋសភា-ព្រឹទ្ធសភា និង អធិការកិច្ច">
+                              ទំនាក់ទំនងជាមួយរដ្ឋសភា-ព្រឹទ្ធសភា និង អធិការកិច្ច
+                           </Option>
+                           <Option value="អាកាសចរស៊ីវិល">អាកាសចរស៊ីវិល</Option>
+                           <Option value="ក្រសួងមុខងារសាធារណៈ">
+                              ក្រសួងមុខងារសាធារណៈ
+                           </Option>
+                           <Option value="ក្រសួងពាណិជ្ជកម្ម">
+                              ក្រសួងពាណិជ្ជកម្ម
+                           </Option>
+                           <Option value="ទីស្តីការគណៈរដ្ឋមន្ត្រី">
+                              ទីស្តីការគណៈរដ្ឋមន្ត្រី
+                           </Option>
+                           <Option value="ក្រសួងធម្មការ និងសាសនា">
+                              ក្រសួងធម្មការ និងសាសនា
+                           </Option>
+                           <Option value="ក្រសួងវប្បធម៌ និង វិចិត្រសិល្បៈ">
+                              ក្រសួងវប្បធម៌ និង វិចិត្រសិល្បៈ
+                           </Option>
+                           <Option value="ក្រសួងសេដ្ឋកិច្ច និង ហិរញ្ញវត្ថុ">
+                              ក្រសួងសេដ្ឋកិច្ច និង ហិរញ្ញវត្ថុ
+                           </Option>
+                           <Option value="ក្រសួងអប់រំ យុវជន និង កីទ្បា">
+                              ក្រសួងអប់រំ យុវជន និង កីទ្បា
+                           </Option>
+                           <Option value="ក្រសួងក្រសួងបរិស្ថាន">
+                              ក្រសួងក្រសួងបរិស្ថាន
+                           </Option>
+                           <Option value="ការបរទេស និង សហប្រតិបត្តិការអន្តរជាតិ">
+                              ការបរទេស និង សហប្រតិបត្តិការអន្តរជាតិ
+                           </Option>
+                           <Option value="ក្រសួងសុខាភិបាល">
+                              ក្រសួងសុខាភិបាល
+                           </Option>
+                           <Option value="ឧស្សាហកម្ម និងសិប្បកម្ម">
+                              ឧស្សាហកម្ម និងសិប្បកម្ម
+                           </Option>
+                           <Option value="ក្រសួងព័ត៌មាន">ក្រសួងព័ត៌មាន</Option>
+                           <Option value="ក្រសួងមហាផ្ទៃ">ក្រសួងមហាផ្ទៃ</Option>
+                           <Option value="ក្រសួងយុត្តិធម៌">
+                              ក្រសួងយុត្តិធម៌
+                           </Option>
+                           <Option value="ក្រសួងការពារជាតិ">
+                              ក្រសួងការពារជាតិ
+                           </Option>
+                           <Option value="ក្រសួងផែនការ">ក្រសួងផែនការ</Option>
+                           <Option value="ក្រសួងក្រសួងប្រៃសណីយ៍ និងទូរគមនាគមន៍">
+                              ក្រសួងក្រសួងប្រៃសណីយ៍ និងទូរគមនាគមន៍
+                           </Option>
+                           <Option value="ក្រសួងសាធារណការ និង ដឹកជញ្ជូន">
+                              ក្រសួងសាធារណការ និង ដឹកជញ្ជូន
+                           </Option>
+                           <Option value="ក្រសួងព្រះបរមរាជវាំង">
+                              ក្រសួងព្រះបរមរាជវាំង
+                           </Option>
+                           <Option value="ក្រសួងអភិវឌ្ឍន៍ជនបទ">
+                              ក្រសួងអភិវឌ្ឍន៍ជនបទ
+                           </Option>
+                           <Option value="សង្គមកិច្ច អតីតយុទ្ធជន និងយុវនីតិសម្បទា">
+                              សង្គមកិច្ច អតីតយុទ្ធជន និងយុវនីតិសម្បទា
+                           </Option>
+                           <Option value="ក្រសួងទេសចរណ៍">ក្រសួងទេសចរណ៍</Option>
+                           <Option value="ក្រសួងរៀបចំដែនដី នគរូបនីយកម្ម និង សំណង់">
+                              ក្រសួងរៀបចំដែនដី នគរូបនីយកម្ម និង សំណង់
+                           </Option>
+                           <Option value="ក្រសួងធនធានទឹក និង ឧតុនិយម">
+                              ក្រសួងធនធានទឹក និង ឧតុនិយម
+                           </Option>
+                           <Option value="ក្រសួងកិច្ចការនារី">
+                              ក្រសួងកិច្ចការនារី
+                           </Option>
+                           <Option value="តុលាការកំពូល">តុលាការកំពូល</Option>
+                           <Option value="សាលាមធ្យមសិក្សា សុខាភិបាលភូមិភាគ">
+                              សាលាមធ្យមសិក្សា សុខាភិបាលភូមិភាគ
+                           </Option>
+                           <Option value="ការងារ និងបណ្តុះបណ្តាលវិជ្ជាជីវៈ">
+                              ការងារ និងបណ្តុះបណ្តាលវិជ្ជាជីវៈ
+                           </Option>
+                           <Option value="អង្គភាពប្រឆាំងអំពើពុករលួយ">
+                              អង្គភាពប្រឆាំងអំពើពុករលួយ
+                           </Option>
+                           <Option value="ក្រសួងរ៉ែ និងថាមពល">
+                              ក្រសួងរ៉ែ និងថាមពល
+                           </Option>
+                           <Option value="សាលាឧទ្ធរណ៍">សាលាឧទ្ធរណ៍</Option>
+                           <Option value="រដ្ឋលេខាធិការដ្ឋានមុខងារសាធារណៈ">
+                              រដ្ឋលេខាធិការដ្ឋានមុខងារសាធារណៈ
+                           </Option>
+                           <Option value="ធនាគាជាតិនៃកម្ពុជា">
+                              ធនាគាជាតិនៃកម្ពុជា
+                           </Option>
+                           <Option value="ព្រឹទ្ធសភាជាតិ">
+                              ព្រឹទ្ធសភាជាតិ
+                           </Option>
+                           <Option value="រដ្ឋសភាជាតិ">រដ្ឋសភាជាតិ</Option>
+                           <Option value="គណៈកម្មាធិការជាតិរៀបចំការបោះឆ្នោត (គ.ជ.ប)">
+                              គណៈកម្មាធិការជាតិរៀបចំការបោះឆ្នោត (គ.ជ.ប)
+                           </Option>
+                           <Option value="អង្គជំនុំជម្រះវិសាមញ្ញក្នុងតុលាការ">
+                              អង្គជំនុំជម្រះវិសាមញ្ញក្នុងតុលាការ
+                           </Option>
                         </Select>
                      </Form.Item>
                   </Col>
@@ -352,15 +559,11 @@ const Status = () => {
                         rules={[
                            {
                               required: true,
-                              message: "សូមជ្រើសរើសមុខតំណែង",
+                              message: "សូមបំពេញមុខតំណែង",
                            },
                         ]}
                      >
-                        <Select placeholder="ជ្រើសរើស">
-                           <Option value="a">a</Option>
-                           <Option value="b">b</Option>
-                           <Option value="c">c</Option>
-                        </Select>
+                        <Input placeholder="មុខតំណែង" />
                      </Form.Item>
                   </Col>
                </Row>
@@ -409,16 +612,16 @@ const Status = () => {
                   <Col span={24}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="លេខលិខិតយោង"
-                        label="លេខលិខិតយោង"
+                        name="កំណត់សម្គាល់"
+                        label="កំណត់សម្គាល់"
                         rules={[
                            {
                               required: true,
-                              message: "សូមបំពេញលេខលិខិតយោង",
+                              message: "សូមបំពេញកំណត់សម្គាល់",
                            },
                         ]}
                      >
-                        <Input placeholder="លេខលិខិតយោង" />
+                        <Input placeholder="កំណត់សម្គាល់" />
                      </Form.Item>
                   </Col>
                </Row>

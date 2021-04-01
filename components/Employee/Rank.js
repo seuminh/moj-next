@@ -239,9 +239,19 @@ const Rank = () => {
                         ]}
                      >
                         <Select placeholder="ជ្រើសរើស">
-                           <Option value="a">a</Option>
-                           <Option value="b">b</Option>
-                           <Option value="c">c</Option>
+                           <Option value="ព្រះរាជក្រឹត្យ">
+                              ព្រះរាជក្រឹត្យ
+                           </Option>
+                           <Option value="ព្រះរាជក្រម">ព្រះរាជក្រម</Option>
+                           <Option value="ដីការ">ដីការ</Option>
+                           <Option value="លិខិតឧទ្ទេសនាម">
+                              លិខិតឧទ្ទេសនាម
+                           </Option>
+                           <Option value="លិខិតបង្គាប់ការ">
+                              លិខិតបង្គាប់ការ
+                           </Option>
+                           <Option value="អនុក្រឹត្យ">អនុក្រឹត្យ</Option>
+                           <Option value="ប្រកាស">ប្រកាស</Option>
                         </Select>
                      </Form.Item>
                   </Col>
@@ -258,9 +268,16 @@ const Rank = () => {
                         ]}
                      >
                         <Select placeholder="ជ្រើសរើស">
-                           <Option value="a">a</Option>
-                           <Option value="b">b</Option>
-                           <Option value="c">c</Option>
+                           <Option value="ថ្នាក់ប្រចាំឆ្នាំ">
+                              ថ្នាក់ប្រចាំឆ្នាំ
+                           </Option>
+                           <Option value="ថ្នាក់កិត្តិយស">
+                              ថ្នាក់កិត្តិយស
+                           </Option>
+                           <Option value="ថ្នាក់តាមកំរិតសញ្ញាប័ត្រ">
+                              ថ្នាក់តាមកំរិតសញ្ញាប័ត្រ
+                           </Option>
+                           <Option value="និយ័តកម្ម">និយ័តកម្ម</Option>
                         </Select>
                      </Form.Item>
                   </Col>
@@ -279,9 +296,9 @@ const Rank = () => {
                         ]}
                      >
                         <Select placeholder="ជ្រើសរើស">
-                           <Option value="a">a</Option>
-                           <Option value="b">b</Option>
-                           <Option value="c">c</Option>
+                           <Option value="លក្ខន្តិកៈរដ្ឋបាលទូទៅ">
+                              លក្ខន្តិកៈរដ្ឋបាលទូទៅ
+                           </Option>
                         </Select>
                      </Form.Item>
                   </Col>

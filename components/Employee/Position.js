@@ -503,7 +503,15 @@ const position = ({ userData }) => {
                            <Option value="ព្រះរាជក្រឹត្យ">
                               ព្រះរាជក្រឹត្យ
                            </Option>
-                           <Option value="អនុក្រឹត្ស">អនុក្រឹត្ស</Option>
+                           <Option value="ព្រះរាជក្រម">ព្រះរាជក្រម</Option>
+                           <Option value="ដីការ">ដីការ</Option>
+                           <Option value="លិខិតឧទ្ទេសនាម">
+                              លិខិតឧទ្ទេសនាម
+                           </Option>
+                           <Option value="លិខិតបង្គាប់ការ">
+                              លិខិតបង្គាប់ការ
+                           </Option>
+                           <Option value="អនុក្រឹត្យ">អនុក្រឹត្យ</Option>
                            <Option value="ប្រកាស">ប្រកាស</Option>
                         </Select>
                      </Form.Item>
