@@ -25,17 +25,25 @@ import Children from "@/components/Employee/Children";
 import Education from "@/components/Employee/Education";
 
 import api from "@/utils/api";
+import {readFileFolderData} from "@/lib/ReadFileFolderData";
+
 export async function getServerSideProps(context) {
   const res = await api.get("/api/users?employeeId=60526a89fad4f524788e5fb4");
-
+  const ministryStructure = readFileFolderData('Structure.json');
+  console.log(ministryStructure);
   return {
     props: {
+      ministryStructure,
       user: res.data,
     },
   };
 }
 
-export default function Home({ user }) {
+
+
+
+
+export default function Home({ user,ministryStructure }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -182,7 +190,7 @@ export default function Home({ user }) {
             }
             key="3"
           >
-            <Position userData={user}></Position>
+            <Position ministryStructure={ministryStructure} userData={user}></Position>
           </TabPane>
           <TabPane
             tab={

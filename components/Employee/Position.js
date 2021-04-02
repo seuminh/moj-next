@@ -181,7 +181,7 @@ const provincesData = [
   "ខេត្តត្បូងឃ្មុំ",
 ];
 
-const position = ({ userData }) => {
+const position = ({ userData,ministryStructure }) => {
   const [form] = Form.useForm();
   const [visible, setVisible] = useState(false);
   const [startDate, setStartDate] = useState();
@@ -538,7 +538,7 @@ const position = ({ userData }) => {
                     setChoiceDepartment("");
                   }}
                 >
-                  {Object.keys(dataForm).map((v) => {
+                  {Object.keys(ministryStructure).map((v) => {
                     return <Option value={v}>{v}</Option>;
                   })}
                 </Select>
@@ -571,7 +571,7 @@ const position = ({ userData }) => {
                   }}
                 >
                   {choiceMinistry &&
-                    Object.keys(dataForm[choiceMinistry]).map((v) => {
+                    Object.keys(ministryStructure[choiceMinistry]).map((v) => {
                       return <Option value={v}>{v}</Option>;
                     })}
                 </Select>
@@ -631,7 +631,7 @@ const position = ({ userData }) => {
                 >
                   {choiceInstitution &&
                     Object.keys(
-                      dataForm[choiceMinistry][choiceInstitution]
+                      ministryStructure[choiceMinistry][choiceInstitution]
                     ).map((v) => <Option value={v}>{v}</Option>)}
                 </Select>
               </Form.Item>
@@ -660,7 +660,7 @@ const position = ({ userData }) => {
                   >
                     {choiceUnit &&
                       Object.keys(
-                        dataForm[choiceMinistry][choiceInstitution][choiceUnit]
+                        ministryStructure[choiceMinistry][choiceInstitution][choiceUnit]
                       ).map((v) => <Option value={v}>{v}</Option>)}
                   </Select>
                 )}
@@ -683,7 +683,7 @@ const position = ({ userData }) => {
                 ) : (
                   <Select placeholder="ជ្រើសរើស" onChange={() => {}}>
                     {choiceDepartment &&
-                      dataForm[choiceMinistry][choiceInstitution][choiceUnit][
+                      ministryStructure[choiceMinistry][choiceInstitution][choiceUnit][
                         choiceDepartment
                       ].map((v) => {
                         return <Option value={v}> {v}</Option>;
@@ -804,4 +804,6 @@ const position = ({ userData }) => {
   );
 };
 
+
 export default position;
+
