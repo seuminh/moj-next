@@ -29,11 +29,18 @@ import {readFileFolderData} from "@/lib/ReadFileFolderData";
 
 export async function getServerSideProps(context) {
   const res = await api.get("/api/users?employeeId=60526a89fad4f524788e5fb4");
-  const ministryStructure = readFileFolderData('Structure.json');
-  console.log(ministryStructure);
+  const ministryStructure = await readFileFolderData('Structure.json');
+  const statusOfficer = await readFileFolderData('StatusOfficer.json');
+  const ministryList = await readFileFolderData('Ministry.json');
+  const rankList = await readFileFolderData('Rank.json');
+  const letterTypes = await readFileFolderData('LetterTypes.json');
   return {
     props: {
       ministryStructure,
+      statusOfficer,
+      letterTypes,
+      rankList,
+      ministryList,
       user: res.data,
     },
   };
@@ -43,7 +50,7 @@ export async function getServerSideProps(context) {
 
 
 
-export default function Home({ user,ministryStructure }) {
+export default function Home({ user,ministryStructure,statusOfficer,ministryList, letterTypes, rankList }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -168,7 +175,7 @@ export default function Home({ user,ministryStructure }) {
             }
             key="1"
           >
-            <Status></Status>
+            <Status rankList={rankList} letterTypes={letterTypes}  ministryList={ministryList} statusOfficer={statusOfficer}></Status>
           </TabPane>
           <TabPane
             tab={

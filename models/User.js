@@ -4,8 +4,12 @@ const UserSchema = new mongoose.Schema(
   {
     photo: {
       type: String,
-      default: '/noImg.jpg'
+      default: "/noImg.jpg",
     },
+    civilID: String,
+    employmentDate: String,
+    fullyEmploymentDate: String,
+    otherNote: String,
     birthCertificateNum: String,
     nationalityIDNum: String,
     passportNumber: String,
@@ -22,6 +26,62 @@ const UserSchema = new mongoose.Schema(
     physical: String,
     disabilityNum: String,
     familyStatus: String,
+    officerStatus: [
+      {
+        refNum: String,
+        letterType: String,
+        rank: String,
+        status: String,
+        ministry: String,
+        position: String,
+        startDate: String,
+        endDate: String,
+        otherNote: String,
+      },
+    ],
+    rank: [
+      {
+        refNum: String,
+        startDate: String,
+        endDate: String,
+        letterType: String,
+        promoteType: String,
+        statueType: String,
+        framework: String,
+        rankType: String,
+        level: String,
+        otherNote: String,
+      },
+    ],
+    privateSector: [
+      {
+        unit: String,
+        role: String,
+        skill: String,
+        startDate: String,
+        endDate: String,
+      },
+    ],
+    praise: [
+      {
+        refNum: String,
+        date: String,
+        letterType: String,
+        ministry: String,
+        type: String,
+        photo: String,
+      },
+    ],
+    penalty: [
+      {
+        refNum: String,
+        date: String,
+        letterType: String,
+        ministry: String,
+        type: String,
+        photo: String,
+      },
+    ],
     birthPlace: {
       province: String,
       district: String,
@@ -134,13 +194,15 @@ const UserSchema = new mongoose.Schema(
         place: String,
       },
     ],
-    experience: [{
-      refNum: String,
-      position: String,
-      unit: String,
-      startDate: String,
-      endDate: String
-    }]
+    experience: [
+      {
+        refNum: String,
+        position: String,
+        unit: String,
+        startDate: String,
+        endDate: String,
+      },
+    ],
   },
   {
     timestamps: true,
