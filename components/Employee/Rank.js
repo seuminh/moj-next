@@ -21,15 +21,19 @@ import {
   EditOutlined,
   DeleteOutlined,
   PrinterOutlined,
+  DownOutlined 
 } from "@ant-design/icons";
+import api from "@/utils/api";
 
 const { Option } = Select;
 
-const Rank = () => {
+const Rank = ({userData}) => {
+  const [form] = Form.useForm();
   const [visible, setVisible] = useState(false);
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [nowOption, setNowOption] = useState(true);
+  const [rankList, setRankList] = useState([...userData.rank])
 
   const onStartDateChange = (date, dateString) => {
     setStartDate(dateString);
@@ -58,9 +62,22 @@ const Rank = () => {
     setVisible(false);
   };
 
-  const onClear = () => {};
+  const onClear = () => {
+    form.resetFields();
+  };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    const dataInput = form.getFieldsValue(true);
+    form.validateFields().then(async () => {
+      const res = await api.put(
+        "/api/users?employeeId=60526a89fad4f524788e5fb4",
+        { rank : [...rankList, dataInput] }
+      );
+      setVisible(false);
+      setRankList(res.data.rank);
+      form.resetFields();
+    })
+  };
 
   const onEdit = (id, e) => {
     e.preventDefault();
@@ -93,8 +110,8 @@ const Rank = () => {
     },
     {
       title: "ប្រភេទលក្ខន្តិកៈ",
-      dataIndex: "statuteType",
-      key: "statuteType",
+      dataIndex: "statueType",
+      key: "statueType",
     },
     {
       title: "ក្របខ័ណ្ឌ",
@@ -103,8 +120,8 @@ const Rank = () => {
     },
     {
       title: "ឋានន្តរសកិ្ត និងថ្នាក់",
-      dataIndex: "rank",
-      key: "rank",
+      dataIndex: "rankType",
+      key: "rankType",
     },
     {
       title: "កម្រិតថ្នាក់",
@@ -113,13 +130,13 @@ const Rank = () => {
     },
     {
       title: "ថ្ងៃខែឆ្នាំចុះហត្ថលេខា",
-      dataIndex: "signDate",
-      key: "signDate",
+      dataIndex: "startDate",
+      key: "startDate",
     },
     {
       title: "កំណត់សំគាល់",
-      dataIndex: "note",
-      key: "note",
+      dataIndex: "otherNote",
+      key: "otherNote",
     },
     {
       title: "ផ្សេងៗ",
@@ -140,7 +157,7 @@ const Rank = () => {
         បញ្ចូលឋានន្តរសកិ្ត និងថ្នាក់
       </Button>
       <div style={{ marginTop: 20 }}>
-        <Table columns={columns} dataSource={null}></Table>
+        <Table columns={columns} dataSource={rankList}></Table>
       </div>
 
       {/* Drawer */}
@@ -165,12 +182,12 @@ const Rank = () => {
           </div>
         }
       >
-        <Form layout="vertical" hideRequiredMark>
+        <Form layout="vertical" hideRequiredMark form={form}>
           <Row gutter={16}>
             <Col span={9}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="លេខលិខិតយោង"
+                name="refNum"
                 label="លេខលិខិតយោង"
                 rules={[
                   {
@@ -246,7 +263,7 @@ const Rank = () => {
             <Col span={12}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="upgradeType"
+                name="promoteType"
                 label="ប្រភេទការតម្លើង"
                 rules={[
                   {
@@ -270,7 +287,7 @@ const Rank = () => {
             <Col span={12}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="statuteType"
+                name="statueType"
                 label="ប្រភេទលក្ខន្តិកៈ"
                 rules={[
                   {
@@ -310,7 +327,7 @@ const Rank = () => {
             <Col span={12}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="rank"
+                name="rankType"
                 label="ឋានន្តរស័ក្តិ និងថ្នាក់"
                 rules={[
                   {
@@ -350,7 +367,7 @@ const Rank = () => {
             <Col span={24}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="កំណត់សម្គាល់"
+                name="otherNote"
                 label="កំណត់សម្គាល់"
                 rules={[
                   {

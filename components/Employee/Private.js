@@ -20,12 +20,14 @@ import {
    DeleteOutlined,
    PrinterOutlined,
 } from "@ant-design/icons";
+import api from "@/utils/api";
 
-const Private = () => {
+const Private = ({userData}) => {
    const [visible, setVisible] = useState(false);
    const [startDate, setStartDate] = useState();
    const [endDate, setEndDate] = useState();
-
+   const [form] = Form.useForm();
+  
    const onStartDateChange = (date, dateString) => {
       setStartDate(dateString);
       console.log(dateString);
@@ -144,12 +146,12 @@ const Private = () => {
                </div>
             }
          >
-            <Form layout="vertical" hideRequiredMark>
+            <Form layout="vertical" hideRequiredMark form={form}>
                <Row gutter={16}>
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="គ្រឹះស្ថាន-អង្គភាព"
+                        name="unit"
                         label="គ្រឹះស្ថាន-អង្គភាព"
                         rules={[
                            {
@@ -164,7 +166,7 @@ const Private = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="តួនាទី"
+                        name="role"
                         label="តួនាទី"
                         rules={[
                            {
@@ -181,7 +183,7 @@ const Private = () => {
                   <Col span={24}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="ជំនាញ/បច្ចេកទេស"
+                        name="skill"
                         label="ជំនាញ/បច្ចេកទេស"
                         rules={[
                            {
@@ -217,7 +219,7 @@ const Private = () => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="startDate"
+                        name="endDate"
                         label="ថ្ងៃ ខែ ឆ្នាំ បញ្ចប់ការងារ"
                         rules={[
                            {

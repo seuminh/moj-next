@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import moment from 'moment';
 import {
   Drawer,
   Form,
@@ -11,6 +12,8 @@ import {
   Table,
   Tag,
   Space,
+  Dropdown ,
+  Menu ,
   Switch,
 } from "antd";
 
@@ -18,14 +21,27 @@ import {
   PlusOutlined,
   EditOutlined,
   DeleteOutlined,
+  DownOutlined ,
   PrinterOutlined,
 } from "@ant-design/icons";
+import api from "@/utils/api";
+
 
 const { Option } = Select;
 
-const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
+const Status = ({
+  statusOfficer,
+  ministryList,
+  letterTypes,
+  rankList,
+  userData,
+}) => {
+  const [formInfo] = Form.useForm();
+  const [formStatus] = Form.useForm();
   const [visible, setVisible] = useState(false);
   const [nowOption, setNowOption] = useState(true);
+  const [officerStatusList, setOfficerStatusList] = useState([...userData.officerStatus])
+  console.log(officerStatusList);
 
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
@@ -66,9 +82,23 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
     setVisible(false);
   };
 
-  const onClear = () => {};
+  const onClear = () => {
+    formStatus.resetFields();
+  };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    const dataInput = formStatus.getFieldsValue(true);
+    
+    formStatus.validateFields().then(async () => {
+      const res = await api.put(
+        "/api/users?employeeId=60526a89fad4f524788e5fb4",
+        { officerStatus : [...officerStatusList, dataInput] }
+      );
+      setVisible(false);
+      setOfficerStatusList(res.data.officerStatus);
+      formStatus.resetFields();
+    })
+  };
 
   const onEdit = (id, e) => {
     e.preventDefault();
@@ -78,6 +108,17 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
   const onDelete = (id, e) => {
     e.preventDefault();
     console.log("Delete " + id);
+  };
+  const onSave = () => {
+    const data = formInfo.getFieldsValue(true);
+    formInfo.validateFields().then(async () => {
+      const res = await api.put(
+        "/api/users?employeeId=60526a89fad4f524788e5fb4",
+        data
+      );
+
+      console.log(res);
+    });
   };
 
   const actionMenu = (record) => {
@@ -106,8 +147,8 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
     },
     {
       title: "ប្រភេទមន្រ្ដី",
-      dataIndex: "employeeType",
-      key: "employeeType",
+      dataIndex: "rank",
+      key: "rank",
     },
     {
       title: "ស្ថានភាព",
@@ -121,8 +162,8 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
     },
     {
       title: "ថ្ងៃខែឆ្នាំចុះហត្ថលេខា",
-      dataIndex: "signDate",
-      key: "signDate",
+      dataIndex: "startDate",
+      key: "startDate",
     },
     {
       title: "តួនាទី",
@@ -144,12 +185,26 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
 
   return (
     <div>
-      <Form layout="vertical" hideRequiredMark>
+      <Form
+        layout="vertical"
+        hideRequiredMark
+        form={formInfo}
+        initialValues={{
+          ...userData,
+          employmentDate: userData.employmentDate
+            ? moment(userData.employmentDate)
+            : null,
+          fullyEmploymentDate: userData.fullyEmploymentDate
+            ? moment(userData.fullyEmploymentDate)
+            : null,
+        }}
+
+      >
         <Row gutter={16}>
           <Col span={6}>
             <Form.Item
               style={{ marginBottom: 10 }}
-              name="អត្តលេខមន្រ្ដីរាជការ"
+              name="civilID"
               label="អត្តលេខមន្រ្ដីរាជការ"
               rules={[
                 {
@@ -164,7 +219,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
           <Col span={6}>
             <Form.Item
               style={{ marginBottom: 10 }}
-              name="ថ្ងៃខែឆ្នាំចូលបម្រើការងារ"
+              name="employmentDate"
               label="ថ្ងៃខែឆ្នាំចូលបម្រើការងារ"
               rules={[
                 {
@@ -182,7 +237,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
           <Col span={6}>
             <Form.Item
               style={{ marginBottom: 10 }}
-              name="កាលបរិច្ឆេទតាំងស៊ប់"
+              name="fullyEmploymentDate"
               label="កាលបរិច្ឆេទតាំងស៊ប់"
               rules={[
                 {
@@ -200,7 +255,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
           <Col span={6}>
             <Form.Item
               style={{ marginBottom: 10 }}
-              name="កំណត់សំគាល់ផ្សេងៗ"
+              name="otherNote"
               label="កំណត់សំគាល់ផ្សេងៗ"
               rules={[
                 {
@@ -214,7 +269,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
           </Col>
           <Button
             type="primary"
-            onClick={() => {}}
+            onClick={onSave}
             style={{ margin: "10px 8px 10px auto" }}
           >
             រក្សាទុក
@@ -227,7 +282,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
           បញ្ចូលស្ថានភាពមន្រ្ដី
         </Button>
         <div style={{ marginTop: 20 }}>
-          <Table columns={columns} dataSource={null}></Table>
+          <Table columns={columns} dataSource={officerStatusList}></Table>
         </div>
       </div>
 
@@ -253,12 +308,12 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
           </div>
         }
       >
-        <Form layout="vertical" hideRequiredMark>
+        <Form layout="vertical" hideRequiredMark form={formStatus}>
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="លេខលិខិតយោង"
+                name={"refNum"}
                 label="លេខលិខិតយោង"
                 rules={[
                   {
@@ -273,7 +328,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
             <Col span={12}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="refNum"
+                name={"letterType"}
                 label="ប្រភេទលិខិត"
                 rules={[
                   {
@@ -294,7 +349,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
             <Col span={24}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="employeeType"
+                name={"rank"}
                 label="ប្រភេទមន្រ្ដី"
                 rules={[
                   {
@@ -315,7 +370,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
             <Col span={24}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="status"
+                name={"status"}
                 label="ស្ថានភាព"
                 rules={[
                   {
@@ -336,7 +391,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
             <Col span={24}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="ministry"
+                name={ "ministry"}
                 label="ក្រសួង-ស្ថាប័ន"
                 rules={[
                   {
@@ -357,7 +412,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
             <Col span={24}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="position"
+                name={ "position"}
                 label="មុខតំណែង"
                 rules={[
                   {
@@ -374,7 +429,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
             <Col span={10}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="startDate"
+                name={"startDate"}
                 label="កាលបរិច្ឆេទតែងតាំង"
                 rules={[
                   {
@@ -396,7 +451,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
             </Col>
             <Col span={10}>
               <Form.Item
-                name="endDate"
+                name={"endDate"}
                 label="កាលបរិច្ឆេទបញ្ចប់"
                 style={{ marginBottom: 10 }}
               >
@@ -412,7 +467,7 @@ const Status = ({ statusOfficer, ministryList , letterTypes, rankList}) => {
             <Col span={24}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name="កំណត់សម្គាល់"
+                name={"otherNote"}
                 label="កំណត់សម្គាល់"
                 rules={[
                   {

@@ -175,7 +175,7 @@ export default function Home({ user,ministryStructure,statusOfficer,ministryList
             }
             key="1"
           >
-            <Status rankList={rankList} letterTypes={letterTypes}  ministryList={ministryList} statusOfficer={statusOfficer}></Status>
+            <Status userData={user} rankList={rankList} letterTypes={letterTypes}  ministryList={ministryList} statusOfficer={statusOfficer}></Status>
           </TabPane>
           <TabPane
             tab={
@@ -186,7 +186,7 @@ export default function Home({ user,ministryStructure,statusOfficer,ministryList
             }
             key="2"
           >
-            <Rank></Rank>
+            <Rank userData={user}></Rank>
           </TabPane>
           <TabPane
             tab={
@@ -208,7 +208,7 @@ export default function Home({ user,ministryStructure,statusOfficer,ministryList
             }
             key="4"
           >
-            <Private></Private>
+            <Private userData={user}></Private>
           </TabPane>
           <TabPane
             tab={
@@ -219,7 +219,7 @@ export default function Home({ user,ministryStructure,statusOfficer,ministryList
             }
             key="5"
           >
-            <Praise></Praise>
+            <Praise userData={user}></Praise>
           </TabPane>
           <TabPane
             tab={
@@ -230,7 +230,7 @@ export default function Home({ user,ministryStructure,statusOfficer,ministryList
             }
             key="6"
           >
-            <Penalty></Penalty>
+            <Penalty userData={user}></Penalty>
           </TabPane>
           <TabPane
             tab={
