@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import moment from 'moment'
 import {
   Drawer,
   Form,
@@ -34,6 +35,7 @@ const Rank = ({userData}) => {
   const [endDate, setEndDate] = useState();
   const [nowOption, setNowOption] = useState(true);
   const [rankList, setRankList] = useState([...userData.rank])
+  const [editData, setEditData] = useState(null)
 
   const onStartDateChange = (date, dateString) => {
     setStartDate(dateString);
@@ -69,9 +71,21 @@ const Rank = ({userData}) => {
   const onSubmit = () => {
     const dataInput = form.getFieldsValue(true);
     form.validateFields().then(async () => {
+      let updateData;
+      if (editData) {
+        updateData = {
+          rank: rankList.map((v) =>
+            v._id === editData._id ? dataInput : v
+          ),
+        };
+      } else {
+        updateData =  { rank : [...rankList, dataInput] };
+      }
+
+
       const res = await api.put(
         "/api/users?employeeId=60526a89fad4f524788e5fb4",
-        { rank : [...rankList, dataInput] }
+       updateData
       );
       setVisible(false);
       setRankList(res.data.rank);
@@ -79,24 +93,33 @@ const Rank = ({userData}) => {
     })
   };
 
-  const onEdit = (id, e) => {
-    e.preventDefault();
-    console.log("Edit " + id);
+  const onEdit = (record) => {
+    setEditData(record);
+    setVisible(true);
   };
 
-  const onDelete = (id, e) => {
-    e.preventDefault();
-    console.log("Delete " + id);
-  };
+  const onDelete = async (record) => {
+    let res = await api.put(
+       "/api/users?employeeId=60526a89fad4f524788e5fb4",
+       {rank: rankList.filter(v=>v._id !==record._id)}
+     );
+    setRankList(res.data.rank)
+ };
+ useEffect(() => {
+  if (visible === false) {
+    setEditData(null);
+  }
+  form.resetFields();
+}, [visible]);
 
   const actionMenu = (record) => {
     return (
       <Menu>
-        <Menu.Item key="0" icon={<EditOutlined />}>
-          <a onClick={(e) => onEdit(record.refNum, e)}>Edit</a>
+        <Menu.Item key="0" icon={<EditOutlined />} onClick={onEdit.bind(this, record)}>
+          <a>Edit</a>
         </Menu.Item>
-        <Menu.Item key="1" icon={<DeleteOutlined />}>
-          <a onClick={(e) => onDelete(record.refNum, e)}>Delete</a>
+        <Menu.Item key="1" icon={<DeleteOutlined />} onClick={onDelete.bind(this, record)}>
+          <a>Delete</a>
         </Menu.Item>
       </Menu>
     );
@@ -182,7 +205,12 @@ const Rank = ({userData}) => {
           </div>
         }
       >
-        <Form layout="vertical" hideRequiredMark form={form}>
+        <Form layout="vertical" hideRequiredMark form={form}
+        initialValues={{
+          ...editData,
+          startDate: editData?.startDate ? moment(editData.startDate) : null,
+          endDate: editData?.endDate ? moment(editData.endDate) : null,
+        }}>
           <Row gutter={16}>
             <Col span={9}>
               <Form.Item

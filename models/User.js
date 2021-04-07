@@ -62,13 +62,13 @@ const UserSchema = new mongoose.Schema(
         endDate: String,
       },
     ],
-    praise: [
+    praised: [
       {
         refNum: String,
         date: String,
         letterType: String,
         ministry: String,
-        type: String,
+        type: { type: String },
         photo: String,
       },
     ],
@@ -78,7 +78,7 @@ const UserSchema = new mongoose.Schema(
         date: String,
         letterType: String,
         ministry: String,
-        type: String,
+        type: { type: String },
         photo: String,
       },
     ],

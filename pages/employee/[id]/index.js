@@ -51,6 +51,7 @@ export async function getServerSideProps(context) {
 
 
 export default function Home({ user,ministryStructure,statusOfficer,ministryList, letterTypes, rankList }) {
+  console.log(user);
   return (
     <div className={styles.container}>
       <Head>

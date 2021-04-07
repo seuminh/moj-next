@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import moment from "moment";
 import {
   Drawer,
   Form,
@@ -12,8 +12,8 @@ import {
   Table,
   Tag,
   Space,
-  Dropdown ,
-  Menu ,
+  Dropdown,
+  Menu,
   Switch,
 } from "antd";
 
@@ -21,11 +21,10 @@ import {
   PlusOutlined,
   EditOutlined,
   DeleteOutlined,
-  DownOutlined ,
+  DownOutlined,
   PrinterOutlined,
 } from "@ant-design/icons";
 import api from "@/utils/api";
-
 
 const { Option } = Select;
 
@@ -40,8 +39,10 @@ const Status = ({
   const [formStatus] = Form.useForm();
   const [visible, setVisible] = useState(false);
   const [nowOption, setNowOption] = useState(true);
-  const [officerStatusList, setOfficerStatusList] = useState([...userData.officerStatus])
-  console.log(officerStatusList);
+  const [officerStatusList, setOfficerStatusList] = useState([
+    ...userData.officerStatus,
+  ]);
+  const [editData, setEditData] = useState(null);
 
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
@@ -88,27 +89,48 @@ const Status = ({
 
   const onSubmit = () => {
     const dataInput = formStatus.getFieldsValue(true);
-    
+
     formStatus.validateFields().then(async () => {
+      let updateData;
+      if (editData) {
+        updateData = {
+          officerStatus: officerStatusList.map((v) =>
+            v._id === editData._id ? dataInput : v
+          ),
+        };
+      } else {
+        updateData = { officerStatus: [...officerStatusList, dataInput] };
+      }
+
       const res = await api.put(
         "/api/users?employeeId=60526a89fad4f524788e5fb4",
-        { officerStatus : [...officerStatusList, dataInput] }
+        updateData
       );
       setVisible(false);
       setOfficerStatusList(res.data.officerStatus);
       formStatus.resetFields();
-    })
+    });
   };
 
-  const onEdit = (id, e) => {
-    e.preventDefault();
-    console.log("Edit " + id);
+  useEffect(() => {
+    if (visible === false) {
+      setEditData(null);
+    }
+    formStatus.resetFields();
+  }, [visible]);
+
+  const onEdit = (record) => {
+    setEditData(record);
+    setVisible(true);
   };
 
-  const onDelete = (id, e) => {
-    e.preventDefault();
-    console.log("Delete " + id);
-  };
+  const onDelete = async (record) => {
+    let res = await api.put(
+       "/api/users?employeeId=60526a89fad4f524788e5fb4",
+       {officerStatus: officerStatusList.filter(v=>v._id !==record._id)}
+     );
+    setOfficerStatusList(res.data.officerStatus)
+ };
   const onSave = () => {
     const data = formInfo.getFieldsValue(true);
     formInfo.validateFields().then(async () => {
@@ -124,11 +146,19 @@ const Status = ({
   const actionMenu = (record) => {
     return (
       <Menu>
-        <Menu.Item key="0" icon={<EditOutlined />}>
-          <a onClick={(e) => onEdit(record.refNum, e)}>Edit</a>
+        <Menu.Item
+          key="0"
+          icon={<EditOutlined />}
+          onClick={onEdit.bind(this, record)}
+        >
+          <a>Edit</a>
         </Menu.Item>
-        <Menu.Item key="1" icon={<DeleteOutlined />}>
-          <a onClick={(e) => onDelete(record.refNum, e)}>Delete</a>
+        <Menu.Item
+          key="1"
+          icon={<DeleteOutlined />}
+          onClick={onDelete.bind(this, record)}
+        >
+          <a>Delete</a>
         </Menu.Item>
       </Menu>
     );
@@ -198,7 +228,6 @@ const Status = ({
             ? moment(userData.fullyEmploymentDate)
             : null,
         }}
-
       >
         <Row gutter={16}>
           <Col span={6}>
@@ -308,7 +337,16 @@ const Status = ({
           </div>
         }
       >
-        <Form layout="vertical" hideRequiredMark form={formStatus}>
+        <Form
+          layout="vertical"
+          hideRequiredMark
+          form={formStatus}
+          initialValues={{
+            ...editData,
+            startDate: editData?.startDate ? moment(editData.startDate) : null,
+            endDate: editData?.endDate ? moment(editData.endDate) : null,
+          }}
+        >
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
@@ -391,7 +429,7 @@ const Status = ({
             <Col span={24}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name={ "ministry"}
+                name={"ministry"}
                 label="ក្រសួង-ស្ថាប័ន"
                 rules={[
                   {
@@ -412,7 +450,7 @@ const Status = ({
             <Col span={24}>
               <Form.Item
                 style={{ marginBottom: 10 }}
-                name={ "position"}
+                name={"position"}
                 label="មុខតំណែង"
                 rules={[
                   {

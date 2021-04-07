@@ -38,7 +38,6 @@ const BreadcrumbComponent = () => {
     srun.unshift({ link: "/", name: "Home" });
     setBreadcrumbList(srun);
   }, [router]);
-  console.log(router);
   return (
     <div className="pageInfo">
       {/* <h1>ព័ត៌មានមន្រ្តីរាជការ</h1> */}
