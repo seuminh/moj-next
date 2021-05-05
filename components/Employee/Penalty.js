@@ -73,6 +73,7 @@ const Penalty = ({ userData }) => {
       form.resetFields();
     });
   };
+
   useEffect(() => {
     if (visible === false) {
       setEditData(null);
