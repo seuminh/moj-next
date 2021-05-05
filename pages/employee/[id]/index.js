@@ -25,15 +25,15 @@ import Children from "@/components/Employee/Children";
 import Education from "@/components/Employee/Education";
 
 import api from "@/utils/api";
-import {readFileFolderData} from "@/lib/ReadFileFolderData";
+import { readFileFolderData } from "@/lib/ReadFileFolderData";
 
 export async function getServerSideProps(context) {
   const res = await api.get("/api/users?employeeId=60526a89fad4f524788e5fb4");
-  const ministryStructure = await readFileFolderData('Structure.json');
-  const statusOfficer = await readFileFolderData('StatusOfficer.json');
-  const ministryList = await readFileFolderData('Ministry.json');
-  const rankList = await readFileFolderData('Rank.json');
-  const letterTypes = await readFileFolderData('LetterTypes.json');
+  const ministryStructure = await readFileFolderData("Structure.json");
+  const statusOfficer = await readFileFolderData("StatusOfficer.json");
+  const ministryList = await readFileFolderData("Ministry.json");
+  const rankList = await readFileFolderData("Rank.json");
+  const letterTypes = await readFileFolderData("LetterTypes.json");
   return {
     props: {
       ministryStructure,
@@ -46,11 +46,14 @@ export async function getServerSideProps(context) {
   };
 }
 
-
-
-
-
-export default function Home({ user,ministryStructure,statusOfficer,ministryList, letterTypes, rankList }) {
+export default function Home({
+  user,
+  ministryStructure,
+  statusOfficer,
+  ministryList,
+  letterTypes,
+  rankList,
+}) {
   console.log(user);
   return (
     <div className={styles.container}>
@@ -138,7 +141,7 @@ export default function Home({ user,ministryStructure,statusOfficer,ministryList
                   <Col span={12} className={styles.singleGeneralInfo}>
                     <span>អត្តលេខមន្រ្ដីរាជការ</span>
                     <span className={styles.hightLightInfo}>
-                      input form does not exist
+                      {user?.civilID}
                     </span>
                   </Col>
                   <Col span={12} className={styles.singleGeneralInfo}>
@@ -176,7 +179,13 @@ export default function Home({ user,ministryStructure,statusOfficer,ministryList
             }
             key="1"
           >
-            <Status userData={user} rankList={rankList} letterTypes={letterTypes}  ministryList={ministryList} statusOfficer={statusOfficer}></Status>
+            <Status
+              userData={user}
+              rankList={rankList}
+              letterTypes={letterTypes}
+              ministryList={ministryList}
+              statusOfficer={statusOfficer}
+            ></Status>
           </TabPane>
           <TabPane
             tab={
@@ -198,7 +207,10 @@ export default function Home({ user,ministryStructure,statusOfficer,ministryList
             }
             key="3"
           >
-            <Position ministryStructure={ministryStructure} userData={user}></Position>
+            <Position
+              ministryStructure={ministryStructure}
+              userData={user}
+            ></Position>
           </TabPane>
           <TabPane
             tab={
@@ -242,7 +254,7 @@ export default function Home({ user,ministryStructure,statusOfficer,ministryList
             }
             key="7"
           >
-            <Parent></Parent>
+            <Parent userData={user}></Parent>
           </TabPane>
           <TabPane
             tab={
@@ -253,7 +265,7 @@ export default function Home({ user,ministryStructure,statusOfficer,ministryList
             }
             key="8"
           >
-            <Spouse></Spouse>
+            <Spouse userData={user}></Spouse>
           </TabPane>
           <TabPane
             tab={
@@ -264,7 +276,7 @@ export default function Home({ user,ministryStructure,statusOfficer,ministryList
             }
             key="9"
           >
-            <Children></Children>
+            <Children userData={user}></Children>
           </TabPane>
           <TabPane
             tab={
@@ -275,7 +287,7 @@ export default function Home({ user,ministryStructure,statusOfficer,ministryList
             }
             key="10"
           >
-            <Education></Education>
+            <Education userData={user}></Education>
           </TabPane>
         </Tabs>
       </div>

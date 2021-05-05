@@ -125,12 +125,11 @@ const Status = ({
   };
 
   const onDelete = async (record) => {
-    let res = await api.put(
-       "/api/users?employeeId=60526a89fad4f524788e5fb4",
-       {officerStatus: officerStatusList.filter(v=>v._id !==record._id)}
-     );
-    setOfficerStatusList(res.data.officerStatus)
- };
+    let res = await api.put("/api/users?employeeId=60526a89fad4f524788e5fb4", {
+      officerStatus: officerStatusList.filter((v) => v._id !== record._id),
+    });
+    setOfficerStatusList(res.data.officerStatus);
+  };
   const onSave = () => {
     const data = formInfo.getFieldsValue(true);
     formInfo.validateFields().then(async () => {
@@ -377,7 +376,11 @@ const Status = ({
               >
                 <Select placeholder="ជ្រើសរើស">
                   {letterTypes.map((v) => {
-                    return <Option value={v}>{v}</Option>;
+                    return (
+                      <Option key={v} value={v}>
+                        {v}
+                      </Option>
+                    );
                   })}
                 </Select>
               </Form.Item>
@@ -398,7 +401,11 @@ const Status = ({
               >
                 <Select placeholder="ជ្រើសរើស">
                   {rankList.map((v) => {
-                    return <Option value={v}>{v} </Option>;
+                    return (
+                      <Option key={v} value={v}>
+                        {v}{" "}
+                      </Option>
+                    );
                   })}
                 </Select>
               </Form.Item>
@@ -419,7 +426,11 @@ const Status = ({
               >
                 <Select placeholder="ជ្រើសរើស">
                   {statusOfficer.map((v) => {
-                    return <Option value={v}>{v}</Option>;
+                    return (
+                      <Option key={v} value={v}>
+                        {v}
+                      </Option>
+                    );
                   })}
                 </Select>
               </Form.Item>
@@ -439,8 +450,12 @@ const Status = ({
                 ]}
               >
                 <Select placeholder="ជ្រើសរើស">
-                  {ministryList.map((v) => {
-                    return <Option value={v}>{v}</Option>;
+                  {ministryList.map((v, i) => {
+                    return (
+                      <Option key={i} value={v}>
+                        {v}
+                      </Option>
+                    );
                   })}
                 </Select>
               </Form.Item>
