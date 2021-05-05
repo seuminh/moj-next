@@ -413,7 +413,7 @@ const position = ({ userData,ministryStructure }) => {
           </tr>
           {experiencesList.map((v) => {
             return (
-              <tr>
+              <tr key={v._id}>
                 <td>{v.signDate}</td>
                 <td>{v.endDate}</td>
                 <td>{v.position}</td>
@@ -538,8 +538,8 @@ const position = ({ userData,ministryStructure }) => {
                     setChoiceDepartment("");
                   }}
                 >
-                  {Object.keys(ministryStructure).map((v) => {
-                    return <Option value={v}>{v}</Option>;
+                  {Object.keys(ministryStructure).map((v,i) => {
+                    return <Option key={i} value={v}>{v}</Option>;
                   })}
                 </Select>
               </Form.Item>
@@ -571,8 +571,8 @@ const position = ({ userData,ministryStructure }) => {
                   }}
                 >
                   {choiceMinistry &&
-                    Object.keys(ministryStructure[choiceMinistry]).map((v) => {
-                      return <Option value={v}>{v}</Option>;
+                    Object.keys(ministryStructure[choiceMinistry]).map((v,i) => {
+                      return <Option key={i} value={v}>{v}</Option>;
                     })}
                 </Select>
               </Form.Item>
@@ -632,7 +632,7 @@ const position = ({ userData,ministryStructure }) => {
                   {choiceInstitution &&
                     Object.keys(
                       ministryStructure[choiceMinistry][choiceInstitution]
-                    ).map((v) => <Option value={v}>{v}</Option>)}
+                    ).map((v,i) => <Option key={i} value={v}>{v}</Option>)}
                 </Select>
               </Form.Item>
             </Col>
@@ -685,8 +685,8 @@ const position = ({ userData,ministryStructure }) => {
                     {choiceDepartment &&
                       ministryStructure[choiceMinistry][choiceInstitution][choiceUnit][
                         choiceDepartment
-                      ].map((v) => {
-                        return <Option value={v}> {v}</Option>;
+                      ].map((v,i) => {
+                        return <Option key={i} value={v}> {v}</Option>;
                       })}{" "}
                   </Select>
                 )}
@@ -712,8 +712,8 @@ const position = ({ userData,ministryStructure }) => {
                   placeholder="ជ្រើសរើស"
                   disabled={choiceInstitution === "ថ្នាក់កណ្តាល" ? true : false}
                 >
-                  {provincesData.map((v) => (
-                    <Option value={v}>{v}</Option>
+                  {provincesData.map((v,i) => (
+                    <Option value={v} key={i}>{v}</Option>
                   ))}
                 </Select>
               </Form.Item>

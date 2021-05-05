@@ -19,8 +19,8 @@ import {
 
 import { UserOutlined } from "@ant-design/icons";
 
-const Education = () => {
-   const [educationLevel, setEducationLevel] = useState(null);
+const Education = ({userData}) => {
+   const [educationLevel, setEducationLevel] = useState(userData?.education || []);
    const [foreignLangLevel, setForeignLangLevel] = useState(null);
 
    const educationLevelColumns = [
@@ -41,8 +41,8 @@ const Education = () => {
       },
       {
          title: "សញ្ញាប័ត្រ",
-         dataIndex: "degree",
-         key: "degree",
+         dataIndex: "degreeType",
+         key: "degreeType",
       },
       {
          title: "គ្រឹះស្ថានសិក្សា",
@@ -103,7 +103,7 @@ const Education = () => {
                ></Table>
             </div>
          </div>
-         <div>
+         {/* <div>
             <h1 style={{ marginBottom: 20 }}>
                <UserOutlined style={{ fontSize: 23, marginRight: 5 }} />
                កម្រិតភាសារបរទេស
@@ -114,7 +114,7 @@ const Education = () => {
                   dataSource={foreignLangLevel}
                ></Table>
             </div>
-         </div>
+         </div> */}
       </div>
    );
 };

@@ -254,7 +254,7 @@ export default function Home({
             }
             key="7"
           >
-            <Parent></Parent>
+            <Parent userData={user}></Parent>
           </TabPane>
           <TabPane
             tab={
@@ -265,7 +265,7 @@ export default function Home({
             }
             key="8"
           >
-            <Spouse></Spouse>
+            <Spouse userData={user}></Spouse>
           </TabPane>
           <TabPane
             tab={
@@ -276,7 +276,7 @@ export default function Home({
             }
             key="9"
           >
-            <Children></Children>
+            <Children userData={user}></Children>
           </TabPane>
           <TabPane
             tab={
@@ -287,7 +287,7 @@ export default function Home({
             }
             key="10"
           >
-            <Education></Education>
+            <Education userData={user}></Education>
           </TabPane>
         </Tabs>
       </div>

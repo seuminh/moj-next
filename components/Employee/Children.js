@@ -19,8 +19,8 @@ import {
 
 import { UserOutlined } from "@ant-design/icons";
 
-const Children = () => {
-   const [children, setChildren] = useState(null);
+const Children = ({userData}) => {
+   const [children, setChildren] = useState(userData?.children || []);
 
    const columns = [
       {
@@ -30,23 +30,23 @@ const Children = () => {
       },
       {
          title: "លេខអត្តសញ្ញាណប័ណ្ណ",
-         dataIndex: "idNum",
-         key: "idNum",
+         dataIndex: "nationalityIDNum",
+         key: "nationalityIDNum",
       },
       {
          title: "គោត្តនាម និងនាម",
-         dataIndex: "fullNameKh",
-         key: "fullNameKh",
+         dataIndex: "fullName",
+         key: "fullName",
       },
       {
          title: "គោត្តនាម និងនាមឡាតាំង",
-         dataIndex: "fullNameEng",
-         key: "fullNameEng",
+         dataIndex: "fullNameLatin",
+         key: "fullNameLatin",
       },
       {
          title: "ភេទ",
-         dataIndex: "sex",
-         key: "sex",
+         dataIndex: "gender",
+         key: "gender",
       },
       {
          title: "ថ្ងៃខែឆ្នាំកំណើត",
@@ -60,8 +60,8 @@ const Children = () => {
       },
       {
          title: "ស្ថានភាព",
-         dataIndex: "status",
-         key: "status",
+         dataIndex: "livingStatus",
+         key: "livingStatus",
       },
    ];
 

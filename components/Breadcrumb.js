@@ -42,9 +42,9 @@ const BreadcrumbComponent = () => {
     <div className="pageInfo">
       {/* <h1>ព័ត៌មានមន្រ្តីរាជការ</h1> */}
       <Breadcrumb>
-        {breadcrumbList.map((v) => {
+        {breadcrumbList.map((v,i) => {
           return (
-            <Breadcrumb.Item>
+            <Breadcrumb.Item key={i}>
               <Link href={v.link}>{v.name}</Link>
             </Breadcrumb.Item>
           );
