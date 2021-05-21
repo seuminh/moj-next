@@ -27,8 +27,8 @@ import Education from "@/components/Employee/Education";
 import api from "@/utils/api";
 import { readFileFolderData } from "@/lib/ReadFileFolderData";
 
-export async function getServerSideProps(context) {
-  const res = await api.get("/api/users?employeeId=60526a89fad4f524788e5fb4");
+export async function getServerSideProps({params}) {
+  const res = await api.get("/api/users/"+params.id);
   const ministryStructure = await readFileFolderData("Structure.json");
   const statusOfficer = await readFileFolderData("StatusOfficer.json");
   const ministryList = await readFileFolderData("Ministry.json");
@@ -78,7 +78,7 @@ export default function Home({
                            width={160}
                            height={180}
                         ></Image> */}
-                <Link href="/employee/1/edit">
+                <Link href={`/employee/${user.id}/edit`}>
                   <Button danger style={{ marginRight: 8 }}>
                     កែប្រែព័ត៌មានបុគ្គល
                   </Button>
@@ -153,13 +153,13 @@ export default function Home({
                   <Col span={24} className={styles.singleGeneralInfo}>
                     <span style={{ flex: 1 }}>ទីកន្លែងកំណើត</span>
                     <span className={styles.hightLightInfo} style={{ flex: 6 }}>
-                      {Object.values(user.birthPlace).join(" ")}
+                      {user.birthPlace&& Object.values(user.birthPlace).join(" ")}
                     </span>
                   </Col>
                   <Col span={24} className={styles.singleGeneralInfo}>
                     <span style={{ flex: 1 }}>អាស័យដ្ឋាន</span>
                     <span className={styles.hightLightInfo} style={{ flex: 6 }}>
-                      {Object.values(user.currentResidence).join(" ")}
+                      {user.birthPlace&& Object.values(user.currentResidence).join(" ")}
                     </span>
                   </Col>
                 </Row>

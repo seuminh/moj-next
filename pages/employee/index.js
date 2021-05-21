@@ -1,10 +1,50 @@
+import React, { useEffect, useState } from "react";
+
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { EditOutlined, SearchOutlined, PlusOutlined } from "@ant-design/icons";
 
-import { Table, Button } from "antd";
+import { Table, Button, Modal, Form, Col, Row, Input } from "antd";
+import api from "@/utils/api";
 
 const Index = () => {
+  const [modalSearch, setModalSearch] = useState(false);
+
+  const toggleModal = () => {
+    setModalSearch(!modalSearch);
+  };
+  const [form] = Form.useForm();
+
+  const [employees, setEmployees] = useState([]);
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
+  const fetchEmployees = async (search) => {
+    const { data } = await api.get(
+      `/api/users${search ? `?nationalityIDNum=${search}` : ""}`
+    );
+    console.log(data);
+    const employees = data.data.map((employee) => {
+      for (const key in employee) {
+        if (Object.hasOwnProperty.call(employee, key)) {
+          if (typeof employee[key] != "string") {
+            delete employee[key];
+          }
+        }
+      }
+      return employee;
+    });
+    setEmployees(employees);
+  };
+  const router = useRouter();
+  const onSearch = async () => {
+    const dataInput = form.getFieldsValue(true);
+    console.log(dataInput);
+    await fetchEmployees(dataInput.search);
+    setModalSearch(false);
+  };
+
   const columns = [
     {
       title: "ល.រ",
@@ -13,13 +53,13 @@ const Index = () => {
     },
     {
       title: "អត្តលេខ",
-      dataIndex: "idNumber",
-      key: "idNumber",
+      dataIndex: "nationalityIDNum",
+      key: "nationalityIDNum",
     },
     {
       title: "គោត្តនាមនិងនាម",
-      dataIndex: "fullName",
-      key: "fullName",
+      dataIndex: "firstName",
+      key: "firstName",
     },
     {
       title: "ភេទ",
@@ -28,8 +68,8 @@ const Index = () => {
     },
     {
       title: "ថ្ងៃខែឆ្នាំកំណើត",
-      dataIndex: "dateBirth",
-      key: "dateBirth",
+      dataIndex: "birthDate",
+      key: "birthDate",
     },
     {
       title: "ប្រភេទមន្រ្តីរាជការ",
@@ -60,7 +100,12 @@ const Index = () => {
       title: "សកម្មភាព",
       key: "action",
       render: (text, record) => (
-        <Button icon={<EditOutlined />} onClick={() => {}}>
+        <Button
+          icon={<EditOutlined />}
+          onClick={() => {
+            router.push(`/employee/${record.id}`);
+          }}
+        >
           Edit
         </Button>
       ),
@@ -80,7 +125,7 @@ const Index = () => {
           <a>Go Employee id 1</a>
         </Link>
         <div>
-          <Button icon={<SearchOutlined />} onClick={() => {}}>
+          <Button icon={<SearchOutlined />} onClick={toggleModal}>
             ស្វែងរក
           </Button>
           <Link href="/employee/add">
@@ -91,8 +136,35 @@ const Index = () => {
         </div>
       </div>
       <div style={{ marginTop: 20 }}>
-        <Table columns={columns}></Table>
+        <Table columns={columns} dataSource={employees}></Table>
       </div>
+
+      <Modal
+        title="Search"
+        visible={modalSearch}
+        onOk={toggleModal}
+        onOk={onSearch}
+        onCancel={toggleModal}
+      >
+        <Form
+          layout="vertical"
+          hideRequiredMark
+          form={form}
+          onFinish={onSearch}
+        >
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item
+                style={{ marginBottom: 10 }}
+                label="Search"
+                name="search"
+              >
+                <Input placeholder="search" />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+      </Modal>
     </div>
   );
 };

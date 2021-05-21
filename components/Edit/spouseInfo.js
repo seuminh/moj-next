@@ -20,7 +20,7 @@ const SpouseInfo = ({userData}) => {
       console.log(dataInput)
       form.validateFields().then(async () => {
          const res = await api.put(
-           "/api/users?employeeId=60526a89fad4f524788e5fb4",
+            `/api/users/${userData.id}`,
            dataInput
          );
          console.log(res);

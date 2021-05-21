@@ -68,7 +68,7 @@ const Praise = ({ userData }) => {
       updateData =   { praised : [...praiseList, dataInput] };
     }
      const res = await api.put(
-       "/api/users?employeeId=60526a89fad4f524788e5fb4",
+      `/api/users/${userData.id}`,
      updateData
      );
      
@@ -91,7 +91,7 @@ const onEdit = (record) => {
 };
 
 const onDelete = async (record) => {
-  let res = await api.put("/api/users?employeeId=60526a89fad4f524788e5fb4", {
+  let res = await api.put(`/api/users/${userData.id}`, {
     praised: praiseList.filter((v) => v._id !== record._id),
   });
   setPraiseList(res.data.praised);
