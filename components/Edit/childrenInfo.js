@@ -83,7 +83,7 @@ const childrenInfo = ({userData}) => {
                   icon={<DeleteOutlined />}
                   onClick={async () => {
                      let res = await api.put(
-                        "/api/users?employeeId=60526a89fad4f524788e5fb4",
+                        `/api/users/${userData.id}`,
                         {children: childrenList.filter(v=>v._id !==record._id)}
                       );
                      
@@ -118,7 +118,7 @@ const childrenInfo = ({userData}) => {
             updateData = {children: [...childrenList, dataInput]}
          }
          let res = await api.put(
-            "/api/users?employeeId=60526a89fad4f524788e5fb4",
+            `/api/users/${userData.id}`,
             updateData
           );
          setVisible(false);

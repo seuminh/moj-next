@@ -37,19 +37,18 @@ const SelfInfo = ({ userData }) => {
   const onSave = () => {
     const dataInput = form.getFieldsValue(true);
     form.validateFields().then(async () => {
-      console.log(fileList.length )
+      console.log(fileList.length);
       if (fileList.length > 0) {
         const formData = new FormData();
         formData.append("img-profile", fileList[0]);
-        await api.post(
-          "/api/users/profile-picture?employeeId=60526a89fad4f524788e5fb4",
+        const { data } = await api.post(
+          `/api/users/profile-picture?employeeId=${userData.id}`,
           formData
         );
+        dataInput.photo = data.data.photo;
       }
-      const res = await api.put(
-        "/api/users?employeeId=60526a89fad4f524788e5fb4",
-        dataInput
-      );
+
+      const res = await api.put(`/api/users/${userData.id}`, dataInput);
       console.log(res);
       dispatch({
         type: "SUCCESS",

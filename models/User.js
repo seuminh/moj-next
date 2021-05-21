@@ -1,7 +1,22 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const UserSchema = new mongoose.Schema(
   {
+    nationalityIDNum: {
+      type: String,
+      required: [true, "Please add a nationality ID"],
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: [true, "Please provide add a password"],
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin", "editor"],
+      default: "user",
+    },
     photo: {
       type: String,
       default: "/noImg.jpg",
@@ -11,7 +26,6 @@ const UserSchema = new mongoose.Schema(
     fullyEmploymentDate: String,
     otherNote: String,
     birthCertificateNum: String,
-    nationalityIDNum: String,
     passportNumber: String,
     otherNum: String,
     lastName: String,
@@ -216,12 +230,20 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+  this.password = await bcrypt.hash(this.nationalityIDNum, 10);
+});
+
 UserSchema.post("save", function (error, doc, next) {
   if (error.code === 11000) {
-    next(new Error("Email already being used"));
+    next(new Error("Nationality ID already being used"));
   } else {
     next(error);
   }
 });
+
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

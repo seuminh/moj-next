@@ -1,27 +1,12 @@
-import { all } from "@/middlewares/index";
-import User from "@/models/User";
-import ErrorResponse from "@/utils/errorResponse";
+import nc from "next-connect";
+const { default: all } = require("@/middlewares/all");
 
-const handler = all;
+const { getEmployees } = require("controllers/employee");
 
-handler
-  .get(async (req, res, next) => {
-    const { employeeId } = req.query;
-    if (!employeeId)
-      throw new ErrorResponse("Please provided employee ID", 400);
-    const user = await User.findById(employeeId);
-    res.status(200).json(user);
-  })
-  .put(async (req, res, next) => {
-    const { employeeId } = req.query;
-    const dataUpdate = req.body;
-    if (!employeeId)
-      throw new ErrorResponse("Please provided employee ID", 400);
-    const user = await User.findByIdAndUpdate(employeeId, dataUpdate, {
-      new: true,
-      runValidators: true,
-    });
-    res.status(200).json(user);
-  });
+const handler = nc();
+
+handler.use(all);
+
+handler.get(getEmployees);
 
 export default handler;

@@ -81,7 +81,7 @@ const EducationInfo = ({userData}) => {
                   icon={<DeleteOutlined />}
                   onClick={async () => {
                      let res = await api.put(
-                        "/api/users?employeeId=60526a89fad4f524788e5fb4",
+                        `/api/users/${userData.id}`,
                         {education: educationList.filter(v=>v._id !==record._id)}
                       );
                      setEducationList(res.data.education)
@@ -118,7 +118,7 @@ const EducationInfo = ({userData}) => {
          }
 
          const res = await api.put(
-           "/api/users?employeeId=60526a89fad4f524788e5fb4",
+            `/api/users/${userData.id}`,
            updateData
          );
          setVisible(false);

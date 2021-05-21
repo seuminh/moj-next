@@ -65,7 +65,7 @@ const Penalty = ({ userData }) => {
         updateData = { penalty: [...penaltyList, dataInput] };
       }
       const res = await api.put(
-        "/api/users?employeeId=60526a89fad4f524788e5fb4",
+        `/api/users/${userData.id}`,
         updateData
       );
       setVisible(false);
@@ -87,7 +87,7 @@ const Penalty = ({ userData }) => {
   };
 
   const onDelete = async (record) => {
-    let res = await api.put("/api/users?employeeId=60526a89fad4f524788e5fb4", {
+    let res = await api.put(`/api/users/${userData.id}`, {
       penalty: penaltyList.filter((v) => v._id !== record._id),
     });
     setPenaltyList(res.data.penalty);

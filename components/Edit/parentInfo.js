@@ -26,7 +26,7 @@ const ParentInfo = ({ userData }) => {
     Promise.all([dadForm.validateFields(), momForm.validateFields()]).then(
       async () => {
         const res = await api.put(
-          "/api/users?employeeId=60526a89fad4f524788e5fb4",
+          `/api/users/${userData.id}`,
           { ...dadDataInput, ...momDataInput }
         );
         console.log(res);

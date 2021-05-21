@@ -266,7 +266,7 @@ const position = ({ userData,ministryStructure }) => {
     // });
     form.validateFields().then(async () => {
       const res = await api.put(
-        "/api/users?employeeId=60526a89fad4f524788e5fb4",
+        `/api/users/${userData.id}`,
         { experience: [...experiencesList, dataInput] }
       );
       setVisible(false);

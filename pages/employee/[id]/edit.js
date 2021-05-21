@@ -9,9 +9,10 @@ import api from "@/utils/api";
 
 const { TabPane } = Tabs;
 
-export async function getServerSideProps(context) {
-  const res = await api.get("/api/users?employeeId=60526a89fad4f524788e5fb4");
+export async function getServerSideProps({params}) {
+  const res = await api.get("/api/users/"+params.id);
   console.log(res.data);
+
   return {
     props: {
       user: res.data,

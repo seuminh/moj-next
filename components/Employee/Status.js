@@ -39,9 +39,9 @@ const Status = ({
   const [formStatus] = Form.useForm();
   const [visible, setVisible] = useState(false);
   const [nowOption, setNowOption] = useState(true);
-  const [officerStatusList, setOfficerStatusList] = useState([
-    ...userData.officerStatus,
-  ]);
+  const [officerStatusList, setOfficerStatusList] = useState(
+    userData.officerStatus ? [...userData.officerStatus] : []
+  );
   const [editData, setEditData] = useState(null);
 
   const [startDate, setStartDate] = useState();
@@ -102,10 +102,7 @@ const Status = ({
         updateData = { officerStatus: [...officerStatusList, dataInput] };
       }
 
-      const res = await api.put(
-        "/api/users?employeeId=60526a89fad4f524788e5fb4",
-        updateData
-      );
+      const res = await api.put(`/api/users/${userData.id}`, updateData);
       setVisible(false);
       setOfficerStatusList(res.data.officerStatus);
       formStatus.resetFields();
@@ -125,7 +122,7 @@ const Status = ({
   };
 
   const onDelete = async (record) => {
-    let res = await api.put("/api/users?employeeId=60526a89fad4f524788e5fb4", {
+    let res = await api.put(`/api/users/${userData.id}`, {
       officerStatus: officerStatusList.filter((v) => v._id !== record._id),
     });
     setOfficerStatusList(res.data.officerStatus);
@@ -133,10 +130,7 @@ const Status = ({
   const onSave = () => {
     const data = formInfo.getFieldsValue(true);
     formInfo.validateFields().then(async () => {
-      const res = await api.put(
-        "/api/users?employeeId=60526a89fad4f524788e5fb4",
-        data
-      );
+      const res = await api.put(`/api/users/${userData.id}`, data);
 
       console.log(res);
     });
