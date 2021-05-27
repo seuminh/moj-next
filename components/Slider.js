@@ -52,8 +52,8 @@ const Slider = () => {
                title="ព័ត៌មានមន្ត្រីរាជការ"
             >
                <Menu.Item key="1">
-                  <Link href="/unknown">
-                     <a>ស្វែងរកព័ត៌មានបុគ្គល</a>
+                  <Link href="/me">
+                     <a>ព័ត៌មានផ្ទាល់ខ្លួន</a>
                   </Link>
                </Menu.Item>
                <Menu.Item key="2">
