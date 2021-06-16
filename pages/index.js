@@ -1,156 +1,434 @@
-import { Table, Card, Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Table, Card, Avatar, Row, Col, Divider } from "antd";
+import { UserOutlined, TeamOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 
 const Index = () => {
-   const columns = [
-      {
-         title: "ចំនួនមន្ត្រីរាជការស៊ីវិលតាមក្របខ័ណ្ឌ",
-         children: [
-            {
-               title: "ក្របខ័ណ្ឌ",
-               dataIndex: "ក្របខ័ណ្ឌ",
-               key: "ក្របខ័ណ្ឌ",
-               align: "center",
-            },
-            {
-               title: "ថ្នាក់ជាតិ",
-               children: [
-                  {
-                     title: "ប្រុស",
-                     dataIndex: "ប្រុស",
-                     key: "ប្រុស",
-                     align: "center",
-                  },
-                  {
-                     title: "ស្រី",
-                     dataIndex: "ស្រី",
-                     key: "ស្រី",
-                     align: "center",
-                  },
-                  {
-                     title: "សរុប",
-                     dataIndex: "សរុប",
-                     key: "សរុប",
-                     align: "center",
-                  },
-               ],
-            },
-            {
-               title: "ថ្នាក់ក្រោមជាតិ",
-               children: [
-                  {
-                     title: "ប្រុស",
-                     dataIndex: "ប្រុស",
-                     key: "ប្រុស",
-                     align: "center",
-                  },
-                  {
-                     title: "ស្រី",
-                     dataIndex: "ស្រី",
-                     key: "ស្រី",
-                     align: "center",
-                  },
-                  {
-                     title: "សរុប",
-                     dataIndex: "សរុប",
-                     key: "សរុប",
-                     align: "center",
-                  },
-               ],
-            },
-            {
-               title: "សរុប",
-               dataIndex: "សរុប",
-               key: "សរុប",
-               align: "center",
-            },
-         ],
-      },
-   ];
-
    return (
       <div>
-         <h1>ស្ថានភាពមន្ត្រីរាជការស៊ីវិលក្នុងឆ្នាំ</h1>
+         <div className="top-section">
+            <Row gutter={16}>
+               <Col span={16}>
+                  <div
+                     style={{
+                        height: 230,
+                        backgroundColor: "#FEE5D1",
+                        borderRadius: 10,
+                     }}
+                  >
+                     <h1>
+                        សូមស្វាគមន៏មកកាន់ប្រព័ន្ធគ្រប់គ្រងមន្រ្ដីរាជការនៃក្រសួងយុត្តិធម៌
+                     </h1>
+                  </div>
+               </Col>
+               <Col span={8}>
+                  <div style={{ height: 230, backgroundColor: "#FEE5D1" }}>
+                     Video
+                  </div>
+               </Col>
+            </Row>
+         </div>
 
-         <div
-            style={{
-               display: "flex",
-               flexDirection: "row",
-               justifyContent: "space-between",
-               marginTop: 30,
-               marginBottom: 30,
-            }}
-         >
-            <Card
-               hoverable
-               style={{ width: 350, textAlign: "center", borderRadius: 10 }}
+         <div style={{ margin: "30px 0px" }}>
+            <h1 style={{ textAlign: "center", fontSize: "19px" }}>
+               ចំនួនមន្ត្រីរាជការស៊ីវិល តាមប្រភេទក្របខ័ណ្ឌ
+            </h1>
+            <div
+               style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+               }}
             >
-               <Avatar
-                  size="large"
-                  icon={<UserOutlined />}
-                  style={{ marginBottom: 10, backgroundColor: "lightblue" }}
-               />
-               <p
+               <Card
+                  hoverable
+                  style={{ width: 200, textAlign: "center", borderRadius: 10 }}
+               >
+                  <TeamOutlined
+                     style={{ fontSize: "2em", color: "#E6C155" }}
+                  ></TeamOutlined>
+                  <span
+                     style={{
+                        color: "#4B5E9B",
+                        fontSize: "1.1em",
+                        margin: "-20px 5px",
+                     }}
+                  >
+                     មន្រ្ដីក្របខ័ណ្ឌ
+                  </span>
+                  <Divider
+                     style={{ borderColor: "#E6C155", borderWidth: "2px" }}
+                  ></Divider>
+                  <p
+                     style={{
+                        color: "#4B5E9B",
+                        fontWeight: "bold",
+                        fontSize: "1.4em",
+                     }}
+                  >
+                     12
+                  </p>
+                  <p>នាក់ ក្នុងឆ្នាំ2021</p>
+               </Card>
+
+               <Card
+                  hoverable
                   style={{
-                     color: "#6a0e00",
-                     fontWeight: "bold",
+                     width: 200,
+                     textAlign: "center",
+                     borderRadius: 10,
+                     margin: "0px 30px",
                   }}
                >
-                  12 នាក់
-               </p>
-               <p>មន្រ្ដីក្របខណ្ឌ</p>
-            </Card>
+                  <TeamOutlined
+                     style={{ fontSize: "2em", color: "#683131" }}
+                  ></TeamOutlined>
+                  <span
+                     style={{
+                        color: "#4B5E9B",
+                        fontSize: "1.1em",
+                        margin: "-20px 5px",
+                     }}
+                  >
+                     មន្រ្ដីកំពុងកម្មសិក្សា
+                  </span>
+                  <Divider
+                     style={{ borderColor: "#683131", borderWidth: "2px" }}
+                  ></Divider>
+                  <p
+                     style={{
+                        color: "#4B5E9B",
+                        fontWeight: "bold",
+                        fontSize: "1.4em",
+                     }}
+                  >
+                     12
+                  </p>
+                  <p>នាក់ ក្នុងឆ្នាំ2021</p>
+               </Card>
 
-            <Card
-               hoverable
-               style={{ width: 350, textAlign: "center", borderRadius: 10 }}
-            >
-               <Avatar
-                  size="large"
-                  icon={<UserOutlined />}
-                  style={{ marginBottom: 10, backgroundColor: "lightblue" }}
-               />
-               <p style={{ color: "#6a0e00", fontWeight: "bold" }}>12 នាក់</p>
-               <p>មន្រ្ដីកម្មសិក្សា</p>
-            </Card>
+               <Card
+                  hoverable
+                  style={{
+                     width: 200,
+                     textAlign: "center",
+                     borderRadius: 10,
+                  }}
+               >
+                  <TeamOutlined
+                     style={{ fontSize: "2em", color: "#4B5E9B" }}
+                  ></TeamOutlined>
+                  <span
+                     style={{
+                        color: "#4B5E9B",
+                        fontSize: "1.1em",
+                        margin: "-20px 5px",
+                     }}
+                  >
+                     មន្រ្ដីគ្មានក្របខ័ណ្ឌ
+                  </span>
+                  <Divider
+                     style={{ borderColor: "#4B5E9B", borderWidth: "2px" }}
+                  ></Divider>
+                  <p
+                     style={{
+                        color: "#4B5E9B",
+                        fontWeight: "bold",
+                        fontSize: "1.4em",
+                     }}
+                  >
+                     12
+                  </p>
+                  <p>នាក់ ក្នុងឆ្នាំ2021</p>
+               </Card>
 
-            <Card
-               hoverable
-               style={{ width: 350, textAlign: "center", borderRadius: 10 }}
-            >
-               <Avatar
-                  size="large"
-                  icon={<UserOutlined />}
-                  style={{ marginBottom: 10, backgroundColor: "lightblue" }}
-               />
-               <p style={{ color: "#6a0e00", fontWeight: "bold" }}>12 នាក់</p>
-               <p>គ្មានក្របខណ្ឌ</p>
-            </Card>
-
-            <Card
-               hoverable
-               style={{ width: 350, textAlign: "center", borderRadius: 10 }}
-            >
-               <Avatar
-                  size="large"
-                  icon={<UserOutlined />}
-                  style={{ marginBottom: 10, backgroundColor: "lightblue" }}
-               />
-               <p style={{ color: "#6a0e00", fontWeight: "bold" }}>12 នាក់</p>
-               <p>មន្រ្ដីចូលនិវត្តន៏</p>
-            </Card>
+               <Card
+                  hoverable
+                  style={{
+                     width: 200,
+                     textAlign: "center",
+                     borderRadius: 10,
+                     marginLeft: 30,
+                  }}
+               >
+                  <TeamOutlined
+                     style={{ fontSize: "2em", color: "#486E6C" }}
+                  ></TeamOutlined>
+                  <span
+                     style={{
+                        color: "#4B5E9B",
+                        fontSize: "1.1em",
+                        margin: "-20px 5px",
+                     }}
+                  >
+                     មន្រ្ដីចូលនិវត្តន៏
+                  </span>
+                  <Divider
+                     style={{ borderColor: "#4B5E9B", borderWidth: "2px" }}
+                  ></Divider>
+                  <p
+                     style={{
+                        color: "#486E6C",
+                        fontWeight: "bold",
+                        fontSize: "1.4em",
+                     }}
+                  >
+                     12
+                  </p>
+                  <p>នាក់ ក្នុងឆ្នាំ2021</p>
+               </Card>
+            </div>
          </div>
 
-         <div className="summary-table">
-            <Table
-               columns={columns}
-               dataSource={null}
-               bordered
-               size="middle"
-            ></Table>
+         <div style={{ margin: "50px 0px" }}>
+            <h1 style={{ textAlign: "center", fontSize: "19px" }}>
+               ស្ថានភាពមន្រ្ដីរាជការ គិតត្រឹមឆ្នាំ2021
+            </h1>
+            <div style={{ width: "80%", margin: "auto" }}>
+               <Row gutter={10}>
+                  <Col span={12}>
+                     <div
+                        style={{
+                           backgroundColor: "#fff",
+                           padding: "10px 0px",
+                           borderRadius: 10,
+                        }}
+                     >
+                        <div
+                           style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              fontSize: "1.1em",
+                              padding: "0px 10px",
+                           }}
+                        >
+                           <div>
+                              <TeamOutlined
+                                 style={{
+                                    fontSize: "2em",
+                                    color: "#E6C155",
+                                 }}
+                              ></TeamOutlined>
+                              <span style={{ marginTop: -30 }}>
+                                 មន្រ្ដីរាជការថ្នាក់ជាតិ
+                              </span>
+                           </div>
+                           <div>100 នាក់</div>
+                        </div>
+                        <Divider style={{ borderWidth: 2 }}></Divider>
+                        <div
+                           style={{
+                              display: "flex",
+                              justifyContent: "space-around",
+                              paddingTop: 20,
+                              paddingBottom: 25,
+                           }}
+                        >
+                           <Card
+                              hoverable
+                              style={{
+                                 width: 200,
+                                 textAlign: "center",
+                                 borderRadius: 10,
+                                 marginLeft: 30,
+                              }}
+                           >
+                              <TeamOutlined
+                                 style={{ fontSize: "2em", color: "#E6C155" }}
+                              ></TeamOutlined>
+                              <span
+                                 style={{
+                                    fontSize: "1.1em",
+                                    margin: "-20px 5px",
+                                 }}
+                              >
+                                 ថ្នាក់ជាតិប្រុស
+                              </span>
+                              <Divider
+                                 style={{
+                                    borderColor: "#E6C155",
+                                    borderWidth: "2px",
+                                 }}
+                              ></Divider>
+                              <p
+                                 style={{
+                                    fontWeight: "bold",
+                                    fontSize: "1.4em",
+                                    paddingTop: 10,
+                                 }}
+                              >
+                                 12នាក់
+                              </p>
+                           </Card>
+                           <Card
+                              hoverable
+                              style={{
+                                 width: 200,
+                                 textAlign: "center",
+                                 borderRadius: 10,
+                                 marginLeft: 30,
+                              }}
+                           >
+                              <TeamOutlined
+                                 style={{ fontSize: "2em", color: "#E6C155" }}
+                              ></TeamOutlined>
+                              <span
+                                 style={{
+                                    fontSize: "1.1em",
+                                    margin: "-20px 5px",
+                                 }}
+                              >
+                                 ថ្នាក់ជាតិស្រី
+                              </span>
+                              <Divider
+                                 style={{
+                                    borderColor: "#E6C155",
+                                    borderWidth: "2px",
+                                 }}
+                              ></Divider>
+                              <p
+                                 style={{
+                                    fontWeight: "bold",
+                                    fontSize: "1.4em",
+                                    paddingTop: 10,
+                                 }}
+                              >
+                                 12នាក់
+                              </p>
+                           </Card>
+                        </div>
+                     </div>
+                  </Col>
+                  <Col span={12}>
+                     <div
+                        style={{
+                           backgroundColor: "#fff",
+                           padding: "10px 0px",
+                           borderRadius: 10,
+                        }}
+                     >
+                        <div
+                           style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              fontSize: "1.1em",
+                              padding: "0px 10px",
+                           }}
+                        >
+                           <div>
+                              <TeamOutlined
+                                 style={{
+                                    fontSize: "2em",
+                                    color: "#E6C155",
+                                 }}
+                              ></TeamOutlined>
+                              <span style={{ marginTop: -30 }}>
+                                 មន្រ្ដីរាជការថ្នាក់ក្រោមជាតិ
+                              </span>
+                           </div>
+                           <div>100 នាក់</div>
+                        </div>
+                        <Divider style={{ borderWidth: 2 }}></Divider>
+                        <div
+                           style={{
+                              display: "flex",
+                              justifyContent: "space-around",
+                              paddingTop: 20,
+                              paddingBottom: 25,
+                           }}
+                        >
+                           <Card
+                              hoverable
+                              style={{
+                                 width: 200,
+                                 textAlign: "center",
+                                 borderRadius: 10,
+                                 marginLeft: 30,
+                              }}
+                           >
+                              <TeamOutlined
+                                 style={{ fontSize: "2em", color: "#E6C155" }}
+                              ></TeamOutlined>
+                              <span
+                                 style={{
+                                    fontSize: "1.1em",
+                                    margin: "-20px 5px",
+                                 }}
+                              >
+                                 ថ្នាក់ក្រោមជាតិប្រុស
+                              </span>
+                              <Divider
+                                 style={{
+                                    borderColor: "#E6C155",
+                                    borderWidth: "2px",
+                                 }}
+                              ></Divider>
+                              <p
+                                 style={{
+                                    fontWeight: "bold",
+                                    fontSize: "1.4em",
+                                    paddingTop: 10,
+                                 }}
+                              >
+                                 12នាក់
+                              </p>
+                           </Card>
+                           <Card
+                              hoverable
+                              style={{
+                                 width: 200,
+                                 textAlign: "center",
+                                 borderRadius: 10,
+                                 marginLeft: 30,
+                              }}
+                           >
+                              <TeamOutlined
+                                 style={{ fontSize: "2em", color: "#E6C155" }}
+                              ></TeamOutlined>
+                              <span
+                                 style={{
+                                    fontSize: "1.1em",
+                                    margin: "-20px 5px",
+                                 }}
+                              >
+                                 ថ្នាក់ក្រោមជាតិស្រី
+                              </span>
+                              <Divider
+                                 style={{
+                                    borderColor: "#E6C155",
+                                    borderWidth: "2px",
+                                 }}
+                              ></Divider>
+                              <p
+                                 style={{
+                                    fontWeight: "bold",
+                                    fontSize: "1.4em",
+                                    paddingTop: 10,
+                                 }}
+                              >
+                                 12នាក់
+                              </p>
+                           </Card>
+                        </div>
+                     </div>
+                  </Col>
+               </Row>
+            </div>
          </div>
+
+         <style global jsx>
+            {`
+               .ant-card-body {
+                  padding: 13px 0px;
+               }
+
+               .ant-divider-horizontal {
+                  margin: 15px 0;
+               }
+            `}
+         </style>
       </div>
    );
 };

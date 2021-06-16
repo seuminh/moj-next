@@ -1,7 +1,13 @@
-import styles from "../../styles/Edit.module.css";
-import { UserOutlined, PlusOutlined, SaveOutlined,DeleteOutlined ,EditOutlined  } from "@ant-design/icons";
+import styles from "@/styles/Edit.module.css";
+import {
+   UserOutlined,
+   PlusOutlined,
+   SaveOutlined,
+   DeleteOutlined,
+   EditOutlined,
+} from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
-import moment from 'moment'
+import moment from "moment";
 
 import {
    Col,
@@ -28,9 +34,7 @@ const statusOptions = [
    { label: "ស្លាប់", value: "ស្លាប់" },
 ];
 
-
-
-const childrenInfo = ({userData}) => {
+const childrenInfo = ({ userData }) => {
    const columns = [
       {
          title: "លេខសំបុត្រកំណើត",
@@ -70,10 +74,8 @@ const childrenInfo = ({userData}) => {
                <Button
                   icon={<EditOutlined />}
                   onClick={() => {
-                     
-                     setEditData(record)
+                     setEditData(record);
                      setVisible(true);
-
                   }}
                >
                   Edit
@@ -82,12 +84,13 @@ const childrenInfo = ({userData}) => {
                   danger
                   icon={<DeleteOutlined />}
                   onClick={async () => {
-                     let res = await api.put(
-                        `/api/users/${userData.id}`,
-                        {children: childrenList.filter(v=>v._id !==record._id)}
-                      );
-                     
-                     setChildrenList(res.data.children)
+                     let res = await api.put(`/api/users/${userData.id}`, {
+                        children: childrenList.filter(
+                           (v) => v._id !== record._id
+                        ),
+                     });
+
+                     setChildrenList(res.data.children);
                   }}
                >
                   Delete
@@ -97,12 +100,11 @@ const childrenInfo = ({userData}) => {
       },
    ];
 
-
    const [form] = Form.useForm();
    const [childInfo, setChildInfo] = useState(null);
    const [visible, setVisible] = useState(false);
    const [childrenList, setChildrenList] = useState([...userData.children]);
-   const [editData, setEditData] = useState(null)
+   const [editData, setEditData] = useState(null);
 
    const onClose = () => {
       setVisible(false);
@@ -112,26 +114,27 @@ const childrenInfo = ({userData}) => {
       const dataInput = form.getFieldsValue(true);
       form.validateFields().then(async () => {
          let updateData;
-         if(editData){
-            updateData = {children: childrenList.map(v=>v._id == editData._id?dataInput: v)}
-         }else{
-            updateData = {children: [...childrenList, dataInput]}
+         if (editData) {
+            updateData = {
+               children: childrenList.map((v) =>
+                  v._id == editData._id ? dataInput : v
+               ),
+            };
+         } else {
+            updateData = { children: [...childrenList, dataInput] };
          }
-         let res = await api.put(
-            `/api/users/${userData.id}`,
-            updateData
-          );
+         let res = await api.put(`/api/users/${userData.id}`, updateData);
          setVisible(false);
-         setChildrenList(res.data.children)
+         setChildrenList(res.data.children);
          form.resetFields();
-       });
+      });
    };
    useEffect(() => {
-      if(visible === false){
-         setEditData(null)
+      if (visible === false) {
+         setEditData(null);
       }
-      form.resetFields()
-   }, [visible])
+      form.resetFields();
+   }, [visible]);
 
    return (
       <div className={styles.childrenInfoContainer}>
@@ -167,7 +170,17 @@ const childrenInfo = ({userData}) => {
                </div>
             }
          >
-            <Form layout="vertical" hideRequiredMark form={form} initialValues={{...editData, birthDate: editData?.birthDate ? moment(editData.birthDate) : null}}>
+            <Form
+               layout="vertical"
+               hideRequiredMark
+               form={form}
+               initialValues={{
+                  ...editData,
+                  birthDate: editData?.birthDate
+                     ? moment(editData.birthDate)
+                     : null,
+               }}
+            >
                <Row gutter={16}>
                   <Col span={12}>
                      <Form.Item

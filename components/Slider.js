@@ -2,8 +2,14 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { Layout, Menu } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Layout, Menu, Divider } from "antd";
+import {
+   UserOutlined,
+   HomeOutlined,
+   NotificationOutlined,
+   SettingOutlined,
+   PrinterOutlined,
+} from "@ant-design/icons";
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -16,11 +22,11 @@ const Slider = () => {
 
    return (
       <Sider
-         // collapsible
+         theme="light"
          collapsed={collapsed}
          onCollapse={onCollapse}
-         // breakpoint={"lg"}
          width="280px"
+         collapsible
       >
          <div
             style={{
@@ -38,30 +44,45 @@ const Slider = () => {
                style={{
                   fontSize: "1.1em",
                   fontWeight: "normal",
-                  color: "#fff",
+                  display: collapsed ? "none" : "",
                   marginLeft: 10,
                }}
             >
                គ្រប់គ្រងព័ត៌មានមន្រ្តីរាជការ
             </h1>
          </div>
-         <Menu theme="dark" mode="inline">
-            <SubMenu
-               key="sub1"
-               icon={<UserOutlined />}
-               title="ព័ត៌មានមន្ត្រីរាជការ"
-            >
-               <Menu.Item key="1">
-                  <Link href="/me">
-                     <a>ព័ត៌មានផ្ទាល់ខ្លួន</a>
-                  </Link>
-               </Menu.Item>
-               <Menu.Item key="2">
-                  <Link href="/employee">
-                     <a>ស្វែងរកព័ត៌មានមន្រ្តីរាជការ</a>
-                  </Link>
-               </Menu.Item>
-            </SubMenu>
+         <Menu theme="light" mode="inline">
+            <Menu.Item key="1" icon={<HomeOutlined />}>
+               <Link href="/">
+                  <a>ទំព័រដើម</a>
+               </Link>
+            </Menu.Item>
+            <Menu.Item key="2" icon={<UserOutlined />}>
+               <Link href="/me">
+                  <a>ព័ត៌មានផ្ទាល់ខ្លួន</a>
+               </Link>
+            </Menu.Item>
+            <Menu.Item key="3" icon={<UserOutlined />}>
+               <Link href="/employee">
+                  <a>បញ្ជីឈ្មោះមន្រ្តីរាជការ</a>
+               </Link>
+            </Menu.Item>
+            <Menu.Item key="4" icon={<PrinterOutlined />}>
+               <Link href="/print">
+                  <a>ការបោះពុម្ភ</a>
+               </Link>
+            </Menu.Item>
+            <Divider></Divider>
+            <Menu.Item key="5" icon={<NotificationOutlined />}>
+               <Link href="/announcement">
+                  <a>សេចក្ដីជូនដំណឹង</a>
+               </Link>
+            </Menu.Item>
+            <Menu.Item key="6" icon={<SettingOutlined />}>
+               <Link href="/setting">
+                  <a>កំណត់អ្នកប្រើប្រាស់</a>
+               </Link>
+            </Menu.Item>
          </Menu>
       </Sider>
    );

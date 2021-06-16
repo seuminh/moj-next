@@ -1,5 +1,10 @@
-import styles from "../../styles/Edit.module.css";
-import { UserOutlined, PlusOutlined,EditOutlined ,DeleteOutlined } from "@ant-design/icons";
+import styles from "@/styles/Edit.module.css";
+import {
+   UserOutlined,
+   PlusOutlined,
+   EditOutlined,
+   DeleteOutlined,
+} from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 
 import {
@@ -19,8 +24,7 @@ import api from "@/utils/api";
 
 const { Option } = Select;
 
-const EducationInfo = ({userData}) => {
-
+const EducationInfo = ({ userData }) => {
    const columns = [
       {
          title: "វគ្គសិក្សា",
@@ -70,7 +74,7 @@ const EducationInfo = ({userData}) => {
                <Button
                   icon={<EditOutlined />}
                   onClick={() => {
-                     setEditData(record)
+                     setEditData(record);
                      setVisible(true);
                   }}
                >
@@ -80,11 +84,12 @@ const EducationInfo = ({userData}) => {
                   danger
                   icon={<DeleteOutlined />}
                   onClick={async () => {
-                     let res = await api.put(
-                        `/api/users/${userData.id}`,
-                        {education: educationList.filter(v=>v._id !==record._id)}
-                      );
-                     setEducationList(res.data.education)
+                     let res = await api.put(`/api/users/${userData.id}`, {
+                        education: educationList.filter(
+                           (v) => v._id !== record._id
+                        ),
+                     });
+                     setEducationList(res.data.education);
                   }}
                >
                   Delete
@@ -93,11 +98,9 @@ const EducationInfo = ({userData}) => {
          ),
       },
    ];
-   
-
 
    const [form] = Form.useForm();
-   const [editData, setEditData] = useState(null)
+   const [editData, setEditData] = useState(null);
    const [educationInfo, setEducationInfo] = useState(null);
    const [visible, setVisible] = useState(false);
    const [educationList, setEducationList] = useState([...userData.education]);
@@ -109,29 +112,29 @@ const EducationInfo = ({userData}) => {
    const onSubmit = () => {
       const dataInput = form.getFieldsValue(true);
       form.validateFields().then(async () => {
-         
          let updateData;
-         if(editData){
-            updateData = {education: educationList.map(v=>v._id == editData._id?dataInput: v)}
-         }else{
-            updateData =  {education: [ ...educationList,dataInput]}
+         if (editData) {
+            updateData = {
+               education: educationList.map((v) =>
+                  v._id == editData._id ? dataInput : v
+               ),
+            };
+         } else {
+            updateData = { education: [...educationList, dataInput] };
          }
 
-         const res = await api.put(
-            `/api/users/${userData.id}`,
-           updateData
-         );
+         const res = await api.put(`/api/users/${userData.id}`, updateData);
          setVisible(false);
-         setEducationList(res.data.education)
+         setEducationList(res.data.education);
          form.resetFields();
-       });
+      });
    };
    useEffect(() => {
-      if(visible === false){
-         setEditData(null)
+      if (visible === false) {
+         setEditData(null);
       }
-      form.resetFields()
-   }, [visible])
+      form.resetFields();
+   }, [visible]);
 
    return (
       <div className={styles.educationInfoContainer}>
@@ -167,7 +170,12 @@ const EducationInfo = ({userData}) => {
                </div>
             }
          >
-            <Form layout="vertical" hideRequiredMark form={form} initialValues={{...editData}}>
+            <Form
+               layout="vertical"
+               hideRequiredMark
+               form={form}
+               initialValues={{ ...editData }}
+            >
                <Row gutter={16}>
                   <Col span={12}>
                      <Form.Item

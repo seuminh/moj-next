@@ -35,13 +35,13 @@ a {
   padding: 15px;
   display: flex;
   justify-content: flex-end;
-  border-bottom: 2px solid #6a0e00;
   margin-bottom: 20px;
 }
 
-.headerIcon {
+.search {
   margin-right: auto;
   cursor: pointer;
+  border-radius: 20px !important;
 }
 
 .headerInfo {

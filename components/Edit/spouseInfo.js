@@ -1,43 +1,44 @@
-import styles from "../../styles/Edit.module.css";
+import styles from "@/styles/Edit.module.css";
 import { UserOutlined, SaveOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
 import { Col, Row, Form, Input, DatePicker, Radio, Select, Button } from "antd";
 import api from "@/utils/api";
-import moment from 'moment'
+import moment from "moment";
 
 const status = [
    { label: "រស់", value: "រស់" },
    { label: "ស្លាប់", value: "ស្លាប់" },
 ];
 
-const SpouseInfo = ({userData}) => {
+const SpouseInfo = ({ userData }) => {
    const [form] = Form.useForm();
    const [spouseInfo, setSpouseInfo] = useState(null);
 
    const onSave = () => {
       const dataInput = form.getFieldsValue(true);
-      console.log(dataInput)
+      console.log(dataInput);
       form.validateFields().then(async () => {
-         const res = await api.put(
-            `/api/users/${userData.id}`,
-           dataInput
-         );
+         const res = await api.put(`/api/users/${userData.id}`, dataInput);
          console.log(res);
-       });
+      });
    };
 
    return (
       <div>
-         <Form layout="vertical" hideRequiredMark form={form}
-         initialValues={{
-            partnerInfo: {
-              ...userData?.partnerInfo,
-              birthDate: userData?.partnerInfo?.birthDate
-                ? moment(userData.partnerInfo.birthDate)
-                : null,
-            },
-          }}>
+         <Form
+            layout="vertical"
+            hideRequiredMark
+            form={form}
+            initialValues={{
+               partnerInfo: {
+                  ...userData?.partnerInfo,
+                  birthDate: userData?.partnerInfo?.birthDate
+                     ? moment(userData.partnerInfo.birthDate)
+                     : null,
+               },
+            }}
+         >
             {/* Spouse Info */}
             <div className={styles.spouseInfoContainer}>
                <h1 className={styles.title}>
@@ -47,7 +48,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'weddingCertificateNum']}
+                        name={["partnerInfo", "weddingCertificateNum"]}
                         label="លេខសំបុត្រអាពាហ៍ពិពាហ៍"
                         rules={[
                            {
@@ -62,7 +63,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'nationalityIDNum']}
+                        name={["partnerInfo", "nationalityIDNum"]}
                         label="លេខអត្តសញ្ញាណប័ណ្ណ"
                         rules={[
                            {
@@ -79,7 +80,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'fullName']}
+                        name={["partnerInfo", "fullName"]}
                         label="គោត្តនាម និងនាម"
                         rules={[
                            {
@@ -94,7 +95,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'fullNameLatin']}
+                        name={["partnerInfo", "fullNameLatin"]}
                         label="គោត្តនាម និងនាម​ទ្បារតាំង"
                         rules={[
                            {
@@ -109,7 +110,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'statusLive']}
+                        name={["partnerInfo", "statusLive"]}
                         label="ស្ថានភាព"
                         rules={[
                            {
@@ -124,7 +125,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'occupation']}
+                        name={["partnerInfo", "occupation"]}
                         label="មុខរបរ"
                         rules={[
                            {
@@ -141,7 +142,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'birthDate']}
+                        name={["partnerInfo", "birthDate"]}
                         label="ថ្ងៃខែឆ្នាំកំណើត"
                         rules={[
                            {
@@ -160,7 +161,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'nationality']}
+                        name={["partnerInfo", "nationality"]}
                         label="ជនជាតិ"
                         rules={[
                            {
@@ -175,7 +176,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'ethnicity']}
+                        name={["partnerInfo", "ethnicity"]}
                         label="សញ្ជាតិ"
                         rules={[
                            {
@@ -192,7 +193,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={24}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'workPlace']}
+                        name={["partnerInfo", "workPlace"]}
                         label="ទីកន្លែងបំពេញការងារ"
                         rules={[
                            {
@@ -216,7 +217,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'birthPlace', 'province']}
+                        name={["partnerInfo", "birthPlace", "province"]}
                         label="រាជធានី/ខេត្ត"
                         rules={[
                            {
@@ -231,7 +232,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'birthPlace', 'district']}
+                        name={["partnerInfo", "birthPlace", "district"]}
                         label="ស្រុក/ខណ្ឌ"
                         rules={[
                            {
@@ -246,7 +247,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'birthPlace', 'commune']}
+                        name={["partnerInfo", "birthPlace", "commune"]}
                         label="ឃុំ/សង្កាត់"
                         rules={[
                            {
@@ -261,7 +262,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'birthPlace', 'village']}
+                        name={["partnerInfo", "birthPlace", "village"]}
                         label="ភូមិ"
                         rules={[
                            {
@@ -278,7 +279,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={24}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'birthPlace', 'other']}
+                        name={["partnerInfo", "birthPlace", "other"]}
                         label="ទីកន្លែងកំណើតផ្សេងៗ"
                         rules={[
                            {
@@ -302,7 +303,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'currentResidence', 'province']}
+                        name={["partnerInfo", "currentResidence", "province"]}
                         label="រាជធានី/ខេត្ត"
                         rules={[
                            {
@@ -317,7 +318,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'currentResidence', 'district']}
+                        name={["partnerInfo", "currentResidence", "district"]}
                         label="ស្រុក/ខណ្ឌ"
                         rules={[
                            {
@@ -332,7 +333,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'currentResidence', 'commune']}
+                        name={["partnerInfo", "currentResidence", "commune"]}
                         label="ឃុំ/សង្កាត់"
                         rules={[
                            {
@@ -347,7 +348,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'currentResidence', 'village']}
+                        name={["partnerInfo", "currentResidence", "village"]}
                         label="ភូមិ"
                         rules={[
                            {
@@ -364,7 +365,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'currentResidence', 'houseNum']}
+                        name={["partnerInfo", "currentResidence", "houseNum"]}
                         label="ផ្ទះលេខ"
                         rules={[
                            {
@@ -379,7 +380,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'currentResidence', 'streetNum']}
+                        name={["partnerInfo", "currentResidence", "streetNum"]}
                         label="ផ្លូវលេខ"
                         rules={[
                            {
@@ -394,7 +395,7 @@ const SpouseInfo = ({userData}) => {
                   <Col span={12}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name={['partnerInfo', 'phoneNumber']}
+                        name={["partnerInfo", "phoneNumber"]}
                         label="លេខទូរស័ព្ទ"
                         rules={[
                            {

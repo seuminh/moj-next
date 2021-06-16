@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
       }
    };
    return (
-      <LayoutAnt style={{ minHeight: "1800px" }}>
+      <LayoutAnt style={{ minHeight: "100vh" }}>
          <Slider />
          <LayoutAnt className="site-layout">
             {state.show && openNotification()}
