@@ -9,7 +9,6 @@ const Header = () => {
   const [session, loading] = useSession();
   const router = useRouter();
   const [valueSearch, setValueSearch] = useState("");
-  // autocomplete
   const [options, setOptions] = useState([]);
   const handleSearch = async (value) => {
     setValueSearch(value);
