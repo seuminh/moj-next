@@ -32,58 +32,57 @@ const genderOptions = [
 
 const Family = ({ userData }) => {
    // Children
-   // const [children, setChildren] = useState(userData?.children || []);
+   const [children, setChildren] = useState(userData?.children || []);
 
    // Spouse
-   // const birthPlace = [];
-   // for (const key in userData.partnerInfo.birthPlace) {
-   //   if (Object.hasOwnProperty.call(userData.partnerInfo.birthPlace, key)) {
-   //     birthPlace.push(userData.partnerInfo.birthPlace[key]);
-   //   }
-   // }
-   // const currentResidence = [];
-   // for (const key in userData.partnerInfo.currentResidence) {
-   //   if (
-   //     Object.hasOwnProperty.call(userData.partnerInfo.currentResidence, key)
-   //   ) {
-   //     currentResidence.push(userData.partnerInfo.currentResidence[key]);
-   //   }
-   // }
-   // userData.partnerInfo.birthPlace = birthPlace.join(", ");
-   // userData.partnerInfo.currentResidence = currentResidence.join(", ");
+   const birthPlace = [];
+   for (const key in userData.partnerInfo.birthPlace) {
+     if (Object.hasOwnProperty.call(userData.partnerInfo.birthPlace, key)) {
+       birthPlace.push(userData.partnerInfo.birthPlace[key]);
+     }
+   }
+   const currentResidence = [];
+   for (const key in userData.partnerInfo.currentResidence) {
+     if (
+       Object.hasOwnProperty.call(userData.partnerInfo.currentResidence, key)
+     ) {
+       currentResidence.push(userData.partnerInfo.currentResidence[key]);
+     }
+   }
+   userData.partnerInfo.birthPlace = birthPlace.join(", ");
+   userData.partnerInfo.currentResidence = currentResidence.join(", ");
 
    // Parent
-   // const motherInfo = {
-   //    ...userData?.motherInfo,
-   //    birthPlaceOther: userData.motherInfo.birthPlace.other,
-   //  };
-   //  const motherInfoBirthPlace = [];
-   //  for (const key in motherInfo.birthPlace) {
-   //    if (
-   //      Object.hasOwnProperty.call(motherInfo.birthPlace, key) &&
-   //      key !== "other"
-   //    ) {
-   //      motherInfoBirthPlace.push(motherInfo.birthPlace[key]);
-   //    }
-   //  }
-   //  motherInfo.birthPlace = motherInfoBirthPlace.join(", ");
+   const motherInfo = {
+      ...userData?.motherInfo,
+      birthPlaceOther: userData.motherInfo.birthPlace.other,
+    };
+    const motherInfoBirthPlace = [];
+    for (const key in motherInfo.birthPlace) {
+      if (
+        Object.hasOwnProperty.call(motherInfo.birthPlace, key) &&
+        key !== "other"
+      ) {
+        motherInfoBirthPlace.push(motherInfo.birthPlace[key]);
+      }
+    }
+    motherInfo.birthPlace = motherInfoBirthPlace.join(", ");
 
-   //  const fatherInfo = {
-   //    ...userData?.fatherInfo,
-   //    birthPlaceOther: userData.fatherInfo.birthPlace.other,
-   //  };
-   //  const fatherInfoBirthPlace = [];
-   //  for (const key in fatherInfo.birthPlace) {
-   //    if (
-   //      Object.hasOwnProperty.call(fatherInfo.birthPlace, key) &&
-   //      key !== "other"
-   //    ) {
-   //      fatherInfoBirthPlace.push(fatherInfo.birthPlace[key]);
-   //    }
-   //  }
-   //  fatherInfo.birthPlace = fatherInfoBirthPlace.join(", ");
+    const fatherInfo = {
+      ...userData?.fatherInfo,
+      birthPlaceOther: userData.fatherInfo.birthPlace.other,
+    };
+    const fatherInfoBirthPlace = [];
+    for (const key in fatherInfo.birthPlace) {
+      if (
+        Object.hasOwnProperty.call(fatherInfo.birthPlace, key) &&
+        key !== "other"
+      ) {
+        fatherInfoBirthPlace.push(fatherInfo.birthPlace[key]);
+      }
+    }
+    fatherInfo.birthPlace = fatherInfoBirthPlace.join(", ");
 
-   const [children, setChildren] = useState([]);
 
    const columns = [
       {
@@ -131,7 +130,7 @@ const Family = ({ userData }) => {
    return (
       <div>
          {/* Spouse */}
-         <Form layout="vertical" hideRequiredMark initialValues={[]}>
+         <Form layout="vertical" hideRequiredMark  initialValues={userData?.partnerInfo}>
             <h1 style={{ marginBottom: 20 }}>
                <UserOutlined style={{ fontSize: 23, marginRight: 5 }} />
                ព័ត៌មានសហព័ទ្ធ
@@ -292,7 +291,7 @@ const Family = ({ userData }) => {
          <Form
             layout="vertical"
             hideRequiredMark
-            initialValues={[]}
+            initialValues={fatherInfo}
             style={{ marginTop: 20 }}
          >
             <h1 style={{ marginBottom: 20 }}>
@@ -384,7 +383,7 @@ const Family = ({ userData }) => {
                   <Form.Item
                      style={{ marginBottom: 10 }}
                      label="ស្ថានភាព"
-                     name="statusLive"
+                     name="livingStatus"
                      rules={[
                         {
                            required: true,
@@ -404,7 +403,7 @@ const Family = ({ userData }) => {
          <Form
             layout="vertical"
             hideRequiredMark
-            initialValues={[]}
+            initialValues={motherInfo}
             style={{ margin: "20px 0px" }}
          >
             <h1 style={{ marginBottom: 20 }}>
@@ -496,7 +495,7 @@ const Family = ({ userData }) => {
                   <Form.Item
                      style={{ marginBottom: 10 }}
                      label="ស្ថានភាព"
-                     name="statusLive"
+                     name="livingStatus"
                      rules={[
                         {
                            required: true,

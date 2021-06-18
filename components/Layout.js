@@ -7,8 +7,11 @@ import Breadcrumb from "./Breadcrumb";
 import Footer from "./Footer";
 
 import { Layout as LayoutAnt, Menu, notification, Spin } from "antd";
+import { useSession } from "next-auth/client";
 
 const Layout = ({ children }) => {
+   const [session, loading] = useSession();
+   console.log(session, loading);
    const state = useContext(AlertContext);
    const dispatch = useContext(AlertDispatch);
 

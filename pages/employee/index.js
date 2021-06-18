@@ -12,12 +12,11 @@ const { Option } = Select;
 
 const Index = () => {
    const [modalAdd, setModalAdd] = useState(false);
+   const [form] = Form.useForm();
 
    const toggleModalAdd = () => {
       setModalAdd(!modalAdd);
    };
-
-   const [form] = Form.useForm();
 
    const [employees, setEmployees] = useState([]);
    useEffect(() => {
@@ -41,12 +40,20 @@ const Index = () => {
       setEmployees(employees);
    };
    const router = useRouter();
-   const onSearch = async () => {
+
+   const saveEmployee = async () => {
       const dataInput = form.getFieldsValue(true);
       console.log(dataInput);
-      await fetchEmployees(dataInput.search);
-      setModalSearch(false);
-   };
+      form.validateFields().then(async()=>{
+         try {
+            const {data} = await api.post("/api/auth/register", dataInput);
+            router.push('/employee/'+data.data.id)
+         } catch (error) {
+            console.log(error);
+         }  
+      })
+     
+     };
 
    const columns = [
       {
@@ -75,17 +82,12 @@ const Index = () => {
          key: "birthDate",
       },
       {
-         title: "ប្រភេទមន្រ្តីរាជការ",
-         dataIndex: "employeeType",
-         key: "employeeType",
-      },
-      {
          title: "មុខងារ",
          dataIndex: "position",
          key: "position",
       },
       {
-         title: "ស្ថានភាពមន្រ្ដី",
+         title: "អង្គភាព",
          dataIndex: "employeeStatus",
          key: "employeeStatus",
       },
@@ -116,12 +118,10 @@ const Index = () => {
             style={{
                display: "flex",
                flexDirection: "row",
-               justifyContent: "space-between",
+               justifyContent: "flex-end",
             }}
          >
-            <Link href="/employee/1/">
-               <a>Go Employee id 1</a>
-            </Link>
+           
             <div>
                <Button
                   onClick={toggleModalAdd}
@@ -140,18 +140,16 @@ const Index = () => {
          <Modal
             title="Add User"
             visible={modalAdd}
-            onOk={toggleModalAdd}
-            onOk={onSearch}
             onCancel={toggleModalAdd}
             footer={null}
          >
-            <Form layout="vertical" hideRequiredMark>
+            <Form layout="vertical" hideRequiredMark form={form}>
                <Row gutter={16}>
                   <Col span={24}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
                         label="Username"
-                        name="username"
+                        name="firstName"
                         rules={[
                            {
                               required: true,
@@ -211,13 +209,14 @@ const Index = () => {
                         ]}
                      >
                         <Select placeholder="ជ្រើសរើស">
-                           <Option value="User">User</Option>
-                           <Option value="Editor">Editor</Option>
+                           <Option value="user">User</Option>
+                           <Option value="editor">Editor</Option>
                         </Select>
                      </Form.Item>
                   </Col>
                </Row>
-               <Button style={{ marginRight: 8 }} onClick={() => {}}>
+               <Button style={{ marginRight: 8 }}             onClick={saveEmployee}
+>
                   Add
                </Button>
             </Form>

@@ -1,58 +1,96 @@
 import { SearchOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/client";
-import { Button, Input } from "antd";
+import { Button, Input, AutoComplete } from "antd";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const Header = () => {
-   const [session, loading] = useSession();
-   console.log(session);
-   const router = useRouter();
-   return (
-      <div className="header">
-         <Input
-            className="search"
-            placeholder="ស្វែងរក"
-            suffix={<SearchOutlined />}
-            style={{ maxWidth: "700px" }}
-         />
-         <div className="headerInfo">
-            <div>
-               <p>
-                  ក្រសួង-ស្ថាប័ន
-                  <span style={{ color: "#6a0e00", fontWeight: "bold" }}>
-                     យុត្តិធម័
-                  </span>
-               </p>
-            </div>
-            <div>
-               <p>
-                  ឈ្មោះអ្នកចូលប្រើ{" "}
-                  <span style={{ color: "#6a0e00", fontWeight: "bold" }}>
-                     {session && session.user.user.firstName}
-                  </span>
-               </p>
-            </div>
-            {session ? (
-               <Button
-                  onClick={() => {
-                     signOut({ redirect: false });
-                  }}
-               >
-                  Logout
-               </Button>
-            ) : (
-               <Button
-                  onClick={() => {
-                     router.push("/login");
-                  }}
-               >
-                  Login
-               </Button>
-            )}
-         </div>
+  const [session, loading] = useSession();
+  const router = useRouter();
+  const [valueSearch, setValueSearch] = useState("");
+  // autocomplete
+  const [options, setOptions] = useState([]);
+  const handleSearch = async (value) => {
+    setValueSearch(value);
+    const { data: users } = await fetch("/api/users?searchTerm=" + value).then(
+      (res) => res.json()
+    );
+    setOptions(
+      value
+        ? users.map((v) => {
+            return {
+              value: v.id,
+              search: v,
+              label: (
+                <span>
+                  <strong>firstName</strong>: {v.firstName} |{" "}
+                  <strong>lastName</strong>: {v.lastName} |{" "}
+                  <strong>nationalityIDNum</strong>: {v.nationalityIDNum}
+                </span>
+              ),
+            };
+          })
+        : []
+    );
+  };
+
+  const onSelect = (value) => {
+    console.log("onSelect", value);
+    setValueSearch(valueSearch);
+    router.push("/employee/" + value);
+  };
+
+  return (
+    <div className="header">
+      <AutoComplete
+        dropdownMatchSelectWidth={252}
+        options={options}
+        className="search"
+        style={{ minWidth: "700px" }}
+        onSelect={onSelect}
+        value={valueSearch}
+        onSearch={handleSearch}
+      >
+        <Input placeholder="ស្វែងរក" suffix={<SearchOutlined />} />
+      </AutoComplete>
+      <div className="headerInfo">
+        <div>
+          <p>
+            ក្រសួង-ស្ថាប័ន
+            <span style={{ color: "#6a0e00", fontWeight: "bold" }}>
+              យុត្តិធម័
+            </span>
+          </p>
+        </div>
+        <div>
+          <p>
+            ឈ្មោះអ្នកចូលប្រើ{" "}
+            <span style={{ color: "#6a0e00", fontWeight: "bold" }}>
+              {session && session.user?.firstName}
+            </span>
+          </p>
+        </div>
+        {session ? (
+          <Button
+            onClick={() => {
+              signOut({ redirect: false });
+            }}
+          >
+            Logout
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              router.push("/login");
+            }}
+          >
+            Login
+          </Button>
+        )}
       </div>
-   );
+    </div>
+  );
 };
 
 export default Header;

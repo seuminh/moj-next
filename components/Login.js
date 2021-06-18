@@ -1,10 +1,17 @@
 import { Form, Button, Col, Row, Input } from "antd";
 import { signIn } from "next-auth/client";
+import { useRouter } from "next/router";
+import { AlertDispatch } from "contexts/alert.context";
+import { useContext } from "react";
+
 
 const Login = () => {
-  const [form] = Form.useForm()
-  
-  ;
+  const router = useRouter()
+  const dispatch = useContext(AlertDispatch);
+
+  let referer = router.query.referer;
+
+  const [form] = Form.useForm();
   const login = () => {
    const dataInput = form.getFieldsValue(true);
    form.validateFields().then(async() => {
@@ -13,7 +20,20 @@ const Login = () => {
         username: dataInput.username,
         password: dataInput.password,
       });
-      console.log(result)
+      console.log(result);
+      if(result.error){
+        dispatch({
+          type: "ERROR",
+          payload: {
+             message: "Password not match",
+             description: "Password should be the same as username (អត្តលេខ)",
+          },  
+       });
+      }
+      if(!result.error){
+       
+        router.replace(decodeURIComponent(referer||"")||'/')
+      }
     });
   };
   return (
@@ -23,7 +43,7 @@ const Login = () => {
           <Col span={6}>
             <Form.Item
               style={{ marginBottom: 10 }}
-              label="Username"
+              label="អត្តលេខ"
               name="username"
               rules={[
                 {

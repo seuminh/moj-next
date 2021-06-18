@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useContext} from "react";
 import moment from "moment";
 import {
    Drawer,
@@ -17,6 +17,7 @@ import {
    Switch,
    Modal,
 } from "antd";
+import { AlertDispatch } from "contexts/alert.context";
 
 import {
    PlusOutlined,
@@ -128,12 +129,20 @@ const Status = ({
       });
       setOfficerStatusList(res.data.officerStatus);
    };
+   const dispatch = useContext(AlertDispatch);
    const onSave = () => {
       const data = formInfo.getFieldsValue(true);
       formInfo.validateFields().then(async () => {
          const res = await api.put(`/api/users/${userData.id}`, data);
 
          console.log(res);
+         dispatch({
+            type: "SUCCESS",
+            payload: {
+               message: "Updated",
+               description: "Successfully",
+            },  
+         })
       });
    };
 

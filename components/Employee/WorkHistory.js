@@ -231,7 +231,9 @@ const WorkHistory = ({ userData, ministryStructure }) => {
       setVisible(false);
    };
 
-   const onClear = () => {};
+   const onClear = () => {
+      form.resetFields();
+   };
 
    const onSubmit = () => {
       const dataInput = form.getFieldsValue(true);

@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema(
       default: "/noImg.jpg",
     },
     civilID: String,
+    department: String,
     employmentDate: String,
     fullyEmploymentDate: String,
     otherNote: String,
