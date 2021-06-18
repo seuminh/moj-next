@@ -8,7 +8,7 @@ export const getEmployees = async (req, res) => {
     let searchReg = new RegExp(searchTerm, "i");
     reqQuery = {
       $or: [
-        { civilID: searchReg },
+        // { civilID: searchReg },
         { nationalityIDNum: searchReg },
         { firstName: searchReg },
         { lastName: searchReg },

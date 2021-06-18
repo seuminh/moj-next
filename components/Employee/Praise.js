@@ -32,9 +32,12 @@ import {
 const Praise = ({ userData }) => {
    const [visible, setVisible] = useState(false);
    const [signDate, setSignDate] = useState();
-   const [praiseList, setPraiseList] = useState([...(userData.praised || [])]);
+   const [praiseList, setPraiseList] = useState([]);
    const [form] = Form.useForm();
    const [editData, setEditData] = useState(null);
+   useEffect(() => {
+      setPraiseList([...userData.praised])
+   }, [userData])
 
    const onSignDateChange = (date, dateString) => {
       setSignDate(dateString);

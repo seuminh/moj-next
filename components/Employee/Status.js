@@ -41,8 +41,7 @@ const Status = ({
    const [formStatus] = Form.useForm();
    const [visible, setVisible] = useState(false);
    const [nowOption, setNowOption] = useState(true);
-   const [officerStatusList, setOfficerStatusList] = useState(
-      userData.officerStatus ? [...userData.officerStatus] : []
+   const [officerStatusList, setOfficerStatusList] = useState([]
    );
    const [editData, setEditData] = useState(null);
 
@@ -219,21 +218,28 @@ const Status = ({
       },
    ];
 
+   const formInfoData = {
+      ...userData,
+      employmentDate: userData.employmentDate
+         ? moment(userData.employmentDate)
+         : null,
+      fullyEmploymentDate: userData.fullyEmploymentDate
+         ? moment(userData.fullyEmploymentDate)
+         : null,
+   }
+   useEffect(() => {
+      formInfo.resetFields()
+      formInfo.setFieldsValue({formInfoData})
+      setOfficerStatusList(  userData.officerStatus ? [...userData.officerStatus] : [])
+   }, [userData])
+
    return (
       <div>
          <Form
             layout="vertical"
             hideRequiredMark
             form={formInfo}
-            initialValues={{
-               ...userData,
-               employmentDate: userData.employmentDate
-                  ? moment(userData.employmentDate)
-                  : null,
-               fullyEmploymentDate: userData.fullyEmploymentDate
-                  ? moment(userData.fullyEmploymentDate)
-                  : null,
-            }}
+            initialValues={formInfoData}
          >
             <Row gutter={16}>
                <Col span={6}>

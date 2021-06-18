@@ -4,6 +4,7 @@ import { useSession, signOut } from "next-auth/client";
 import { Button, Input, AutoComplete } from "antd";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import highlightJSX from "@/utils/highlightJSX";
 
 const Header = () => {
   const [session, loading] = useSession();
@@ -12,20 +13,21 @@ const Header = () => {
   const [options, setOptions] = useState([]);
   const handleSearch = async (value) => {
     setValueSearch(value);
-    const { data: users } = await fetch("/api/users?searchTerm=" + value).then(
-      (res) => res.json()
-    );
+    const { data: users } = await fetch(
+      "/api/users?searchTerm=" + value.toLowerCase()
+    ).then((res) => res.json());
     setOptions(
       value
         ? users.map((v) => {
+            const reg = new RegExp(value, "gi");
             return {
               value: v.id,
-              search: v,
               label: (
                 <span>
-                  <strong>firstName</strong>: {v.firstName} |{" "}
-                  <strong>lastName</strong>: {v.lastName} |{" "}
-                  <strong>nationalityIDNum</strong>: {v.nationalityIDNum}
+                  <strong>firstName</strong>:
+                  {highlightJSX(reg, v.firstName)}{" "}
+                  | <strong>lastName</strong>: {highlightJSX(reg, v.lastName)} |{" "}
+                  <strong>nationalityIDNum</strong>: {highlightJSX(reg, v.nationalityIDNum)}
                 </span>
               ),
             };
@@ -35,7 +37,6 @@ const Header = () => {
   };
 
   const onSelect = (value) => {
-    console.log("onSelect", value);
     setValueSearch(valueSearch);
     router.push("/employee/" + value);
   };
