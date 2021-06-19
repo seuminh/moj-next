@@ -44,16 +44,15 @@ const Index = () => {
    const saveEmployee = async () => {
       const dataInput = form.getFieldsValue(true);
       console.log(dataInput);
-      form.validateFields().then(async()=>{
+      form.validateFields().then(async () => {
          try {
-            const {data} = await api.post("/api/auth/register", dataInput);
-            router.push('/employee/'+data.data.id)
+            const { data } = await api.post("/api/auth/register", dataInput);
+            router.push("/employee/" + data.data.id);
          } catch (error) {
             console.log(error);
-         }  
-      })
-     
-     };
+         }
+      });
+   };
 
    const columns = [
       {
@@ -121,7 +120,6 @@ const Index = () => {
                justifyContent: "flex-end",
             }}
          >
-           
             <div>
                <Button
                   onClick={toggleModalAdd}
@@ -215,8 +213,7 @@ const Index = () => {
                      </Form.Item>
                   </Col>
                </Row>
-               <Button style={{ marginRight: 8 }}             onClick={saveEmployee}
->
+               <Button style={{ marginRight: 8 }} onClick={saveEmployee}>
                   Add
                </Button>
             </Form>

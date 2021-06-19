@@ -102,7 +102,7 @@ export default function Home({
                   }
                   key="3"
                >
-                  <Family  userData={user}></Family>
+                  <Family userData={user}></Family>
                </TabPane>
                <TabPane
                   tab={

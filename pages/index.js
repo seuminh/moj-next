@@ -14,11 +14,19 @@ const Index = () => {
                         height: 230,
                         backgroundColor: "#FEE5D1",
                         borderRadius: 10,
+                        padding: 10,
                      }}
                   >
                      <h1>
                         សូមស្វាគមន៏មកកាន់ប្រព័ន្ធគ្រប់គ្រងមន្រ្ដីរាជការនៃក្រសួងយុត្តិធម៌
                      </h1>
+                     <p>
+                        ប្រកាសស្ដីពីការប្រើប្រាស់ប្រព័ន្ធគ្រប់គ្រងមន្រ្ដីរាជការនៃក្រសួងយុត្តិធម៌
+                     </p>
+                     <p>
+                        សេចក្ដីណែនាំ
+                        របៀបការប្រើប្រាស់ប្រព័ន្ធគ្រប់គ្រងមន្រ្ដីរាជការនៃក្រសួងយុត្តិធម៌
+                     </p>
                   </div>
                </Col>
                <Col span={8}>
@@ -231,7 +239,6 @@ const Index = () => {
                                  width: 200,
                                  textAlign: "center",
                                  borderRadius: 10,
-                                 marginLeft: 30,
                               }}
                            >
                               <TeamOutlined
@@ -267,7 +274,6 @@ const Index = () => {
                                  width: 200,
                                  textAlign: "center",
                                  borderRadius: 10,
-                                 marginLeft: 30,
                               }}
                            >
                               <TeamOutlined
@@ -345,7 +351,6 @@ const Index = () => {
                                  width: 200,
                                  textAlign: "center",
                                  borderRadius: 10,
-                                 marginLeft: 30,
                               }}
                            >
                               <TeamOutlined
@@ -381,7 +386,6 @@ const Index = () => {
                                  width: 200,
                                  textAlign: "center",
                                  borderRadius: 10,
-                                 marginLeft: 30,
                               }}
                            >
                               <TeamOutlined
@@ -433,4 +437,4 @@ const Index = () => {
    );
 };
 
-export default  Index;
+export default Index;
