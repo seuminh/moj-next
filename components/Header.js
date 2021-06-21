@@ -5,6 +5,7 @@ import { Button, Input, AutoComplete } from "antd";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import highlightJSX from "@/utils/highlightJSX";
+import debounceFn from "@/utils/debounceFn";
 
 const Header = () => {
    const [session, loading] = useSession();
@@ -13,6 +14,10 @@ const Header = () => {
    const [options, setOptions] = useState([]);
    const handleSearch = async (value) => {
       setValueSearch(value);
+      debounceFn(searchUsers)(value)
+   };
+   const searchUsers = async(value) => {
+      console.log(value);
       const { data: users } = await fetch(
          "/api/users?searchTerm=" + value.toLowerCase()
       ).then((res) => res.json());
@@ -36,7 +41,7 @@ const Header = () => {
               })
             : []
       );
-   };
+   }
 
    const onSelect = (value) => {
       setValueSearch(valueSearch);

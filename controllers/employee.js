@@ -18,6 +18,7 @@ export const getEmployees = async (req, res) => {
 
   const users = await User.find(reqQuery);
   console.log(searchTerm, reqQuery, users);
+  
   res.status(200).json({
     success: true,
     msg: searchTerm ? `User with ${searchTerm}` : "Find all user",

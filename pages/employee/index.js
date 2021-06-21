@@ -43,17 +43,18 @@ const Index = () => {
       const { data } = await api.get(
          `/api/users${search ? `?nationalityIDNum=${search}` : ""}`
       );
-      console.log(data);
       const employees = data.data.map((employee) => {
          for (const key in employee) {
             if (Object.hasOwnProperty.call(employee, key)) {
-               if (typeof employee[key] != "string") {
+               if (typeof employee[key] != "string" && key!='experience') {
                   delete employee[key];
                }
             }
          }
+         employee.experience= employee.experience[0] || {};
          return employee;
       });
+      console.log(employees);
       setEmployees(employees);
    };
    const router = useRouter();
@@ -131,13 +132,13 @@ const Index = () => {
       },
       {
          title: "មុខតំណែង",
-         dataIndex: "position",
+         dataIndex: ['experience', 'position'],
          key: "position",
       },
       {
          title: "អង្គភាព",
-         dataIndex: "employeeStatus",
-         key: "employeeStatus",
+         dataIndex: "department",
+         key: "department",
       },
       {
          title: "ស្ថានភាព",
