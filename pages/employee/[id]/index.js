@@ -74,7 +74,7 @@ export default function Home({
                <TabPane
                   tab={
                      <span>
-                        <DatabaseOutlined />
+                        <img src="/user.png" width="30" height="30" />
                         ព័ត៌មានទូទៅ
                      </span>
                   }
@@ -96,7 +96,7 @@ export default function Home({
                <TabPane
                   tab={
                      <span>
-                        <DatabaseOutlined />
+                        <img src="/family.png" width="30" height="30" />
                         គ្រួសារ
                      </span>
                   }
@@ -107,7 +107,7 @@ export default function Home({
                <TabPane
                   tab={
                      <span>
-                        <DatabaseOutlined />
+                        <img src="/education.png" width="30" height="30" />
                         កម្រិតវប្បធម៌
                      </span>
                   }
@@ -118,7 +118,7 @@ export default function Home({
                <TabPane
                   tab={
                      <span>
-                        <DatabaseOutlined />
+                        <img src="/work.png" width="30" height="30" />
                         ប្រវត្តិការងារ
                      </span>
                   }
@@ -149,7 +149,7 @@ export default function Home({
                <TabPane
                   tab={
                      <span>
-                        <DatabaseOutlined />
+                        <img src="/penalty.png" width="30" height="30" />
                         ការដាក់ពិន័យ
                      </span>
                   }
@@ -160,7 +160,7 @@ export default function Home({
                <TabPane
                   tab={
                      <span>
-                        <DatabaseOutlined />
+                        <img src="/praise.png" width="30" height="30" />
                         ការលើកសសើរ
                      </span>
                   }

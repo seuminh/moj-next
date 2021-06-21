@@ -3,9 +3,26 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { EditOutlined, SearchOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+   EditOutlined,
+   SearchOutlined,
+   PlusOutlined,
+   PrinterOutlined,
+   DownOutlined,
+} from "@ant-design/icons";
 
-import { Table, Button, Modal, Form, Col, Row, Input, Select } from "antd";
+import {
+   Table,
+   Button,
+   Modal,
+   Form,
+   Col,
+   Row,
+   Input,
+   Select,
+   Menu,
+   Dropdown,
+} from "antd";
 import api from "@/utils/api";
 
 const { Option } = Select;
@@ -54,6 +71,38 @@ const Index = () => {
       });
    };
 
+   const actionMenu = (record) => {
+      return (
+         <Menu>
+            <Menu.Item
+               key="0"
+               icon={<EditOutlined />}
+               onClick={() => {
+                  router.push(`/employee/${record.id}`);
+               }}
+            >
+               <a>កែប្រែ</a>
+            </Menu.Item>
+            <Menu.Item
+               key="1"
+               icon={<EditOutlined />}
+               // onClick={onDelete.bind(this, record)}
+            >
+               <a>កំណត់តួនាទី</a>
+            </Menu.Item>
+            <Menu.Item
+               key="2"
+               icon={<PrinterOutlined />}
+               onClick={() => {
+                  router.push(`/print/${record.id}`);
+               }}
+            >
+               <a>បោះពុម្ភ</a>
+            </Menu.Item>
+         </Menu>
+      );
+   };
+
    const columns = [
       {
          title: "ល.រ",
@@ -81,7 +130,7 @@ const Index = () => {
          key: "birthDate",
       },
       {
-         title: "មុខងារ",
+         title: "មុខតំណែង",
          dataIndex: "position",
          key: "position",
       },
@@ -96,17 +145,25 @@ const Index = () => {
          key: "status",
       },
       {
-         title: "សកម្មភាព",
+         title: "កែប្រែ",
          key: "action",
          render: (text, record) => (
-            <Button
-               icon={<EditOutlined />}
-               onClick={() => {
-                  router.push(`/employee/${record.id}`);
-               }}
-            >
-               Edit
-            </Button>
+            // <Button
+            //    icon={<EditOutlined />}
+            //    onClick={() => {
+            //       router.push(`/employee/${record.id}`);
+            //    }}
+            // >
+            //    Edit
+            // </Button>
+            <Dropdown overlay={() => actionMenu(record)}>
+               <a
+                  className="ant-dropdown-link"
+                  onClick={(e) => e.preventDefault()}
+               >
+                  ផ្សេងៗ <DownOutlined />
+               </a>
+            </Dropdown>
          ),
       },
    ];

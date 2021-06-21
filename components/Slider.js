@@ -52,33 +52,51 @@ const Slider = () => {
             </h1>
          </div>
          <Menu theme="light" mode="inline">
-            <Menu.Item key="1" icon={<HomeOutlined />}>
+            <Menu.Item
+               key="1"
+               icon={<img src="/home.png" width="20" height="20" />}
+            >
                <Link href="/">
                   <a>ទំព័រដើម</a>
                </Link>
             </Menu.Item>
-            <Menu.Item key="2" icon={<UserOutlined />}>
+            <Menu.Item
+               key="2"
+               icon={<img src="/user.png" width="20" height="20" />}
+            >
                <Link href="/me">
                   <a>ព័ត៌មានផ្ទាល់ខ្លួន</a>
                </Link>
             </Menu.Item>
-            <Menu.Item key="3" icon={<UserOutlined />}>
+            <Menu.Item
+               key="3"
+               icon={<img src="/team.png" width="20" height="20" />}
+            >
                <Link href="/employee">
                   <a>បញ្ជីឈ្មោះមន្រ្តីរាជការ</a>
                </Link>
             </Menu.Item>
-            <Menu.Item key="4" icon={<PrinterOutlined />}>
+            <Menu.Item
+               key="4"
+               icon={<img src="/printer.png" width="20" height="20" />}
+            >
                <Link href="/print">
                   <a>ការបោះពុម្ភ</a>
                </Link>
             </Menu.Item>
             <Divider></Divider>
-            <Menu.Item key="5" icon={<NotificationOutlined />}>
+            <Menu.Item
+               key="5"
+               icon={<img src="/announcement.png" width="20" height="20" />}
+            >
                <Link href="/announcement">
                   <a>សេចក្ដីជូនដំណឹង</a>
                </Link>
             </Menu.Item>
-            <Menu.Item key="6" icon={<SettingOutlined />}>
+            <Menu.Item
+               key="6"
+               icon={<img src="/setting.png" width="20" height="20" />}
+            >
                <Link href="/setting">
                   <a>កំណត់អ្នកប្រើប្រាស់</a>
                </Link>
