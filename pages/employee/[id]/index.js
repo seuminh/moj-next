@@ -85,7 +85,7 @@ export default function Home({
                <TabPane
                   tab={
                      <span>
-                        <DatabaseOutlined />
+                        <img src="/rank.png" width="30" height="30" />
                         ឋានន្តរសកិ្ត និងថ្នាក់
                      </span>
                   }
@@ -132,7 +132,7 @@ export default function Home({
                <TabPane
                   tab={
                      <span>
-                        <DatabaseOutlined />
+                        <img src="/status.png" width="30" height="30" />
                         ស្ថានភាពមន្រ្ដី
                      </span>
                   }
