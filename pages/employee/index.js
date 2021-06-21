@@ -51,7 +51,7 @@ const Index = () => {
                }
             }
          }
-         employee.experience= employee.experience[0] || {};
+         employee.experience= employee.experience[employee.experience.length-1] || {};
          return employee;
       });
       console.log(employees);
