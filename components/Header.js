@@ -53,7 +53,7 @@ const Header = () => {
         onSearch={handleSearch}
       >
         <Input placeholder="ស្វែងរក" suffix={<SearchOutlined style={{fontSize: '1.35rem'}} onClick={()=>{
-           console.log("click magnetic");
+           router.push('/employee?s='+valueSearch)
         }} />} />
       </AutoComplete>
       <div className="headerInfo">

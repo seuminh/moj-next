@@ -28,6 +28,8 @@ import api from "@/utils/api";
 const { Option } = Select;
 
 const Index = () => {
+   const router = useRouter();
+
    const [modalAdd, setModalAdd] = useState(false);
    const [form] = Form.useForm();
 
@@ -37,11 +39,12 @@ const Index = () => {
 
    const [employees, setEmployees] = useState([]);
    useEffect(() => {
-      fetchEmployees();
-   }, []);
+      console.log(router, 'hi new router', router.query);
+      fetchEmployees(router.query.s || '');
+   }, [router]);  
    const fetchEmployees = async (search) => {
       const { data } = await api.get(
-         `/api/users${search ? `?nationalityIDNum=${search}` : ""}`
+         `/api/users${search ? `?searchTerm=${search}` : ""}`
       );
       const employees = data.data.map((employee) => {
          for (const key in employee) {
@@ -57,7 +60,6 @@ const Index = () => {
       console.log(employees);
       setEmployees(employees);
    };
-   const router = useRouter();
 
    const saveEmployee = async () => {
       const dataInput = form.getFieldsValue(true);
