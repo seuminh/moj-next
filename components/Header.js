@@ -11,11 +11,13 @@ const Header = () => {
   const router = useRouter();
   const [valueSearch, setValueSearch] = useState("");
   const [options, setOptions] = useState([]);
+  const [dropdownSearchState, setDropdownSearchState] = useState(false);
   const handleSearch = async (value) => {
     setValueSearch(value);
     const { data: users } = await fetch(
       "/api/users?searchTerm=" + value.toLowerCase()
     ).then((res) => res.json());
+    setDropdownSearchState(true);
     setOptions(
       value
         ? users.map((v) => {
@@ -38,6 +40,7 @@ const Header = () => {
 
   const onSelect = (value) => {
     setValueSearch(valueSearch);
+    setDropdownSearchState(false);
     router.push("/employee/" + value);
   };
 
@@ -46,15 +49,25 @@ const Header = () => {
       <AutoComplete
         dropdownMatchSelectWidth={252}
         options={options}
+        open={dropdownSearchState}
         className="search"
         style={{ minWidth: "700px" }}
         onSelect={onSelect}
         value={valueSearch}
         onSearch={handleSearch}
       >
-        <Input placeholder="ស្វែងរក" suffix={<SearchOutlined style={{fontSize: '1.35rem'}} onClick={()=>{
-           router.push('/employee?s='+valueSearch)
-        }} />} />
+        <Input
+          placeholder="ស្វែងរក"
+          suffix={
+            <SearchOutlined
+              style={{ fontSize: "1.35rem" }}
+              onClick={() => {
+                setDropdownSearchState(false);
+                router.push("/employee?s=" + valueSearch);
+              }}
+            />
+          }
+        />
       </AutoComplete>
       <div className="headerInfo">
         <div>
