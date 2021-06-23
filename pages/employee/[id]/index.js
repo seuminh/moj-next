@@ -52,6 +52,7 @@ export default function Home({
    rankList,
    user,
 }) {
+   console.log(user);
    return (
       <div className={styles.container}>
          <Head>

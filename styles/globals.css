@@ -54,10 +54,43 @@ a {
 }
 
 .site-layout {
-  padding: 20px;
+  padding: 20px 20px 0 20px;
 }
 
 #nprogress .bar {
   background: #e53e3e !important;
   height: 2.8px !important;
+}
+
+.ant-layout-sider-trigger span {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+}
+.ant-layout-sider-trigger span[aria-label="left"] {
+  background: url(/sider/login.png) no-repeat center center !important;
+  background-size: contain !important;
+}
+.ant-layout-sider-trigger span[aria-label="right"] {
+  background: url(/sider/logout.png) no-repeat center center !important;
+  background-size: contain !important;
+}
+.ant-menu-item:hover > img {
+  margin-left: 10px;
+}
+.ant-table-row:hover > td {
+  background-color: rgb(218, 249, 245) !important;
+}
+
+.ant-tabs-tab > div {
+  position: relative;
+  top: 0;
+  transition: top 0.2s;
+}
+.ant-tabs-tab:hover > div {
+  top: -4px;
+}
+
+.ant-layout-sider-trigger > span > svg {
+  display: none;
 }

@@ -214,6 +214,7 @@ const UserSchema = new mongoose.Schema(
         refNum: String,
         position: String,
         unit: String,
+        department:String,
         startDate: String,
         endDate: String,
       },

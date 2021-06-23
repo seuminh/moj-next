@@ -36,41 +36,44 @@ const Family = ({ userData }) => {
 
    // Spouse
    const birthPlace = [];
-   for (const key in userData.partnerInfo.birthPlace) {
-     if (Object.hasOwnProperty.call(userData.partnerInfo.birthPlace, key)) {
-       birthPlace.push(userData.partnerInfo.birthPlace[key]);
+   for (const key in userData.partnerInfo?.birthPlace) {
+     if (Object.hasOwnProperty.call(userData.partnerInfo?.birthPlace, key)) {
+       birthPlace.push(userData.partnerInfo?.birthPlace[key]);
      }
    }
    const currentResidence = [];
-   for (const key in userData.partnerInfo.currentResidence) {
+   for (const key in userData.partnerInfo?.currentResidence) {
      if (
-       Object.hasOwnProperty.call(userData.partnerInfo.currentResidence, key)
+       Object.hasOwnProperty.call(userData.partnerInfo?.currentResidence, key)
      ) {
-       currentResidence.push(userData.partnerInfo.currentResidence[key]);
+       currentResidence.push(userData.partnerInfo?.currentResidence[key]);
      }
    }
-   userData.partnerInfo.birthPlace = birthPlace.join(", ");
+   userData.partnerInfo = {
+      ...userData.partnerInfo
+   }
+   userData.partnerInfo.birthPlace = birthPlace.join(", ")|| ''
    userData.partnerInfo.currentResidence = currentResidence.join(", ");
 
    // Parent
    const motherInfo = {
       ...userData?.motherInfo,
-      birthPlaceOther: userData.motherInfo.birthPlace.other,
+      birthPlaceOther: userData.motherInfo?.birthPlace.other,
     };
     const motherInfoBirthPlace = [];
-    for (const key in motherInfo.birthPlace) {
+    for (const key in motherInfo?.birthPlace) {
       if (
-        Object.hasOwnProperty.call(motherInfo.birthPlace, key) &&
+        Object.hasOwnProperty.call(motherInfo?.birthPlace, key) &&
         key !== "other"
       ) {
-        motherInfoBirthPlace.push(motherInfo.birthPlace[key]);
+        motherInfoBirthPlace.push(motherInfo?.birthPlace[key]);
       }
     }
     motherInfo.birthPlace = motherInfoBirthPlace.join(", ");
 
     const fatherInfo = {
       ...userData?.fatherInfo,
-      birthPlaceOther: userData.fatherInfo.birthPlace.other,
+      birthPlaceOther: userData.fatherInfo?.birthPlace.other,
     };
     const fatherInfoBirthPlace = [];
     for (const key in fatherInfo.birthPlace) {
