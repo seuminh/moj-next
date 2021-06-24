@@ -23,8 +23,8 @@ handler.use(
           if (!isValid) {
             throw new Error("Password not match");
           }
-          const {id, firstName, lastName} = user
-          return {id,firstName,lastName};
+          const {id, firstName, lastName, role} = user
+          return {id,firstName,lastName, role};
         },
       }),
     ],

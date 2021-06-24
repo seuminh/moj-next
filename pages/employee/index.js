@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {CheckOutlined, CloseOutlined} from '@ant-design/icons'
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -25,11 +26,13 @@ import {
   Dropdown,
 } from "antd";
 import api from "@/utils/api";
+import { useSession } from "next-auth/client";
 
 const { Option } = Select;
 
 const Index = () => {
   const router = useRouter();
+  const [session, loading] = useSession();
 
   const [modalAdd, setModalAdd] = useState(false);
   const [form] = Form.useForm();
@@ -188,6 +191,22 @@ const Index = () => {
       ),
     },
   ];
+  if (session?.user.role === "user") {
+    columns.splice(columns.length - 1, 0, {
+      title: "ផ្ទៀង​ផ្ទាត់",
+      dataIndex: "verifyBtn",
+      render: (verified) => {
+        if (verified) {
+          return null;
+        }
+        return (
+          <>
+            <span><CheckOutlined style={{color: 'green'}} /></span> | <span ><CloseOutlined style={{color: 'red'}}/></span>
+          </>
+        );
+      },
+    });
+  }
 
   return (
     <div>

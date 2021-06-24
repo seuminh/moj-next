@@ -64,7 +64,7 @@ a {
 
 .ant-layout-sider-trigger span {
   display: inline-block;
-  height: 30px;
+  height: 48px;
   width: 30px;
 }
 .ant-layout-sider-trigger span[aria-label="left"] {
@@ -93,4 +93,50 @@ a {
 
 .ant-layout-sider-trigger > span > svg {
   display: none;
+}
+
+.ant-layout-sider {
+  background: #3c0000 !important;
+}
+
+.ant-layout-sider-children h1{
+  color:#fff !important
+}
+
+.ant-layout-sider-light .ant-layout-sider-trigger {
+  background: #3c0000 !important
+}
+
+.ant-menu {
+  background: #3c0000 !important;
+  /* color: #fff !important; */
+  border-right: 0px;
+}
+.ant-menu li{
+  /* filter: invert(100%); */
+  color: #fff !important;
+} 
+
+.ant-menu-item a {
+  color: #fff !important
+}
+
+.ant-menu-item:hover {
+  background: red !important;
+}
+
+.ant-menu-item:hover a {
+  color:#fff !important
+}
+
+.ant-menu-item .ant-menu-item-selected {
+  color: #000 !important;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background: red !important;
+}
+
+.ant-menu-vertical .ant-menu-item::after, .ant-menu-vertical-left .ant-menu-item::after, .ant-menu-vertical-right .ant-menu-item::after, .ant-menu-inline .ant-menu-item::after {
+  border-right: 0px !important;
 }

@@ -1,7 +1,7 @@
 import { Table, Card, Avatar, Row, Col, Divider } from "antd";
 import { UserOutlined, TeamOutlined } from "@ant-design/icons";
 import Image from "next/image";
-import TyperPNG from "@/public/home/typer.png"
+import TyperPNG from "@/public/home/typer.png";
 
 const { Meta } = Card;
 
@@ -11,34 +11,44 @@ const Index = () => {
       <div className="top-section">
         <Row gutter={16}>
           <Col span={16}>
-            <divk
+            <div
               style={{
                 height: 230,
                 backgroundColor: "#FEE5D1",
                 borderRadius: 10,
                 padding: 10,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
               }}
             >
               <Image src={TyperPNG} alt="Typer" placeholder="blur" />
               <section>
-              <h1>
-                សូមស្វាគមន៏មកកាន់ប្រព័ន្ធគ្រប់គ្រងមន្រ្ដីរាជការនៃក្រសួងយុត្តិធម៌
-              </h1>
-              <p>
-                ប្រកាសស្ដីពីការប្រើប្រាស់ប្រព័ន្ធគ្រប់គ្រងមន្រ្ដីរាជការនៃក្រសួងយុត្តិធម៌
-              </p>
-              <p>
-                សេចក្ដីណែនាំ
-                របៀបការប្រើប្រាស់ប្រព័ន្ធគ្រប់គ្រងមន្រ្ដីរាជការនៃក្រសួងយុត្តិធម៌
-              </p>
+                <h1>
+                  សូមស្វាគមន៏មកកាន់ប្រព័ន្ធគ្រប់គ្រងមន្រ្ដីរាជការនៃក្រសួងយុត្តិធម៌
+                </h1>
+                <p>
+                  ប្រកាសស្ដីពីការប្រើប្រាស់ប្រព័ន្ធគ្រប់គ្រងមន្រ្ដីរាជការនៃក្រសួងយុត្តិធម៌
+                </p>
+                <p>
+                  សេចក្ដីណែនាំ
+                  របៀបការប្រើប្រាស់ប្រព័ន្ធគ្រប់គ្រងមន្រ្ដីរាជការនៃក្រសួងយុត្តិធម៌
+                </p>
               </section>
-            </divk>
+            </div>
           </Col>
           <Col span={8}>
-            <div style={{ height: 230, backgroundColor: "#FEE5D1" }}>Video</div>
+            <div style={{ height: 230, backgroundColor: "#FEE5D1" }}>
+              <iframe
+                width="100%"
+                height="230"
+                src="https://www.youtube.com/embed/KODKSNiVd7E"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
           </Col>
         </Row>
       </div>
