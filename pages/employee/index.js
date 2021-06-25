@@ -38,6 +38,7 @@ const Index = () => {
    const [modalEdit, setModalEdit] = useState(false);
 
    const [form] = Form.useForm();
+   const [formEditRole] =Form.useForm();
 
    const toggleModalAdd = () => {
       setModalAdd(!modalAdd);
@@ -88,9 +89,17 @@ const Index = () => {
       });
    };
 
-   const onEditRole = (record) => {
+   const onEditRole = async(record) => {
       toggleModalEdit();
-      console.log(record);
+      const res = await fetch(`/user/${record.id}/role`, {
+         method: 'PUT',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: formEditRole.getFieldsValue(true)
+      }).then(res=>res.json());
+      
+      console.log(res);
    };
 
    const actionMenu = (record) => {
@@ -348,6 +357,7 @@ const Index = () => {
             onCancel={toggleModalEdit}
             footer={null}
          >
+            <Form form={formEditRole}>
             <Form.Item
                style={{ marginBottom: 10 }}
                label="Role"
@@ -371,6 +381,7 @@ const Index = () => {
             >
                Save
             </Button>
+            </Form>
          </Modal>
       </div>
    );
