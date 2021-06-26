@@ -19,11 +19,12 @@ handler.use(
           if (!user) {
             throw new Error("No user found");
           }
-          const isValid = compare(credentials.password, user.password);
+          const isValid = await compare(credentials.password, user.password);
           if (!isValid) {
             throw new Error("Password not match");
           }
-          return { user };
+          const {id, firstName, lastName, role} = user
+          return {id,firstName,lastName, role};
         },
       }),
     ],

@@ -1,0 +1,15 @@
++user
+-/profile edit only profile picture, password
+
++editor
+-allowed to add employee
+-not allowed to delete employee
+*only their department 
+
+-change ui ~ Minh 
+-role based user
+
+?username login which field
+-
+
+?design

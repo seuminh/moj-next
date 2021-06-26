@@ -23,7 +23,7 @@ const BreadcrumbComponent = () => {
     //   });
     // }
 
-    const vid = router.asPath;
+    const vid = router.asPath.split('?')[0];
     const cheat = vid.split("/");
     const srun = [];
     if (vid != "/") {

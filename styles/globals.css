@@ -34,14 +34,14 @@ a {
   background-color: #fff;
   padding: 15px;
   display: flex;
-  justify-content: flex-end;
-  border-bottom: 2px solid #6a0e00;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.headerIcon {
+.ant-select-selection-search-input {
   margin-right: auto;
   cursor: pointer;
+  border-radius: 20px !important;
 }
 
 .headerInfo {
@@ -54,10 +54,89 @@ a {
 }
 
 .site-layout {
-  padding: 20px;
+  padding: 20px 20px 0 20px;
 }
 
 #nprogress .bar {
   background: #e53e3e !important;
   height: 2.8px !important;
+}
+
+.ant-layout-sider-trigger span {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+}
+.ant-layout-sider-trigger span[aria-label="left"] {
+  background: url(/sider/login.png) no-repeat center center !important;
+  background-size: contain !important;
+}
+.ant-layout-sider-trigger span[aria-label="right"] {
+  background: url(/sider/logout.png) no-repeat center center !important;
+  background-size: contain !important;
+}
+.ant-menu-item:hover > img {
+  margin-left: 10px;
+}
+.ant-table-row:hover > td {
+  background-color: rgb(218, 249, 245) !important;
+}
+
+.ant-tabs-tab > div {
+  position: relative;
+  top: 0;
+  transition: top 0.2s;
+}
+.ant-tabs-tab:hover > div {
+  top: -4px;
+}
+
+.ant-layout-sider-trigger > span > svg {
+  display: none;
+}
+
+.ant-layout-sider {
+  background: #3c0000 !important;
+}
+
+.ant-layout-sider-children h1{
+  color:#fff !important
+}
+
+.ant-layout-sider-light .ant-layout-sider-trigger {
+  background: #3c0000 !important
+}
+
+.ant-menu {
+  background: #3c0000 !important;
+  /* color: #fff !important; */
+  border-right: 0px;
+}
+.ant-menu li{
+  /* filter: invert(100%); */
+  color: #fff !important;
+} 
+
+.ant-menu-item a {
+  color: #fff !important
+}
+
+.ant-menu-item:hover {
+  background: red !important;
+}
+
+.ant-menu-item:hover a {
+  color:#fff !important
+}
+
+.ant-menu-item .ant-menu-item-selected {
+  color: #000 !important;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background: red !important;
+}
+
+.ant-menu-vertical .ant-menu-item::after, .ant-menu-vertical-left .ant-menu-item::after, .ant-menu-vertical-right .ant-menu-item::after, .ant-menu-inline .ant-menu-item::after {
+  border-right: 0px !important;
 }
