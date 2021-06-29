@@ -94,15 +94,9 @@ const Index = () => {
   };
 
   const updateUserRole = async(role) => {
-    const res = await fetch(`/user/${record.id}/role`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: formEditRole.getFieldsValue(true),
-    }).then((res) => res.json());
-
-    console.log(res);
+    const {data }=await api.put(`/user/${record.id}`, {role});
+    toggleModalEdit()
+    fetchEmployees();
   }
   const actionMenu = (record) => {
     return (
@@ -392,7 +386,10 @@ const Index = () => {
           <Button
             style={{ marginRight: 8 }}
             onClick={() => {
-              alert("Save");
+              const data =formEditRole.getFieldsValue(true);
+              console.log(data);
+              updateUserRole(data.role)
+              // alert("Save");
             }}
           >
             Save

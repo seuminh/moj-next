@@ -2,11 +2,22 @@ import { Table, Card, Avatar, Row, Col, Divider } from "antd";
 import { UserOutlined, TeamOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import TyperPNG from "@/public/home/typer.png";
+import { useEffect, useState } from "react";
+import api from "@/utils/api";
 
 const { Meta } = Card;
 
 const Index = () => {
+   const [displayData, setDisplayData] = useState()
+   useEffect(() => {
+      (async()=>{
+         const {data} = await api.get('/api/users/overview')
+         setDisplayData(data.data);
+      })()
+   }, [])
    return (
+
+      
       <div>
          <div className="top-section">
             <Row gutter={16}>
@@ -259,7 +270,7 @@ const Index = () => {
                                  មន្រ្ដីរាជការថ្នាក់ជាតិ
                               </span>
                            </div>
-                           <div>100 នាក់</div>
+                           <div>{displayData?.centerInstitute['ស្រី']+displayData?.centerInstitute['ប្រុស'] } នាក់</div>
                         </div>
                         <Divider style={{ borderWidth: 2 }}></Divider>
                         <div
@@ -302,7 +313,7 @@ const Index = () => {
                                     paddingTop: 10,
                                  }}
                               >
-                                 12នាក់
+                                 {displayData?.centerInstitute['ប្រុស']} នាក់
                               </p>
                            </Card>
                            <Card
@@ -337,7 +348,7 @@ const Index = () => {
                                     paddingTop: 10,
                                  }}
                               >
-                                 12នាក់
+                                 {displayData?.centerInstitute['ស្រី']} នាក់
                               </p>
                            </Card>
                         </div>
@@ -371,7 +382,7 @@ const Index = () => {
                                  មន្រ្ដីរាជការថ្នាក់ក្រោមជាតិ
                               </span>
                            </div>
-                           <div>100 នាក់</div>
+                           <div>{displayData?.provinceInstitute['ស្រី']+displayData?.provinceInstitute['ប្រុស'] } នាក់</div>
                         </div>
                         <Divider style={{ borderWidth: 2 }}></Divider>
                         <div
@@ -414,7 +425,7 @@ const Index = () => {
                                     paddingTop: 10,
                                  }}
                               >
-                                 12នាក់
+                                 {displayData?.provinceInstitute['ប្រុស']} នាក់
                               </p>
                            </Card>
                            <Card
@@ -449,7 +460,7 @@ const Index = () => {
                                     paddingTop: 10,
                                  }}
                               >
-                                 12នាក់
+                                 {displayData?.provinceInstitute['ស្រី']} នាក់
                               </p>
                            </Card>
                         </div>
