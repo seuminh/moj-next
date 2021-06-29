@@ -87,15 +87,18 @@ const Index = () => {
       }
     });
   };
-
+  const [selectedUser, setSelectedUser] = useState(null);
   const onEditRole = async (record) => {
+    setSelectedUser(record)
     formEditRole.setFieldsValue({role: record.role})
     toggleModalEdit();
   };
 
   const updateUserRole = async(role) => {
-    const {data }=await api.put(`/user/${record.id}`, {role});
+    console.log(role)
+    const {data }=await api.put(`api/users/${selectedUser.id}`, {role});
     toggleModalEdit()
+    setSelectedUser(null)
     fetchEmployees();
   }
   const actionMenu = (record) => {

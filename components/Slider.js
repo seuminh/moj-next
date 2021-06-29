@@ -92,7 +92,7 @@ const Slider = () => {
         }}
       >
         <div>
-          <Image src="/logo.png" width={40} height={40} />
+          <Image src="/hello.png" width={40} height={40} />
         </div>
         <h1
           style={{
