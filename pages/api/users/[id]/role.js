@@ -10,26 +10,26 @@ import {
 import ErrorResponse from "@/utils/errorResponse";
 import User from "@/models/User";
 
-const handler = nc(errorHandle);
+const handler = nc({...errorHandle, attachParams: true});
 
 handler.use(all);
 
-handler.get(getSingleEmployee);
+// handler.get(getSingleEmployee);
 
-handler.put(updateEmployee);
-handler.put(
-  "/role",
+// handler.put(updateEmployee);
+handler.get(
   async (req, res, next) => {
-    const session = getSession();
-    if (!session.user) {
-      throw new ErrorResponse("Not Authorized", 401);
-    }
-    const user = await User.findById(user.id);
-    if (!user) {
-      throw new ErrorResponse("Not Authorized", 401);
-    }
-    req.user = { id: req.user._id, role: req.user.role };
-    next();
+    console.log("object");
+    // const session = getSession();
+    // if (!session.user) {
+    //   throw new ErrorResponse("Not Authorized", 401);
+    // }
+    // const user = await User.findById(user.id);
+    // if (!user) {
+    //   throw new ErrorResponse("Not Authorized", 401);
+    // }
+    // req.user = { id: req.user._id, role: req.user.role };
+    // next();
   },
   async(req,res,next)=>{
     if(req.role!=='admin'){

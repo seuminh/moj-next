@@ -65,9 +65,6 @@ const Index = () => {
                }
             }
          }
-         employee.approval = ["កំពុងពិនិត្យ", "អនុម័ត្ត"][
-            Math.floor(Math.random() * 2)
-         ];
          employee.experience =
             employee.experience[employee.experience.length - 1] || {};
          return employee;
@@ -167,8 +164,11 @@ const Index = () => {
       },
       {
          title: "អង្គភាព",
-         dataIndex: ["experience", "department"],
+         dataIndex: 'experience',
          key: "department",
+         render: (experience)=>{
+            return experience.department || experience.unit
+         }
       },
       {
          title: "ស្ថានភាព",
@@ -179,14 +179,16 @@ const Index = () => {
          title: "ស្ថានភាពមន្ត្រី",
          dataIndex: "approval",
          key: "approvalStatus",
-         render: (status, record) => {
+         render: (approval, record) => {
             let color = "red";
-            if (status === "អនុម័ត្ត") {
-               color = "green";
+            let title = "កំពុងពិនិត្យ"
+            if (approval) {
+               title = 'អនុម័ត្ត'
+               color = "green"
             }
             return (
-               <Tag color={color} key={status}>
-                  {status}
+               <Tag color={color} key={approval}>
+                  {title}
                </Tag>
             );
          },
@@ -217,18 +219,18 @@ const Index = () => {
    if (session?.user.role === "user") {
       columns.splice(columns.length - 1, 0, {
          title: "ផ្ទៀង​ផ្ទាត់",
-         dataIndex: "verifyBtn",
+         dataIndex: "approval",
          render: (verified) => {
             if (verified) {
                return null;
             }
             return (
                <>
-                  <span>
+                  <span style={{cursor: 'pointer'}}>
                      <CheckOutlined style={{ color: "green" }} />
                   </span>{" "}
                   |{" "}
-                  <span>
+                  <span style={{cursor: 'pointer'}}>
                      <CloseOutlined style={{ color: "red" }} />
                   </span>
                </>

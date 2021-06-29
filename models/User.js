@@ -21,6 +21,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "/noImg.jpg",
     },
+    approval: {
+      type: String,
+      default: false
+    },
     civilID: String,
     department: String,
     employmentDate: String,
@@ -214,6 +218,7 @@ const UserSchema = new mongoose.Schema(
         refNum: String,
         position: String,
         unit: String,
+        institution:String,
         department:String,
         startDate: String,
         endDate: String,

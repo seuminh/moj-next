@@ -140,4 +140,4 @@ const Print = () => {
    );
 };
 
-export default privateRoutes(Print);
+export default privateRoutes(Print, ['admin']);

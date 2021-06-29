@@ -242,7 +242,7 @@ const WorkHistory = ({ userData, ministryStructure }) => {
             experience: [...experiencesList, dataInput],
          });
          setVisible(false);
-         setExperiencesList(res.data.experience);
+         setExperiencesList([...res.data.user.experience]);
          form.resetFields();
       });
    };
@@ -527,7 +527,7 @@ const WorkHistory = ({ userData, ministryStructure }) => {
                   <Col span={6}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="ប្រភេទស្ថាប័ន"
+                        name="institution"
                         label="ប្រភេទស្ថាប័ន"
                         rules={[
                            {
@@ -631,7 +631,7 @@ const WorkHistory = ({ userData, ministryStructure }) => {
                   <Col span={8}>
                      <Form.Item
                         style={{ marginBottom: 10 }}
-                        name="នាយកដ្ឋាន"
+                        name="department"
                         label="នាយកដ្ឋាន"
                         rules={[
                            {
