@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema(
       default: "/noImg.jpg",
     },
     approval: {
-      type: String,
+      type: Boolean,
       default: false
     },
     civilID: String,
