@@ -72,9 +72,9 @@ const Header = () => {
       <div className="headerInfo">
         <div>
           <p>
-            ក្រសួង-ស្ថាប័ន
+            {/* ក្រសួង-ស្ថាប័ន */}
             <span style={{ color: "#6a0e00", fontWeight: "bold" }}>
-              យុត្តិធម័
+            khambodiaHR
             </span>
           </p>
         </div>

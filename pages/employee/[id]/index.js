@@ -23,15 +23,16 @@ import Praise from "@/components/Employee/Praise";
 import Penalty from "@/components/Employee/Penalty";
 
 import api from "@/utils/api";
-import { readFileFolderData } from "@/lib/ReadFileFolderData";
+// import { readFileFolderData } from "@/lib/ReadFileFolderData";
+import ministryStructure from 'data/Structure.json'
+import statusOfficer from 'data/StatusOfficer.json'
+import ministryList from 'data/Ministry.json'
+import letterTypes from 'data/LetterTypes.json'
+import rankList from 'data/Rank.json'
 
 export async function getServerSideProps({ params }) {
+   
    const res = await api.get("/api/users/" + params.id);
-   const ministryStructure = await readFileFolderData("Structure.json");
-   const statusOfficer = await readFileFolderData("StatusOfficer.json");
-   const ministryList = await readFileFolderData("Ministry.json");
-   const rankList = await readFileFolderData("Rank.json");
-   const letterTypes = await readFileFolderData("LetterTypes.json");
    return {
       props: {
          ministryStructure,
@@ -52,7 +53,7 @@ export default function Home({
    rankList,
    user,
 }) {
-   console.log(user);
+
    return (
       <div className={styles.container}>
          <Head>

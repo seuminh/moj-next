@@ -2,14 +2,19 @@ import { useSession } from "next-auth/client"
 import Head from "next/head"
 import { useRouter } from "next/router"
 
-const privateRoutes = AuthComponent => props=> {
+const withAuth = (AuthComponent, roles= []) => props=> {
   const [session, loading] = useSession()  
   const router = useRouter()
   if(loading){
     return null;
   }
-  if(!session) {
+  if(!session ) {
     router.push(`/login?referer=${encodeURIComponent(router.pathname)}`);
+    return null;
+  }
+
+  if(roles.length !=0 && !roles.includes(session.user.role)){
+    router.push(`/`);
     return null;
   }
   return (
@@ -17,4 +22,4 @@ const privateRoutes = AuthComponent => props=> {
   )
 }
 
-export default privateRoutes
+export default withAuth

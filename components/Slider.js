@@ -11,54 +11,61 @@ import {
   PrinterOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
-const mainSiderMenu = [
-  {
-    link: "/",
-    title: "ទំព័រដើម",
-    iconUrl: "/home.png",
-  },
-  {
-    link: "/me",
-    title: "ព័ត៌មានផ្ទាល់ខ្លួន",
-    iconUrl: "/user.png",
-  },
-  {
-    link: "/employee",
-    title: "បញ្ជីឈ្មោះមន្រ្តីរាជការ",
-    iconUrl: "/team.png",
-  },
-  {
-    link: "/employee/add",
-    title: "បញ្ចូលមន្ត្រីរាជការថ្មី",
-    iconUrl: "/addUser.png",
-  },
-  {
-    link: "/print",
-    title: "ការបោះពុម្ភ",
-    iconUrl: "/printer.png",
-  },
-];
-const secondarySiderMenu = [
-  {
-    link: "/announcement",
-    title: "សេចក្ដីជូនដំណឹង",
-    iconUrl: "/announcement.png",
-  },
-  {
-    link: "/setting",
-    title: "កំណត់អ្នកប្រើប្រាស់",
-    iconUrl: "/setting.png",
-  },
-];
-
 const Slider = () => {
+  const [session, loading] = useSession();
   const [collapsed, setCollapsed] = useState(false);
   const [selectedMenuKey, setSelectedMenuKey] = useState(["/"]);
   const router = useRouter();
-  
+
+  const mainSiderMenu = [
+    {
+      link: "/",
+      title: "ទំព័រដើម",
+      iconUrl: "/home.png",
+    },
+    {
+      link: "/me",
+      title: "ព័ត៌មានផ្ទាល់ខ្លួន",
+      iconUrl: "/user.png",
+    },
+    {
+      link: "/print",
+      title: "ការបោះពុម្ភ",
+      iconUrl: "/printer.png",
+    },
+  ];
+  const secondarySiderMenu = [
+    {
+      link: "/announcement",
+      title: "សេចក្ដីជូនដំណឹង",
+      iconUrl: "/announcement.png",
+    },
+    {
+      link: "/setting",
+      title: "កំណត់អ្នកប្រើប្រាស់",
+      iconUrl: "/setting.png",
+    },
+  ];
+
+  if (["admin", "editor"].includes(session?.user.role)) {
+    mainSiderMenu.push(
+      {
+        link: "/employee",
+        title: "បញ្ជីឈ្មោះមន្រ្តីរាជការ",
+        iconUrl: "/team.png",
+      },
+      {
+        link: "/employee/add",
+        title: "បញ្ចូលមន្ត្រីរាជការថ្មី",
+        iconUrl: "/addUser.png",
+      }
+    );
+  }
+
   useEffect(() => {
     setSelectedMenuKey([router.pathname]);
   }, [router.pathname]);
@@ -85,7 +92,7 @@ const Slider = () => {
         }}
       >
         <div>
-          <Image src="/logo.png" width={40} height={40} />
+          <Image src="/hello.png" width={40} height={40} />
         </div>
         <h1
           style={{
