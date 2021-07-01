@@ -4,6 +4,7 @@ import Image from "next/image";
 import TyperPNG from "@/public/home/typer.png";
 import { useEffect, useState } from "react";
 import api from "@/utils/api";
+import withAuth from '../hoc/privateRoutes.js'
 
 import General from "@/components/Employee/General";
 
@@ -173,7 +174,7 @@ const Index = () => {
          </div>
 
          {/* General Info */}
-         {/* <General userData={null}></General> */}
+         <General userData={{photo: ''}}></General>
 
          <div style={{ margin: "30px 0px" }}>
             <h1 style={{ textAlign: "center", fontSize: "19px" }}>
@@ -595,4 +596,4 @@ const Index = () => {
    );
 };
 
-export default Index;
+export default Index ;
