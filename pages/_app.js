@@ -5,7 +5,8 @@ import { AlertProvider } from "contexts/alert.context";
 import router from "next/router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
-import { useSession, Provider } from "next-auth/client";
+import { Provider } from "next-auth/client";
+import ProtectedRoute from "hoc/ProtectedRoute";
 
 NProgress.configure({
   trickleRate: 0.02,
@@ -20,13 +21,18 @@ router.events.on("routeChangeComplete", () => NProgress.done());
 router.events.on("routeChangeError", () => NProgress.done());
 
 function MyApp({ Component, pageProps }) {
-  
   return (
     <Provider session={pageProps.session}>
       <AlertProvider>
-        <Layout>
+        {Component.name === "login" ? (
           <Component {...pageProps} />
-        </Layout>
+        ) : (
+          <ProtectedRoute>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ProtectedRoute>
+        )}
       </AlertProvider>
     </Provider>
   );

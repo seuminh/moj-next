@@ -31,7 +31,6 @@ const Login = () => {
        });
       }
       if(!result.error){
-       
         router.replace(decodeURIComponent(referer||"")||'/')
       }
     });

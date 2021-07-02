@@ -11,7 +11,7 @@ const General = ({ userData }) => {
          <Row gutter={24} justify="start">
             <Col span={6}>
                <div className={styles.userImg}>
-                  <img src={userData.photo} alt="" width="160" height="180" />
+                  <img src={userData?.photo} alt="" width="160" height="180" />
                   <Link href={`/employee/${userData.id}/edit`}>
                      <Button danger style={{ marginRight: 8 }}>
                         កែប្រែព័ត៌មានបុគ្គល

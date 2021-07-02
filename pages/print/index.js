@@ -1,7 +1,7 @@
 import { Checkbox, Button } from "antd";
 import { PrinterOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import privateRoutes from "hoc/privateRoutes";
+import privateRoutes from "hoc/withAuth";
 import { useSession } from "next-auth/client";
 
 const options = [
