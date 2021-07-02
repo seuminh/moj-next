@@ -9,6 +9,7 @@ import {
 } from "controllers/employee";
 import ErrorResponse from "@/utils/errorResponse";
 import User from "@/models/User";
+import { protect } from "@/middlewares/auth";
 
 const handler = nc({...errorHandle, attachParams: true});
 

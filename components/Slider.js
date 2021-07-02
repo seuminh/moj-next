@@ -20,7 +20,7 @@ const Slider = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedMenuKey, setSelectedMenuKey] = useState(["/"]);
   const router = useRouter();
-
+  
   const mainSiderMenu = [
     {
       link: "/",

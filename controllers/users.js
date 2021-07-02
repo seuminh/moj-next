@@ -2,24 +2,28 @@ import bcrypt from "bcryptjs";
 import User from "@/models/User";
 import ErrorResponse from "@/utils/errorResponse";
 
-export const createUser = async (req, res,next) => {
+export const createUser = async (req, res, next) => {
   if (!req.body.nationalityIDNum) {
-    throw new ErrorResponse("Please provide a nationality ID", 400)
+    throw new ErrorResponse("Please provide a nationality ID", 400);
   }
   const password = await bcrypt.hash(req.body.nationalityIDNum, 10);
-  const user = await User.create({ ...req.body, password });
+  const user = await User.create({
+    ...req.body,
+    password,
+    editor: req.user.id,
+  });
   res
     .status(201)
     .json({ data: user, success: true, msg: "User created successfully" });
 };
 
-export const updatePassword = async(req,res,next) => {
-  const {currentPassword, newPassword} = req.body;
+export const updatePassword = async (req, res, next) => {
+  const { currentPassword, newPassword } = req.body;
   const user = await User.findById(req.user.id);
-  if(!user){
-    throw new ErrorResponse("User not found", 404)
+  if (!user) {
+    throw new ErrorResponse("User not found", 404);
   }
   user.password = await bcrypt.hash(newPassword, 10);
   await user.save();
-  res.status(200).json({success:true, data: user, msg: "Password updated"});
-}
+  res.status(200).json({ success: true, data: user, msg: "Password updated" });
+};

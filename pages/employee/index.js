@@ -27,6 +27,7 @@ import {
 } from "antd";
 import api from "@/utils/api";
 import { useSession } from "next-auth/client";
+import withAuth from "hoc/withAuth";
 
 const { Option } = Select;
 
@@ -53,6 +54,7 @@ const Index = () => {
     fetchEmployees(router.query.s || "");
   }, [router]);
   const fetchEmployees = async (search) => {
+   try {
     const { data } = await api.get(
       `/api/users${search ? `?searchTerm=${search}` : ""}`
     );
@@ -73,6 +75,9 @@ const Index = () => {
       return employee;
     });
     setEmployees(employees);
+   } catch (error) {
+  console.log(error);     
+   }
   };
 
   const saveEmployee = async () => {
@@ -403,4 +408,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default withAuth(Index, ['admin', 'editor']);
