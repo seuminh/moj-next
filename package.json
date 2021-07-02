@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "gcp-predeploy": "find ./build -name '\\[...*' -exec bash -c 'mv \"$1\" \"${1/.../@@@}\"' -- {} \\;",
+    "gcp-build": "find ./build -name '\\[@@@*' -exec bash -c 'mv \"$1\" \"${1/@@@/...}\"' -- {} \\;",
     "dev": "next dev",
-    "build": "next build",
+    "deploy": "npm run build && npm run gcp-predeploy && gcloud app deploy",
+    "build": "rm -rf ./build && NODE_ENV=production next build",
     "start": "next start"
   },
   "dependencies": {
