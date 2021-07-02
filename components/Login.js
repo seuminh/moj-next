@@ -41,7 +41,7 @@ const Login = () => {
         <Row gutter={16}>
           <Col span={6}>
             <Form.Item
-              style={{ marginBottom: 10 }}
+              style={{ marginBottom: 10, width:'300px' }}
               label="អត្តលេខ"
               name="username"
               rules={[
@@ -57,7 +57,7 @@ const Login = () => {
         <Row gutter={16}>
           <Col span={6}>
             <Form.Item
-              style={{ marginBottom: 10 }}
+              style={{ marginBottom: 10,width:'300px' }}
               label="Password"
               name="password"
               rules={[

@@ -10,6 +10,8 @@ import {
   PlusOutlined,
   PrinterOutlined,
   DownOutlined,
+  StopOutlined,
+  ExclamationCircleOutlined 
 } from "@ant-design/icons";
 
 import {
@@ -25,11 +27,13 @@ import {
   Menu,
   Dropdown,
 } from "antd";
+
 import api from "@/utils/api";
 import { useSession } from "next-auth/client";
 import withAuth from "hoc/withAuth";
 
 const { Option } = Select;
+const { confirm } = Modal;
 
 const Index = () => {
   const router = useRouter();
@@ -37,6 +41,7 @@ const Index = () => {
 
   const [modalAdd, setModalAdd] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+  const [modalSuspend, setModalSuspend] = useState(false)
 
   const [form] = Form.useForm();
   const [formEditRole] = Form.useForm();
@@ -48,6 +53,10 @@ const Index = () => {
   const toggleModalEdit = () => {
     setModalEdit(!modalEdit);
   };
+
+  const toggleModalSuspend = ()=>{
+    setModalSuspend(!modalSuspend)
+  }
 
   const [employees, setEmployees] = useState([]);
   useEffect(() => {
@@ -106,6 +115,21 @@ const Index = () => {
     setSelectedUser(null)
     fetchEmployees();
   }
+
+  const onSuspendUser=(record)=>{
+    // toggleModalSuspend();
+    confirm({
+      title: 'Do you want to suspend this user?',
+      icon: <ExclamationCircleOutlined />,
+      onOk() {
+        console.log('OK');
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
+
   const actionMenu = (record) => {
     return (
       <Menu>
@@ -136,6 +160,15 @@ const Index = () => {
         >
           <a>បោះពុម្ភ</a>
         </Menu.Item>
+        {session?.user.role === "admin" && session?.user.id !== record.id&& (
+          <Menu.Item
+            key="4"
+            icon={<StopOutlined />}
+            onClick={onSuspendUser.bind(this, record)}
+          >
+            <a>ផ្អាក</a>
+          </Menu.Item>
+        )}
       </Menu>
     );
   };
@@ -252,6 +285,8 @@ const Index = () => {
       },
     });
   }
+
+  
 
   return (
     <div>
@@ -404,6 +439,12 @@ const Index = () => {
           </Button>
         </Form>
       </Modal>
+
+      {/* Modal Suspend */}
+      <Modal title="Suspend User" visible={modalSuspend} onCancel={toggleModalSuspend}>
+        <p>hi</p>
+      </Modal>
+
     </div>
   );
 };
