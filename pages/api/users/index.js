@@ -9,6 +9,7 @@ const handler = nc({onError: errorHandler});
 
 handler.use(all);
 
-handler.get(protect,getEmployees);
+// handler.get(protect,getEmployees);
+handler.get(getEmployees);
 
 export default handler;
