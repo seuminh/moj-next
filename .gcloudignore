@@ -1,3 +1,5 @@
 # Next.js source code
 /pages/
 /components/
+/node_modules/
+/.git/
