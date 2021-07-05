@@ -21,6 +21,7 @@ router.events.on("routeChangeComplete", () => NProgress.done());
 router.events.on("routeChangeError", () => NProgress.done());
 
 function MyApp({ Component, pageProps }) {
+  console.log(Component.name);
   return (
     <Provider session={pageProps.session}>
       <AlertProvider>
