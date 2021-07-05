@@ -10,6 +10,7 @@ module.exports = (phase, { defaultConfig }) => {
   }
 
   return {
+    distDir: 'build',
     env: {
       baseURL: "https://test.khambodiahr.com",
     },
