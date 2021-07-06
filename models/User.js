@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    suspended: {
+      type: Boolean,
+      default: false
+    },
     editor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
