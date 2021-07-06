@@ -17,8 +17,8 @@ const Login = () => {
    form.validateFields().then(async() => {
       const result = await signIn("credentials", {
         redirect: false,
-        username: dataInput.username,
-        password: dataInput.password,
+        username: dataInput.username.trim(),
+        password: dataInput.password.trim(),
       });
       console.log(result);
       if(result.error){
