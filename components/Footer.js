@@ -26,11 +26,11 @@ const Footer = () => {
       <div>
         <span>{temp} </span> រក្សាសិទ្ធ © 2021 khambodiaHR
       </div>
-      {navigator.platform === "Win32" ? (
+      {typeof window !== "undefined" && navigator.platform === "Win32" ? (
         <div style={{ display: "flex", alignItems: "center" }}>
           Time:{" "}
           <svg
-            style={{ width: "1.5rem" }}
+            style={{ width: "1.2rem" }}
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
             fill="none"
