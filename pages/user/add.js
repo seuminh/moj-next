@@ -3,9 +3,24 @@ import { Form, Button, Col, Row, Input, Select } from "antd";
 const { Option } = Select;
 
 const Add = () => {
+  const [form] = Form.useForm();
+
+   const saveEmployee = async () => {
+      const dataInput = form.getFieldsValue(true);
+      console.log(dataInput);
+      form.validateFields().then(async () => {
+        try {
+          const { data } = await api.post("/api/auth/register", dataInput);
+          router.push("/employee/" + data.data.id);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    };
+
    return (
       <div>
-         <Form layout="vertical" hideRequiredMark>
+         <Form layout="vertical" hideRequiredMark form={form}>
             <Row gutter={16}>
                <Col span={6}>
                   <Form.Item
@@ -77,7 +92,7 @@ const Add = () => {
                   </Form.Item>
                </Col>
             </Row>
-            <Button style={{ marginRight: 8 }} onClick={() => {}}>
+            <Button style={{ marginRight: 8 }} onClick={saveEmployee}>
                Add
             </Button>
          </Form>

@@ -17,8 +17,8 @@ const Login = () => {
    form.validateFields().then(async() => {
       const result = await signIn("credentials", {
         redirect: false,
-        username: dataInput.username,
-        password: dataInput.password,
+        username: dataInput.username.trim(),
+        password: dataInput.password.trim(),
       });
       console.log(result);
       if(result.error){
@@ -31,7 +31,6 @@ const Login = () => {
        });
       }
       if(!result.error){
-       
         router.replace(decodeURIComponent(referer||"")||'/')
       }
     });
@@ -42,7 +41,7 @@ const Login = () => {
         <Row gutter={16}>
           <Col span={6}>
             <Form.Item
-              style={{ marginBottom: 10 }}
+              style={{ marginBottom: 10, width:'300px' }}
               label="អត្តលេខ"
               name="username"
               rules={[
@@ -58,7 +57,7 @@ const Login = () => {
         <Row gutter={16}>
           <Col span={6}>
             <Form.Item
-              style={{ marginBottom: 10 }}
+              style={{ marginBottom: 10,width:'300px' }}
               label="Password"
               name="password"
               rules={[
@@ -76,5 +75,6 @@ const Login = () => {
     </div>
   );
 };
+
 
 export default Login;

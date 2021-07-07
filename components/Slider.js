@@ -20,7 +20,7 @@ const Slider = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedMenuKey, setSelectedMenuKey] = useState(["/"]);
   const router = useRouter();
-
+  
   const mainSiderMenu = [
     {
       link: "/",
@@ -49,6 +49,11 @@ const Slider = () => {
       title: "កំណត់អ្នកប្រើប្រាស់",
       iconUrl: "/setting.png",
     },
+    {
+      link:"/feedback",
+      title: "feedback",
+      iconUrl: "/setting.png"
+    }
   ];
 
   if (["admin", "editor"].includes(session?.user.role)) {

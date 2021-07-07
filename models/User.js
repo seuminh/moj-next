@@ -23,7 +23,16 @@ const UserSchema = new mongoose.Schema(
     },
     approval: {
       type: Boolean,
+      default: false,
+    },
+    suspended: {
+      type: Boolean,
       default: false
+    },
+    editor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     civilID: String,
     department: String,
@@ -218,8 +227,8 @@ const UserSchema = new mongoose.Schema(
         refNum: String,
         position: String,
         unit: String,
-        institution:String,
-        department:String,
+        institution: String,
+        department: String,
         startDate: String,
         endDate: String,
       },
@@ -251,6 +260,5 @@ UserSchema.post("save", function (error, doc, next) {
     next(error);
   }
 });
-
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

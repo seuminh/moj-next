@@ -2,7 +2,13 @@ import User from "@/models/User";
 import ErrorResponse from "@/utils/errorResponse";
 export const getOverviewEmployees = async (req, res) => {
   const provinceInstitutionRawData = await User.aggregate([
-    { $project: {gender:1,approval:1, experience: { $slice: ["$experience", -1] } } },
+    {
+      $project: {
+        gender: 1,
+        approval: 1,
+        experience: { $slice: ["$experience", -1] },
+      },
+    },
     { $match: { "experience.institution": "ថ្នាក់ក្រោមជាតិ", approval: true } },
     {
       $group: {
@@ -12,8 +18,14 @@ export const getOverviewEmployees = async (req, res) => {
     },
   ]);
   const centerInstitutionRawData = await User.aggregate([
-    { $project: { gender:1,approval:1, experience: { $slice: ["$experience", -1] } } },
-    { $match: { "experience.institution": "ថ្នាក់កណ្តាល" , approval: true} },
+    {
+      $project: {
+        gender: 1,
+        approval: 1,
+        experience: { $slice: ["$experience", -1] },
+      },
+    },
+    { $match: { "experience.institution": "ថ្នាក់កណ្តាល", approval: true } },
     {
       $group: {
         _id: "$gender",
@@ -35,11 +47,11 @@ export const getOverviewEmployees = async (req, res) => {
     provinceInstitutionRawData,
     centerInstitutionRawData,
   });
- res.status(200).json( {
+  res.status(200).json({
     success: true,
     msg: "Employees overview",
     data: { centerInstitution, provinceInstitution },
-  })
+  });
 };
 export const getEmployees = async (req, res) => {
   const { searchTerm } = req.query;
@@ -55,9 +67,11 @@ export const getEmployees = async (req, res) => {
       ],
     };
   }
-
+  // if (req.user.role !== "admin") {
+  //   reqQuery = { ...req.query, editor: req.user.id };
+  // }
   const users = await User.find(reqQuery);
-  // console.log(searchTerm, reqQuery, users);
+  console.log(reqQuery);
 
   res.status(200).json({
     success: true,

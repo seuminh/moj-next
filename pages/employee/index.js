@@ -10,6 +10,8 @@ import {
   PlusOutlined,
   PrinterOutlined,
   DownOutlined,
+  StopOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 
 import {
@@ -25,10 +27,13 @@ import {
   Menu,
   Dropdown,
 } from "antd";
+
 import api from "@/utils/api";
 import { useSession } from "next-auth/client";
+import withAuth from "hoc/withAuth";
 
 const { Option } = Select;
+const { confirm } = Modal;
 
 const Index = () => {
   const router = useRouter();
@@ -36,6 +41,7 @@ const Index = () => {
 
   const [modalAdd, setModalAdd] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+  const [modalSuspend, setModalSuspend] = useState(false);
 
   const [form] = Form.useForm();
   const [formEditRole] = Form.useForm();
@@ -48,31 +54,40 @@ const Index = () => {
     setModalEdit(!modalEdit);
   };
 
+  const toggleModalSuspend = () => {
+    setModalSuspend(!modalSuspend);
+  };
+
   const [employees, setEmployees] = useState([]);
   useEffect(() => {
     fetchEmployees(router.query.s || "");
   }, [router]);
   const fetchEmployees = async (search) => {
-    const { data } = await api.get(
-      `/api/users${search ? `?searchTerm=${search}` : ""}`
-    );
-    const employees = data.data.map((employee) => {
-      for (const key in employee) {
-        if (Object.hasOwnProperty.call(employee, key)) {
-          if (
-            typeof employee[key] != "string" &&
-            typeof employee[key] != "boolean" &&
-            key != "experience"
-          ) {
-            delete employee[key];
+    try {
+      const { data } = await api.get(
+        `/api/users${search ? `?searchTerm=${search}` : ""}`
+      );
+      const employees = data.data.map((employee) => {
+        for (const key in employee) {
+          if (Object.hasOwnProperty.call(employee, key)) {
+            if (
+              typeof employee[key] != "string" &&
+              typeof employee[key] != "boolean" &&
+              key != "experience"
+            ) {
+              delete employee[key];
+            }
           }
         }
-      }
-      employee.experience =
-        employee.experience[employee.experience.length - 1] || {};
-      return employee;
-    });
-    setEmployees(employees);
+        employee.experience =
+          employee.experience[employee.experience.length - 1] || {};
+
+        return employee;
+      });
+      setEmployees(employees);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const saveEmployee = async () => {
@@ -89,18 +104,44 @@ const Index = () => {
   };
   const [selectedUser, setSelectedUser] = useState(null);
   const onEditRole = async (record) => {
-    setSelectedUser(record)
-    formEditRole.setFieldsValue({role: record.role})
+    setSelectedUser(record);
+    formEditRole.setFieldsValue({ role: record.role });
     toggleModalEdit();
   };
 
-  const updateUserRole = async(role) => {
-    console.log(role)
-    const {data }=await api.put(`api/users/${selectedUser.id}`, {role});
-    toggleModalEdit()
-    setSelectedUser(null)
+  const updateUserRole = async (role) => {
+    console.log(role);
+    const { data } = await api.put(`api/users/${selectedUser.id}`, { role });
+    toggleModalEdit();
+    setSelectedUser(null);
     fetchEmployees();
-  }
+  };
+  const updateSuspendUser = async ({ suspended, userId }) => {
+    console.log(`api/users/${userId}`, { suspended });
+    const {data}=await api.put(`api/users/${userId}`, { suspended });
+    console.log(data);
+    fetchEmployees();
+  };
+
+  const onSuspendUser = (record) => {
+    // toggleModalSuspend();
+    confirm({
+      title: `Do you want to ${record.suspended ? "unsuspend" : "suspend"} ${
+        record.firstName
+      } ?`,
+      icon: <ExclamationCircleOutlined />,
+      onOk() {
+        return updateSuspendUser({
+          suspended: !record.suspended,
+          userId: record.id,
+        });
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
+
   const actionMenu = (record) => {
     return (
       <Menu>
@@ -113,7 +154,7 @@ const Index = () => {
         >
           <a>កែប្រែ</a>
         </Menu.Item>
-        {session?.user.role === "admin" && session?.user.id !== record.id&& (
+        {session?.user.role === "admin" && session?.user.id !== record.id && (
           <Menu.Item
             key="1"
             icon={<EditOutlined />}
@@ -131,6 +172,16 @@ const Index = () => {
         >
           <a>បោះពុម្ភ</a>
         </Menu.Item>
+        {["admin", "editor"].includes(session?.user.role) &&
+          session?.user.id !== record.id && (
+            <Menu.Item
+              key="4"
+              icon={<StopOutlined />}
+              onClick={onSuspendUser.bind(this, record)}
+            >
+              <a>{record.suspended ? "បិទផ្អាក" : "ផ្អាក"}</a>
+            </Menu.Item>
+          )}
       </Menu>
     );
   };
@@ -192,9 +243,16 @@ const Index = () => {
           color = "green";
         }
         return (
-          <Tag color={color} key={approval}>
-            {title}
-          </Tag>
+          <>
+            <Tag color={color} key={approval}>
+              {title}
+            </Tag>{" "}
+            {record.suspended && (
+              <Tag color={"red"} key={"ផ្អាក"}>
+                ផ្អាក
+              </Tag>
+            )}
+          </>
         );
       },
     },
@@ -370,7 +428,7 @@ const Index = () => {
         onCancel={toggleModalEdit}
         footer={null}
       >
-        <Form form={formEditRole} >
+        <Form form={formEditRole}>
           <Form.Item
             style={{ marginBottom: 10 }}
             label="Role"
@@ -389,9 +447,9 @@ const Index = () => {
           <Button
             style={{ marginRight: 8 }}
             onClick={() => {
-              const data =formEditRole.getFieldsValue(true);
+              const data = formEditRole.getFieldsValue(true);
               console.log(data);
-              updateUserRole(data.role)
+              updateUserRole(data.role);
               // alert("Save");
             }}
           >
@@ -399,8 +457,17 @@ const Index = () => {
           </Button>
         </Form>
       </Modal>
+
+      {/* Modal Suspend */}
+      <Modal
+        title="Suspend User"
+        visible={modalSuspend}
+        onCancel={toggleModalSuspend}
+      >
+        <p>hi</p>
+      </Modal>
     </div>
   );
 };
 
-export default Index;
+export default withAuth(Index, ["admin", "editor"]);
