@@ -23,12 +23,10 @@ const Footer = () => {
         justifyContent: "space-between",
       }}
     >
-      <div>
-        <span>{temp} </span> រក្សាសិទ្ធ © 2021 khambodiaHR
-      </div>
+      <div>រក្សាសិទ្ធ © 2021 khambodiaHR</div>
       {typeof window !== "undefined" && navigator.platform === "Win32" ? (
         <div style={{ display: "flex", alignItems: "center" }}>
-          Time:{" "}
+          <span style={{marginRight: '1rem'}}>Phnom Penh: {temp} </span> Time:{" "}
           <svg
             style={{ width: "1.2rem" }}
             xmlns="http://www.w3.org/2000/svg"
